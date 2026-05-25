@@ -1,0 +1,303 @@
+openapi: 3.0.3
+info:
+  title: Tamara Orders API
+  description: |
+    Authorise, retrieve, update, and cancel orders created via Tamara checkout sessions.
+    The Orders API mirrors Tamara's online checkout lifecycle (new → approved →
+    authorised → captured → refunded) and is the merchant's primary post-checkout integration.
+  version: 1.0.0
+  contact:
+    name: Tamara Merchant Support
+    url: https://docs.tamara.co/
+servers:
+- url: https://api.tamara.co
+  description: Production
+- url: https://api-sandbox.tamara.co
+  description: Sandbox
+tags:
+- name: Orders
+paths:
+  /orders/{order_id}:
+    get:
+      operationId: getOrderDetails
+      summary: Get Order Details by Order ID
+      description: Fetch all order details available on Tamara's side using the unique `order_id`.
+      tags: [Orders]
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Order details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          description: Order not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /orders/{order_id}/authorise:
+    post:
+      operationId: authoriseOrder
+      summary: Authorise Order
+      description: |
+        Transition an `approved` order to `authorised`. Should be called on receipt of the
+        `order_approved` webhook event. Orders not captured within 21 days auto-capture automatically.
+      tags: [Orders]
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Authorisation successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthoriseResponse'
+        '409':
+          description: Authorisation failed; verify order status before retrying.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /orders/{order_id}/cancel:
+    post:
+      operationId: cancelOrder
+      summary: Cancel Order
+      description: |
+        Cancel an authorised order or reduce its total amount before capture. Returns the
+        cancellation id and updated amount.
+      tags: [Orders]
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelRequest'
+      responses:
+        '200':
+          description: Cancelled or updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelResponse'
+  /orders/{order_id}/reference-id:
+    put:
+      operationId: updateOrderReferenceId
+      summary: Update Order Reference ID
+      description: Update the `order_reference_id` stored on Tamara's side at any point after the checkout session has been created.
+      tags: [Orders]
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [order_reference_id]
+              properties:
+                order_reference_id:
+                  type: string
+                  example: A1234
+      responses:
+        '200':
+          description: Reference id updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Order reference id was updated successfully
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Tamara-issued merchant API token.
+  schemas:
+    Money:
+      type: object
+      required: [amount, currency]
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+          enum: [SAR, AED, BHD, KWD, OMR]
+    Item:
+      type: object
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        total_amount:
+          $ref: '#/components/schemas/Money'
+    Order:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        order_reference_id:
+          type: string
+        order_number:
+          type: string
+        status:
+          type: string
+          enum: [new, approved, on_hold, declined, authorised, canceled, updated, fully_captured, partially_captured, fully_refunded, partially_refunded, expired]
+        payment_type:
+          type: string
+          enum: [PAY_BY_INSTALMENTS, PAY_NOW]
+        instalments:
+          type: integer
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        captured_amount:
+          $ref: '#/components/schemas/Money'
+        refunded_amount:
+          $ref: '#/components/schemas/Money'
+        canceled_amount:
+          $ref: '#/components/schemas/Money'
+        consumer:
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string
+            phone_number:
+              type: string
+            email:
+              type: string
+            date_of_birth:
+              type: string
+              format: date
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        transactions:
+          type: object
+          properties:
+            captures:
+              type: array
+              items:
+                type: object
+            refunds:
+              type: array
+              items:
+                type: object
+            cancellations:
+              type: array
+              items:
+                type: object
+        created_at:
+          type: string
+          format: date-time
+        order_expiry_time:
+          type: string
+          format: date-time
+        settlement:
+          type: object
+          additionalProperties: true
+    AuthoriseResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          example: authorised
+        order_expiry_time:
+          type: string
+        payment_type:
+          type: string
+          enum: [PAY_BY_INSTALMENTS, PAY_NOW]
+        auto_captured:
+          type: boolean
+        authorized_amount:
+          $ref: '#/components/schemas/Money'
+        capture_id:
+          type: string
+          format: uuid
+    CancelRequest:
+      type: object
+      required: [total_amount]
+      properties:
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        shipping_amount:
+          $ref: '#/components/schemas/Money'
+        tax_amount:
+          $ref: '#/components/schemas/Money'
+        discount_amount:
+          $ref: '#/components/schemas/Money'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+    CancelResponse:
+      type: object
+      properties:
+        cancel_id:
+          type: string
+          format: uuid
+        order_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [updated, canceled]
+        canceled_amount:
+          $ref: '#/components/schemas/Money'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object

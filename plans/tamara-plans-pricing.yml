@@ -1,0 +1,112 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Tamara
+providerId: tamara
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: false
+tags:
+- Fintech
+- BNPL
+- Payments
+- Shariah Compliant
+- MENA
+- Plans
+description: |
+  Commercial profile for Tamara's merchant offering. Tamara does not publish standardised
+  MDR (Merchant Discount Rate) percentages — pricing is negotiated per merchant and depends
+  on market (SA, AE, BH, KW, OM), volume, vertical, and which instalment options the
+  merchant enables. The merchant receives the full transaction amount upfront, minus the
+  per-transaction commission, settled on Tamara's standard weekly cycle.
+notes: |
+  Plans below capture the publicly observable commercial structure (merchant onboarding
+  is free, no setup or monthly fee, per-transaction commission deducted at settlement).
+  Specific percentages should be reconciled against a signed merchant agreement.
+sources:
+- https://tamara.co/en-sa/partners
+- https://support.tamara.co/en-US/articles/7DUylqFLPIvhXpo4FmrgNX
+- https://docs.tamara.co/docs/pp-settlement-invoices
+- https://docs.tamara.co/docs/pp-settle-invoice-understand-settlements
+plans:
+- id: tamara-merchant
+  name: Tamara Merchant
+  type: usage
+  description: |
+    Standard Tamara merchant relationship — free onboarding, free Partners Portal access,
+    free API/SDK/plugin usage. Tamara takes a per-transaction commission (MDR) negotiated
+    with the merchant; merchant receives full purchase amount upfront minus that commission.
+  entries:
+  - label: Merchant Onboarding
+    name: onboarding
+    type: flat
+    metric: account
+    limit: -1
+    timeFrame: usage
+    geo: SA|AE|BH|KW|OM
+    unit: 1
+    price: 0
+    userMultiplied: false
+  - label: Monthly Subscription
+    name: monthly_subscription
+    type: flat
+    metric: month
+    limit: -1
+    timeFrame: month
+    geo: SA|AE|BH|KW|OM
+    unit: 1
+    price: 0
+    userMultiplied: false
+  - label: API and SDK Access
+    name: api_sdk_access
+    type: flat
+    metric: requests
+    limit: -1
+    timeFrame: usage
+    geo: SA|AE|BH|KW|OM
+    unit: 1
+    price: 0
+    userMultiplied: false
+  - label: Per-Transaction Commission (MDR)
+    name: per_transaction_commission
+    type: percentage
+    metric: transaction_value
+    limit: -1
+    timeFrame: usage
+    geo: SA|AE|BH|KW|OM
+    unit: 1
+    price: see merchant agreement (negotiated; not publicly published)
+    userMultiplied: false
+  elements:
+  - name: Pay Later (Instalments)
+  - name: Pay Now
+  - name: Hosted Checkout
+  - name: In-Store SMS and QR
+  - name: Webhooks
+  - name: Disputes Dashboard
+  - name: Weekly Settlement
+- id: tamara-channel-partner
+  name: Tamara Channel Partner
+  type: enterprise
+  description: |
+    Programmatic merchant-onboarding relationship for PSPs, platforms, and aggregators
+    using the Channel Partners API on partner-api.tamara.co. Commercial terms are
+    negotiated; not publicly listed.
+  entries:
+  - label: Channel Partner Access
+    name: channel_partner_access
+    type: flat
+    metric: account
+    limit: -1
+    timeFrame: usage
+    geo: SA|AE|BH|KW|OM
+    unit: 1
+    price: contact Tamara partnerships
+    userMultiplied: false
+  elements:
+  - name: Programmatic Merchant Onboarding
+  - name: Merchant API Key Retrieval
+  - name: Onboarding-Status Webhooks
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

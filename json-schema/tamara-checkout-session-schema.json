@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tamara/main/json-schema/tamara-checkout-session-schema.json",
+  "title": "TamaraCheckoutSession",
+  "description": "Response from POST /checkout — a hosted checkout session URL the consumer is redirected to.",
+  "type": "object",
+  "required": ["order_id", "checkout_id", "checkout_url", "status"],
+  "properties": {
+    "order_id": { "type": "string", "format": "uuid" },
+    "checkout_id": { "type": "string", "format": "uuid" },
+    "checkout_url": { "type": "string", "format": "uri" },
+    "status": { "type": "string", "example": "new" }
+  }
+}

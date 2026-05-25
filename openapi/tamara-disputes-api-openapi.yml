@@ -1,0 +1,196 @@
+openapi: 3.0.3
+info:
+  title: Tamara Disputes API
+  description: |
+    Query merchant disputes raised against Tamara orders and append comments or proof
+    attachments to existing dispute cases. Filter by order id, dispute id, order status,
+    or dispute status.
+  version: 1.0.0
+  contact:
+    name: Tamara Merchant Support
+    url: https://docs.tamara.co/
+servers:
+- url: https://api.tamara.co
+  description: Production
+- url: https://api-sandbox.tamara.co
+  description: Sandbox
+tags:
+- name: Disputes
+paths:
+  /external/merchants/orders/disputes/:
+    get:
+      operationId: listDisputes
+      summary: Get Dispute Case Details
+      description: |
+        List all disputes or filter by order id, merchant order reference id, dispute id,
+        order status, or dispute status.
+      tags: [Disputes]
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: order_id
+        in: query
+        schema:
+          type: string
+          format: uuid
+      - name: merchant_order_reference_id
+        in: query
+        schema:
+          type: string
+      - name: dispute_id
+        in: query
+        schema:
+          type: integer
+      - name: order_status
+        in: query
+        schema:
+          type: string
+          enum: [approved, authorised, canceled, updated, fully_captured, partially_captured, fully_refunded, partially_refunded]
+      - name: dispute_status
+        in: query
+        schema:
+          type: string
+          enum: [open, awaiting_merchant_response, cancelled, claim_accepted, claim_rejected, closed, under_review]
+      - name: is_parent
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+      - name: page
+        in: query
+        schema:
+          type: integer
+      - name: x-requested-with
+        in: header
+        schema:
+          type: string
+          format: uuid
+        description: Tamara child merchant id (optional, used by parent merchants).
+      responses:
+        '200':
+          description: Disputes list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisputeList'
+  /external/merchants/orders/disputes/{dispute_id}:
+    post:
+      operationId: updateDispute
+      summary: Update Disputes by ID
+      description: Append a comment and optional supporting attachment to an existing dispute.
+      tags: [Disputes]
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: dispute_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [comment]
+              properties:
+                comment:
+                  type: string
+                  maxLength: 255
+                attachment:
+                  type: string
+                  format: binary
+                delivery_provider:
+                  type: string
+                  maxLength: 255
+                order_delivery_tracking_id:
+                  type: string
+                  maxLength: 255
+      responses:
+        '200':
+          description: Dispute updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: order.dispute.updated_successfully
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Dispute:
+      type: object
+      properties:
+        dispute_id:
+          type: integer
+        order_id:
+          type: string
+          format: uuid
+        merchant_order_reference_id:
+          type: string
+        order_status:
+          type: string
+        dispute_status:
+          type: string
+          enum: [open, awaiting_merchant_response, cancelled, claim_accepted, claim_rejected, closed, under_review]
+        opened_at:
+          type: string
+          format: date-time
+        closed_at:
+          type: string
+          format: date-time
+        amount:
+          type: object
+          properties:
+            amount:
+              type: number
+            currency:
+              type: string
+        activities:
+          type: array
+          items:
+            type: object
+            properties:
+              event:
+                type: string
+              comment:
+                type: string
+              attachments:
+                type: array
+                items:
+                  type: string
+              created_at:
+                type: string
+                format: date-time
+    DisputeList:
+      type: object
+      properties:
+        total:
+          type: integer
+        data:
+          type: object
+          properties:
+            merchant_details:
+              type: object
+              properties:
+                merchant_id:
+                  type: string
+                merchant_code:
+                  type: string
+                merchant_name:
+                  type: string
+                merchant_status:
+                  type: string
+            disputes:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/Dispute'

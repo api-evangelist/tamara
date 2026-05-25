@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api-sandbox.tamara.co/payments/capture",
+    "headers": {
+      "Authorization": "Bearer {{TAMARA_API_TOKEN}}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "order_id": "f56a3123-9e23-45e4-87a2-95366d3b0bca",
+      "total_amount": { "amount": 300, "currency": "SAR" },
+      "shipping_info": {
+        "shipped_at": "2026-05-24T09:00:00Z",
+        "shipping_company": "SMSA Express",
+        "tracking_number": "SMSA-1234567"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "capture_id": "c1234567-89ab-cdef-0123-456789abcdef",
+      "order_id": "f56a3123-9e23-45e4-87a2-95366d3b0bca",
+      "status": "fully_captured",
+      "captured_amount": { "amount": 300, "currency": "SAR" }
+    }
+  }
+}

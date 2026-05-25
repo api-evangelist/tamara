@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.github.io/draft-00/json-structure-core.schema.json",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tamara/main/json-structure/tamara-order-structure.json",
+  "name": "TamaraOrder",
+  "description": "JSON Structure representation of a Tamara Order suitable for code generation and cross-language adoption.",
+  "type": "object",
+  "properties": {
+    "order_id": { "type": "string", "format": "uuid", "description": "Tamara-assigned order id." },
+    "order_reference_id": { "type": "string", "description": "Merchant-side order reference." },
+    "status": {
+      "type": "string",
+      "enum": ["new", "approved", "authorised", "canceled", "fully_captured", "partially_captured", "fully_refunded", "partially_refunded", "expired"]
+    },
+    "payment_type": { "type": "string", "enum": ["PAY_BY_INSTALMENTS", "PAY_NOW"] },
+    "instalments": { "type": "integer", "minimum": 2, "maximum": 24 },
+    "total_amount": { "$ref": "#/definitions/Money" },
+    "captured_amount": { "$ref": "#/definitions/Money" },
+    "refunded_amount": { "$ref": "#/definitions/Money" }
+  },
+  "definitions": {
+    "Money": {
+      "type": "object",
+      "properties": {
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "enum": ["SAR", "AED", "BHD", "KWD", "OMR"] }
+      }
+    }
+  }
+}

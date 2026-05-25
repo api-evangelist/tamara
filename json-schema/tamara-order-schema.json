@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tamara/main/json-schema/tamara-order-schema.json",
+  "title": "TamaraOrder",
+  "description": "An order managed by Tamara's BNPL platform, returned by GET /orders/{order_id}.",
+  "type": "object",
+  "required": ["order_id", "status"],
+  "properties": {
+    "order_id": { "type": "string", "format": "uuid" },
+    "order_reference_id": { "type": "string" },
+    "order_number": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new", "approved", "on_hold", "declined", "authorised", "canceled",
+        "updated", "fully_captured", "partially_captured", "fully_refunded",
+        "partially_refunded", "expired"
+      ]
+    },
+    "payment_type": { "type": "string", "enum": ["PAY_BY_INSTALMENTS", "PAY_NOW"] },
+    "instalments": { "type": "integer" },
+    "total_amount": { "$ref": "#/$defs/Money" },
+    "captured_amount": { "$ref": "#/$defs/Money" },
+    "refunded_amount": { "$ref": "#/$defs/Money" },
+    "canceled_amount": { "$ref": "#/$defs/Money" },
+    "consumer": {
+      "type": "object",
+      "properties": {
+        "first_name": { "type": "string" },
+        "last_name": { "type": "string" },
+        "phone_number": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "date_of_birth": { "type": "string", "format": "date" }
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reference_id": { "type": "string" },
+          "type": { "type": "string" },
+          "name": { "type": "string" },
+          "sku": { "type": "string" },
+          "quantity": { "type": "integer" },
+          "total_amount": { "$ref": "#/$defs/Money" }
+        }
+      }
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "order_expiry_time": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "Money": {
+      "type": "object",
+      "required": ["amount", "currency"],
+      "properties": {
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "enum": ["SAR", "AED", "BHD", "KWD", "OMR"] }
+      }
+    }
+  }
+}

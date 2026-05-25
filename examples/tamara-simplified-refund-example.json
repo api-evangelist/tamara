@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api-sandbox.tamara.co/payments/simplified-refund/f56a3123-9e23-45e4-87a2-95366d3b0bca",
+    "headers": {
+      "Authorization": "Bearer {{TAMARA_API_TOKEN}}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "total_amount": { "amount": 100, "currency": "SAR" },
+      "comment": "Partial refund for returned T-shirt",
+      "merchant_refund_id": "RFND-9001"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "order_id": "f56a3123-9e23-45e4-87a2-95366d3b0bca",
+      "refund_id": "r1234567-89ab-cdef-0123-456789abcdef",
+      "capture_id": "c1234567-89ab-cdef-0123-456789abcdef",
+      "comment": "Partial refund for returned T-shirt",
+      "status": "partially_refunded",
+      "refunded_amount": { "amount": 100, "currency": "SAR" }
+    }
+  }
+}

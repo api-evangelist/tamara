@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "tamara": "https://api.tamara.co/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Order": {
+      "@id": "tamara:Order",
+      "@context": {
+        "order_id": { "@id": "tamara:Order/id", "@type": "xsd:string" },
+        "order_reference_id": { "@id": "tamara:Order/referenceId", "@type": "xsd:string" },
+        "status": { "@id": "tamara:Order/status", "@type": "xsd:string" },
+        "payment_type": { "@id": "tamara:Order/paymentType", "@type": "xsd:string" },
+        "instalments": { "@id": "tamara:Order/instalments", "@type": "xsd:integer" },
+        "total_amount": { "@id": "tamara:Order/totalAmount" },
+        "captured_amount": { "@id": "tamara:Order/capturedAmount" },
+        "refunded_amount": { "@id": "tamara:Order/refundedAmount" },
+        "consumer": { "@id": "tamara:Order/consumer" },
+        "items": { "@id": "tamara:Order/items", "@container": "@list" },
+        "created_at": { "@id": "dcterms:created", "@type": "xsd:dateTime" }
+      }
+    },
+    "CheckoutSession": {
+      "@id": "tamara:CheckoutSession",
+      "@context": {
+        "checkout_id": { "@id": "tamara:CheckoutSession/id", "@type": "xsd:string" },
+        "order_id": { "@id": "tamara:CheckoutSession/orderId", "@type": "xsd:string" },
+        "checkout_url": { "@id": "tamara:CheckoutSession/url", "@type": "xsd:anyURI" },
+        "status": { "@id": "tamara:CheckoutSession/status", "@type": "xsd:string" }
+      }
+    },
+    "Capture": {
+      "@id": "tamara:Capture",
+      "@context": {
+        "capture_id": { "@id": "tamara:Capture/id", "@type": "xsd:string" },
+        "order_id": { "@id": "tamara:Capture/orderId", "@type": "xsd:string" },
+        "status": { "@id": "tamara:Capture/status", "@type": "xsd:string" },
+        "captured_amount": { "@id": "tamara:Capture/amount" }
+      }
+    },
+    "Refund": {
+      "@id": "tamara:Refund",
+      "@context": {
+        "refund_id": { "@id": "tamara:Refund/id", "@type": "xsd:string" },
+        "order_id": { "@id": "tamara:Refund/orderId", "@type": "xsd:string" },
+        "capture_id": { "@id": "tamara:Refund/captureId", "@type": "xsd:string" },
+        "status": { "@id": "tamara:Refund/status", "@type": "xsd:string" },
+        "refunded_amount": { "@id": "tamara:Refund/amount" }
+      }
+    },
+    "Dispute": {
+      "@id": "tamara:Dispute",
+      "@context": {
+        "dispute_id": { "@id": "tamara:Dispute/id", "@type": "xsd:integer" },
+        "order_id": { "@id": "tamara:Dispute/orderId", "@type": "xsd:string" },
+        "dispute_status": { "@id": "tamara:Dispute/status", "@type": "xsd:string" },
+        "opened_at": { "@id": "tamara:Dispute/openedAt", "@type": "xsd:dateTime" },
+        "closed_at": { "@id": "tamara:Dispute/closedAt", "@type": "xsd:dateTime" }
+      }
+    },
+    "Webhook": {
+      "@id": "tamara:Webhook",
+      "@context": {
+        "webhook_id": { "@id": "tamara:Webhook/id", "@type": "xsd:string" },
+        "url": { "@id": "tamara:Webhook/url", "@type": "xsd:anyURI" },
+        "events": { "@id": "tamara:Webhook/events", "@container": "@list" }
+      }
+    },
+    "Money": {
+      "@id": "tamara:Money",
+      "@context": {
+        "amount": { "@id": "tamara:Money/amount", "@type": "xsd:decimal" },
+        "currency": { "@id": "tamara:Money/currency", "@type": "xsd:string" }
+      }
+    }
+  }
+}

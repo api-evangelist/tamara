@@ -1,0 +1,211 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tamara Orders API — Orders
+  description: 'Tamara Orders API — Orders. 4 operations. Lead operation: Tamara Get Order Details. Self-contained Naftiko capability covering one Tamara business surface.'
+  tags:
+  - Tamara
+  - Orders
+  - BNPL
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    TAMARA_API_TOKEN: TAMARA_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: orders
+    baseUri: https://api.tamara.co
+    description: Tamara Orders API — Orders business capability. Self-contained, no shared references.
+    resources:
+    - name: orders-order_id
+      path: /orders/{order_id}
+      operations:
+      - name: getorderdetails
+        method: GET
+        description: Tamara Get Order Details by Order ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: order_id
+          in: path
+          type: string
+          description: Tamara order id (UUID).
+          required: true
+    - name: orders-order_id-authorise
+      path: /orders/{order_id}/authorise
+      operations:
+      - name: authoriseorder
+        method: POST
+        description: Tamara Authorise Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: order_id
+          in: path
+          type: string
+          required: true
+    - name: orders-order_id-cancel
+      path: /orders/{order_id}/cancel
+      operations:
+      - name: cancelorder
+        method: POST
+        description: Tamara Cancel Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: order_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: orders-order_id-reference-id
+      path: /orders/{order_id}/reference-id
+      operations:
+      - name: updateorderreferenceid
+        method: PUT
+        description: Tamara Update Order Reference ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: order_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TAMARA_API_TOKEN}}'
+  exposes:
+  - type: rest
+    namespace: orders-rest
+    port: 8080
+    description: REST adapter for Tamara Orders API — Orders. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/orders/{order-id}
+      name: orders-order-id
+      description: REST surface for /orders/{order_id}.
+      operations:
+      - method: GET
+        name: getorderdetails
+        description: Tamara Get Order Details by Order ID
+        call: orders.getorderdetails
+        with:
+          order_id: rest.order_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orders/{order-id}/authorise
+      name: orders-order-id-authorise
+      operations:
+      - method: POST
+        name: authoriseorder
+        description: Tamara Authorise Order
+        call: orders.authoriseorder
+        with:
+          order_id: rest.order_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orders/{order-id}/cancel
+      name: orders-order-id-cancel
+      operations:
+      - method: POST
+        name: cancelorder
+        description: Tamara Cancel Order
+        call: orders.cancelorder
+        with:
+          order_id: rest.order_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orders/{order-id}/reference-id
+      name: orders-order-id-reference-id
+      operations:
+      - method: PUT
+        name: updateorderreferenceid
+        description: Tamara Update Order Reference ID
+        call: orders.updateorderreferenceid
+        with:
+          order_id: rest.order_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: orders-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tamara Orders API — Orders.
+    tools:
+    - name: tamara-get-order-details
+      description: Tamara Get Order Details by Order ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orders.getorderdetails
+      with:
+        order_id: tools.order_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: tamara-authorise-order
+      description: Tamara Authorise Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: orders.authoriseorder
+      with:
+        order_id: tools.order_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: tamara-cancel-order
+      description: Tamara Cancel Order
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: false
+      call: orders.cancelorder
+      with:
+        order_id: tools.order_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: tamara-update-order-reference-id
+      description: Tamara Update Order Reference ID
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: orders.updateorderreferenceid
+      with:
+        order_id: tools.order_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

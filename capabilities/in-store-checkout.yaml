@@ -1,0 +1,176 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tamara In-Store Checkout API
+  description: 'Tamara In-Store Checkout API. 3 operations. Lead operation: Tamara Create In-Store SMS Payment Link Session. Self-contained Naftiko capability covering Tamara''s POS, SMS, and QR-code BNPL surfaces.'
+  tags:
+  - Tamara
+  - In-store
+  - POS
+  - SMS
+  - QR
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    TAMARA_API_TOKEN: TAMARA_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: in-store-checkout
+    baseUri: https://api.tamara.co
+    description: Tamara In-Store Checkout business capability.
+    resources:
+    - name: checkout-in-store-session
+      path: /checkout/in-store-session
+      operations:
+      - name: createinstoresmssession
+        method: POST
+        description: Tamara Create In-Store SMS Payment Link Session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: checkout-in-store
+      path: /checkout/in-store
+      operations:
+      - name: createinstoreqrsession
+        method: POST
+        description: Tamara Create In-Store QR Code Checkout Session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Device-Id
+          in: header
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: checkout-checkout_id-void
+      path: /checkout/{checkout_id}/void
+      operations:
+      - name: voidcheckoutsession
+        method: POST
+        description: Tamara Void Checkout Session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: checkout_id
+          in: path
+          type: string
+          required: true
+        - name: order_id
+          in: query
+          type: string
+          required: true
+        - name: store_code
+          in: query
+          type: string
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.TAMARA_API_TOKEN}}'
+  exposes:
+  - type: rest
+    namespace: in-store-checkout-rest
+    port: 8080
+    description: REST adapter for Tamara In-Store Checkout.
+    resources:
+    - path: /v1/checkout/in-store-session
+      name: checkout-in-store-session
+      operations:
+      - method: POST
+        name: createinstoresmssession
+        description: Tamara Create In-Store SMS Payment Link Session
+        call: in-store-checkout.createinstoresmssession
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/checkout/in-store
+      name: checkout-in-store
+      operations:
+      - method: POST
+        name: createinstoreqrsession
+        description: Tamara Create In-Store QR Code Checkout Session
+        call: in-store-checkout.createinstoreqrsession
+        with:
+          X-Device-Id: rest.X-Device-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/checkout/{checkout-id}/void
+      name: checkout-checkout-id-void
+      operations:
+      - method: POST
+        name: voidcheckoutsession
+        description: Tamara Void Checkout Session
+        call: in-store-checkout.voidcheckoutsession
+        with:
+          checkout_id: rest.checkout_id
+          order_id: rest.order_id
+          store_code: rest.store_code
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: in-store-checkout-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tamara In-Store Checkout.
+    tools:
+    - name: tamara-create-in-store-sms-session
+      description: Tamara Create In-Store SMS Payment Link Session
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: in-store-checkout.createinstoresmssession
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: tamara-create-in-store-qr-session
+      description: Tamara Create In-Store QR Code Checkout Session
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: in-store-checkout.createinstoreqrsession
+      with:
+        X-Device-Id: tools.X-Device-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: tamara-void-checkout-session
+      description: Tamara Void Checkout Session
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: false
+      call: in-store-checkout.voidcheckoutsession
+      with:
+        checkout_id: tools.checkout_id
+        order_id: tools.order_id
+        store_code: tools.store_code
+      outputParameters:
+      - type: object
+        mapping: $.

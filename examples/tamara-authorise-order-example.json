@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api-sandbox.tamara.co/orders/f56a3123-9e23-45e4-87a2-95366d3b0bca/authorise",
+    "headers": {
+      "Authorization": "Bearer {{TAMARA_API_TOKEN}}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "order_id": "f56a3123-9e23-45e4-87a2-95366d3b0bca",
+      "status": "authorised",
+      "order_expiry_time": "2026-06-14T12:00:00Z",
+      "payment_type": "PAY_BY_INSTALMENTS",
+      "auto_captured": false,
+      "authorized_amount": { "amount": 300, "currency": "SAR" },
+      "capture_id": "a1234567-89ab-cdef-0123-456789abcdef"
+    }
+  }
+}

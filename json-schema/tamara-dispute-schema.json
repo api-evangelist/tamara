@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tamara/main/json-schema/tamara-dispute-schema.json",
+  "title": "TamaraDispute",
+  "description": "A merchant-facing dispute case raised against a Tamara order.",
+  "type": "object",
+  "required": ["dispute_id", "order_id", "dispute_status"],
+  "properties": {
+    "dispute_id": { "type": "integer" },
+    "order_id": { "type": "string", "format": "uuid" },
+    "merchant_order_reference_id": { "type": "string" },
+    "order_status": { "type": "string" },
+    "dispute_status": {
+      "type": "string",
+      "enum": [
+        "open", "awaiting_merchant_response", "cancelled",
+        "claim_accepted", "claim_rejected", "closed", "under_review"
+      ]
+    },
+    "opened_at": { "type": "string", "format": "date-time" },
+    "closed_at": { "type": "string", "format": "date-time" },
+    "amount": {
+      "type": "object",
+      "properties": {
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "enum": ["SAR", "AED", "BHD", "KWD", "OMR"] }
+      }
+    },
+    "activities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "event": { "type": "string" },
+          "comment": { "type": "string" },
+          "attachments": { "type": "array", "items": { "type": "string" } },
+          "created_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}

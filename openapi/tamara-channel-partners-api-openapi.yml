@@ -1,0 +1,266 @@
+openapi: 3.0.3
+info:
+  title: Tamara Channel Partners API
+  description: |
+    Allow payment service providers, platforms, and aggregators to onboard merchants onto
+    Tamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding
+    status and merchant API keys, and register onboarding event webhooks.
+  version: 1.0.0
+  contact:
+    name: Tamara Partner Support
+    url: https://docs.tamara.co/
+servers:
+- url: https://partner-api.tamara.co
+  description: Production
+- url: https://partner-api-sandbox.tamara.co
+  description: Sandbox
+tags:
+- name: Merchant Onboarding
+- name: Merchant API Keys
+- name: Channel Partner Webhooks
+paths:
+  /channel-partners/merchant-onboarding/create:
+    post:
+      operationId: createMerchantOnboarding
+      summary: Create Merchant Onboarding
+      description: Submit merchant and KYB information to initiate automated onboarding and verification.
+      tags: [Merchant Onboarding]
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OnboardingRequest'
+      responses:
+        '200':
+          description: Onboarding submitted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnboardingResponse'
+  /channel-partners/merchant-onboarding/{onboardingCode}:
+    get:
+      operationId: retrieveMerchantOnboarding
+      summary: Retrieve Merchant Onboarding
+      tags: [Merchant Onboarding]
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: onboardingCode
+        in: path
+        required: true
+        schema:
+          type: string
+          example: S0777457
+      responses:
+        '200':
+          description: Onboarding details.
+  /channel-partners/merchant/{merchantId}/api-key:
+    get:
+      operationId: retrieveMerchantApiKeys
+      summary: Retrieve Merchant API Keys
+      description: Retrieve API, public, and notification keys for an onboarded merchant.
+      tags: [Merchant API Keys]
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Merchant API keys.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MerchantApiKeys'
+  /channel-partners/webhooks/register:
+    post:
+      operationId: registerChannelPartnerWebhook
+      summary: Register Channel Partner Webhook
+      description: Register a new webhook for onboarding status notifications.
+      tags: [Channel Partner Webhooks]
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnerWebhookRequest'
+      responses:
+        '201':
+          description: Webhook registered.
+  /channel-partners/webhooks:
+    get:
+      operationId: listChannelPartnerWebhooks
+      summary: Retrieve Channel Partner Webhooks
+      tags: [Channel Partner Webhooks]
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Channel partner webhooks.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PartnerWebhook'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    BusinessKyc:
+      type: object
+      properties:
+        business_name:
+          type: string
+        country_of_operations:
+          type: string
+        business_type:
+          type: string
+          enum: [registered, freelance, sole_proprietor]
+        website_url:
+          type: string
+          format: uri
+        online:
+          type: boolean
+        in_store:
+          type: boolean
+        annual_gmv:
+          type: string
+        category:
+          type: array
+          items:
+            type: string
+        sub_category:
+          type: array
+          items:
+            type: string
+        platform:
+          type: string
+    BankKyc:
+      type: object
+      properties:
+        iban:
+          type: string
+        email_for_settlement_report:
+          type: string
+        beneficiary_name:
+          type: string
+        swift_code:
+          type: string
+    LegalKyc:
+      type: object
+      properties:
+        cr_number:
+          type: string
+        national_id_number:
+          type: string
+        entity_name:
+          type: string
+        legal_address:
+          type: string
+        legal_signatory_name:
+          type: string
+    OnboardingRequest:
+      type: object
+      required:
+      - first_name
+      - last_name
+      - country
+      - email
+      - phone
+      - business_kyc
+      properties:
+        locale:
+          type: string
+          example: en_AE
+        first_name:
+          type: string
+        last_name:
+          type: string
+        country:
+          type: string
+        email:
+          type: string
+          format: email
+        country_code:
+          type: string
+        phone:
+          type: string
+        hear_about_tamara:
+          type: string
+        external_channel_partner_id:
+          type: string
+        business_kyc:
+          $ref: '#/components/schemas/BusinessKyc'
+        bank_kyc:
+          $ref: '#/components/schemas/BankKyc'
+        legal_kyc:
+          $ref: '#/components/schemas/LegalKyc'
+        user_defined_data:
+          type: object
+          additionalProperties: true
+    OnboardingResponse:
+      type: object
+      properties:
+        onboarding_code:
+          type: string
+    MerchantApiKeys:
+      type: object
+      properties:
+        api_key:
+          type: string
+        public_key:
+          type: string
+        notification_key:
+          type: string
+        merchant_id:
+          type: string
+          format: uuid
+        merchant_code:
+          type: string
+        merchant_status:
+          type: string
+    PartnerWebhookRequest:
+      type: object
+      required: [url, events]
+      properties:
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+            enum: [qualified, disqualified, ready_to_transact, resubmission_required]
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+    PartnerWebhook:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+        headers:
+          type: object
+          additionalProperties:
+            type: string

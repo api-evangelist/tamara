@@ -1,0 +1,40 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api-sandbox.tamara.co/webhooks",
+    "headers": {
+      "Authorization": "Bearer {{TAMARA_API_TOKEN}}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "order",
+      "url": "https://example.com/tamara/webhook",
+      "events": [
+        "order_approved",
+        "order_authorised",
+        "order_canceled",
+        "order_captured",
+        "order_refunded",
+        "order_expired"
+      ],
+      "headers": { "authorization": "Bearer s3cret" }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "merchant_id": "6e9f752e-0bbc-47eb-bcf7-be13adf6f04d",
+      "webhook_id": "4826ecbd-2c16-4882-8d4b-04bcaa96bbc6",
+      "url": "https://example.com/tamara/webhook",
+      "events": [
+        "order_approved",
+        "order_authorised",
+        "order_canceled",
+        "order_captured",
+        "order_refunded",
+        "order_expired"
+      ],
+      "headers": { "authorization": "Bearer s3cret" }
+    }
+  }
+}

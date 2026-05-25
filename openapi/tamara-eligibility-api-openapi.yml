@@ -1,0 +1,76 @@
+openapi: 3.0.3
+info:
+  title: Tamara Pre-Checkout Eligibility API
+  description: |
+    Determine whether Tamara considers a customer eligible for a BNPL purchase before
+    presenting Tamara as a payment option at checkout.
+  version: 1.0.0
+  contact:
+    name: Tamara Merchant Support
+    url: https://docs.tamara.co/
+servers:
+- url: https://api.tamara.co
+  description: Production
+- url: https://api-sandbox.tamara.co
+  description: Sandbox
+tags:
+- name: Eligibility
+paths:
+  /pre-checkout/v1/eligibility:
+    post:
+      operationId: preCheckoutEligibility
+      summary: Pre-Checkout Eligibility
+      description: |
+        Check whether the supplied customer (identified by phone number) is treated as
+        eligible by Tamara for the order amount. If the phone number is not passed the
+        customer is treated as eligible.
+      tags: [Eligibility]
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EligibilityRequest'
+      responses:
+        '200':
+          description: Eligibility decision.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EligibilityResponse'
+        '400':
+          description: Validation error.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    EligibilityRequest:
+      type: object
+      required: [order]
+      properties:
+        order:
+          type: object
+          required: [amount, currency]
+          properties:
+            amount:
+              type: number
+              example: 300
+            currency:
+              type: string
+              enum: [SAR, AED, BHD, KWD, OMR]
+        customer:
+          type: object
+          properties:
+            phone:
+              type: string
+              description: E.164 phone number (omit to treat customer as eligible).
+              example: '966501234567'
+    EligibilityResponse:
+      type: object
+      properties:
+        is_eligible:
+          type: boolean

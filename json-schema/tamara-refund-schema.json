@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tamara/main/json-schema/tamara-refund-schema.json",
+  "title": "TamaraRefund",
+  "description": "A refund issued against a Tamara order via the simplified refund or legacy refund endpoint.",
+  "type": "object",
+  "required": ["order_id", "refund_id", "status", "refunded_amount"],
+  "properties": {
+    "order_id": { "type": "string", "format": "uuid" },
+    "refund_id": { "type": "string", "format": "uuid" },
+    "capture_id": { "type": "string", "format": "uuid" },
+    "merchant_refund_id": { "type": "string" },
+    "comment": { "type": "string" },
+    "status": { "type": "string", "enum": ["fully_refunded", "partially_refunded"] },
+    "refunded_amount": {
+      "type": "object",
+      "required": ["amount", "currency"],
+      "properties": {
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "enum": ["SAR", "AED", "BHD", "KWD", "OMR"] }
+      }
+    },
+    "created_at": { "type": "string", "format": "date-time" }
+  }
+}

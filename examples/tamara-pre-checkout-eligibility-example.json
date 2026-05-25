@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api-sandbox.tamara.co/pre-checkout/v1/eligibility",
+    "headers": {
+      "Authorization": "Bearer {{TAMARA_API_TOKEN}}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "order": { "amount": 300, "currency": "SAR" },
+      "customer": { "phone": "966501234567" }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": { "is_eligible": true }
+  }
+}

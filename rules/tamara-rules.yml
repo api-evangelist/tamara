@@ -1,0 +1,72 @@
+extends:
+- spectral:oas
+formats:
+- oas3
+rules:
+  tamara-info-contact:
+    description: All Tamara OpenAPI specs must include an info.contact block pointing to https://docs.tamara.co/.
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+  tamara-servers-include-production:
+    description: Tamara specs must declare https://api.tamara.co (or https://partner-api.tamara.co for Channel Partners) as a server.
+    severity: warn
+    given: $.servers
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 1
+          contains:
+            type: object
+            properties:
+              url:
+                type: string
+                pattern: '^https://(api|partner-api)(-sandbox)?\.tamara\.co$'
+            required: [url]
+  tamara-bearer-auth:
+    description: Tamara endpoints must use bearer auth (the merchant or partner API token).
+    severity: warn
+    given: $.components.securitySchemes[*]
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            type: { const: http }
+            scheme: { const: bearer }
+          required: [type, scheme]
+  tamara-currency-enum:
+    description: Money objects must restrict currency to Tamara's supported GCC currencies (SAR, AED, BHD, KWD, OMR).
+    severity: warn
+    given: $..properties.currency
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            enum:
+              type: array
+              contains:
+                enum: [SAR, AED, BHD, KWD, OMR]
+  tamara-operation-summary-title-case:
+    description: OpenAPI operation summaries must be Title Case.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[A-Z][A-Za-z0-9]*(\s+[A-Z0-9][A-Za-z0-9]*)*$'
+  tamara-operation-id-camelcase:
+    description: operationId values should be camelCase.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][A-Za-z0-9]*$'

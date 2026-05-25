@@ -1,0 +1,62 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api-sandbox.tamara.co/checkout",
+    "headers": {
+      "Authorization": "Bearer {{TAMARA_API_TOKEN}}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "order_reference_id": "A1234",
+      "order_number": "1001",
+      "total_amount": { "amount": 300, "currency": "SAR" },
+      "description": "Order #1001 — 1 item",
+      "country_code": "SA",
+      "payment_type": "PAY_BY_INSTALMENTS",
+      "instalments": 3,
+      "locale": "en_US",
+      "items": [
+        {
+          "reference_id": "p-100",
+          "type": "Physical",
+          "name": "Cotton T-Shirt",
+          "sku": "SKU-100",
+          "quantity": 1,
+          "unit_price": { "amount": 300, "currency": "SAR" },
+          "total_amount": { "amount": 300, "currency": "SAR" }
+        }
+      ],
+      "consumer": {
+        "first_name": "Mona",
+        "last_name": "Al-Saud",
+        "phone_number": "+966500000000",
+        "email": "mona@example.com"
+      },
+      "shipping_address": {
+        "first_name": "Mona",
+        "last_name": "Al-Saud",
+        "line1": "1234 King Fahd Rd",
+        "city": "Riyadh",
+        "country_code": "SA",
+        "phone_number": "+966500000000"
+      },
+      "tax_amount": { "amount": 0, "currency": "SAR" },
+      "shipping_amount": { "amount": 0, "currency": "SAR" },
+      "merchant_url": {
+        "success": "https://example.com/checkout/success",
+        "failure": "https://example.com/checkout/failure",
+        "cancel": "https://example.com/checkout/cancel",
+        "notification": "https://example.com/tamara/webhook"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "order_id": "f56a3123-9e23-45e4-87a2-95366d3b0bca",
+      "checkout_id": "5ccbe4b1-890d-40b3-8a88-0b489ba8ed01",
+      "checkout_url": "https://checkout-sandbox.tamara.co/c/5ccbe4b1-890d-40b3-8a88-0b489ba8ed01",
+      "status": "new"
+    }
+  }
+}

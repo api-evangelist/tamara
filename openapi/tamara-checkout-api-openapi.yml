@@ -1,0 +1,278 @@
+openapi: 3.0.3
+info:
+  title: Tamara Checkout API
+  description: |
+    Create online checkout sessions that send customer and order information to Tamara
+    and receive a hosted checkout URL where the consumer completes the BNPL or Pay-Now flow.
+    Supports SAR, AED, BHD, KWD, and OMR across Saudi Arabia, the UAE, Bahrain, Kuwait, and Oman.
+  version: 1.0.0
+  contact:
+    name: Tamara Merchant Support
+    url: https://docs.tamara.co/
+  license:
+    name: Proprietary
+    url: https://tamara.co/en-SA/legal/terms-conditions
+servers:
+- url: https://api.tamara.co
+  description: Production
+- url: https://api-sandbox.tamara.co
+  description: Sandbox
+tags:
+- name: Checkout Sessions
+  description: Create and manage hosted-checkout sessions.
+paths:
+  /checkout:
+    post:
+      operationId: createCheckoutSession
+      summary: Create Checkout Session
+      description: |
+        Create a hosted checkout session where Tamara collects payment information and
+        completes the BNPL or Pay-Now flow with the consumer. Store the returned
+        `order_id` and redirect the customer to `checkout_url`.
+      tags:
+      - Checkout Sessions
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckoutSessionRequest'
+      responses:
+        '200':
+          description: Checkout session created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutSessionResponse'
+        '400':
+          description: Validation failure (e.g. unsupported country/currency combination).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Tamara-issued merchant API token.
+  schemas:
+    Money:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+          format: double
+          example: 300
+        currency:
+          type: string
+          enum: [SAR, AED, BHD, KWD, OMR]
+    Item:
+      type: object
+      required:
+      - reference_id
+      - type
+      - name
+      - sku
+      - quantity
+      - total_amount
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        unit_price:
+          $ref: '#/components/schemas/Money'
+        discount_amount:
+          $ref: '#/components/schemas/Money'
+        tax_amount:
+          $ref: '#/components/schemas/Money'
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        image_url:
+          type: string
+          format: uri
+    Consumer:
+      type: object
+      required:
+      - first_name
+      - last_name
+      - phone_number
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        phone_number:
+          type: string
+          description: E.164 phone number for the consumer.
+        email:
+          type: string
+          format: email
+        date_of_birth:
+          type: string
+          format: date
+        national_id:
+          type: string
+    Address:
+      type: object
+      required:
+      - first_name
+      - last_name
+      - line1
+      - city
+      - country_code
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+        region:
+          type: string
+        city:
+          type: string
+        country_code:
+          type: string
+          minLength: 2
+          maxLength: 2
+        phone_number:
+          type: string
+    MerchantUrls:
+      type: object
+      required:
+      - success
+      - failure
+      - cancel
+      properties:
+        success:
+          type: string
+          format: uri
+        failure:
+          type: string
+          format: uri
+        cancel:
+          type: string
+          format: uri
+        notification:
+          type: string
+          format: uri
+    CheckoutSessionRequest:
+      type: object
+      required:
+      - order_reference_id
+      - total_amount
+      - description
+      - country_code
+      - payment_type
+      - items
+      - consumer
+      - shipping_address
+      - tax_amount
+      - shipping_amount
+      - merchant_url
+      properties:
+        order_reference_id:
+          type: string
+        order_number:
+          type: string
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        description:
+          type: string
+          maxLength: 256
+        country_code:
+          type: string
+          enum: [SA, AE, BH, KW, OM]
+        payment_type:
+          type: string
+          enum: [PAY_BY_INSTALMENTS, PAY_NOW]
+        instalments:
+          type: integer
+          minimum: 2
+          maximum: 24
+        locale:
+          type: string
+          enum: [ar_SA, en_US]
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        consumer:
+          $ref: '#/components/schemas/Consumer'
+        billing_address:
+          $ref: '#/components/schemas/Address'
+        shipping_address:
+          $ref: '#/components/schemas/Address'
+        discount:
+          type: object
+          properties:
+            name:
+              type: string
+            amount:
+              $ref: '#/components/schemas/Money'
+        tax_amount:
+          $ref: '#/components/schemas/Money'
+        shipping_amount:
+          $ref: '#/components/schemas/Money'
+        merchant_url:
+          $ref: '#/components/schemas/MerchantUrls'
+        platform:
+          type: string
+        is_mobile:
+          type: boolean
+        risk_assessment:
+          type: object
+          additionalProperties: true
+        expires_in_minutes:
+          type: integer
+          minimum: 5
+          maximum: 1440
+          default: 30
+        additional_data:
+          type: object
+          additionalProperties: true
+    CheckoutSessionResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        checkout_id:
+          type: string
+          format: uuid
+        checkout_url:
+          type: string
+          format: uri
+        status:
+          type: string
+          example: new
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              error_code:
+                type: string
+              description:
+                type: string

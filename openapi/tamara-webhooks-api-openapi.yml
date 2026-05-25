@@ -1,0 +1,149 @@
+openapi: 3.0.3
+info:
+  title: Tamara Webhooks API
+  description: |
+    Register and manage HTTPS webhook endpoints that receive order and dispute lifecycle
+    events from Tamara. Notifications include a JWT-encoded `tamaraToken` in the query
+    string and Authorization header for verification.
+  version: 1.0.0
+  contact:
+    name: Tamara Merchant Support
+    url: https://docs.tamara.co/
+servers:
+- url: https://api.tamara.co
+  description: Production
+- url: https://api-sandbox.tamara.co
+  description: Sandbox
+tags:
+- name: Webhooks
+paths:
+  /webhooks:
+    post:
+      operationId: registerWebhook
+      summary: Register Webhook URL
+      description: Register a new webhook endpoint that Tamara will POST notifications to.
+      tags: [Webhooks]
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookRequest'
+      responses:
+        '200':
+          description: Webhook registered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  /webhooks/{webhookId}:
+    parameters:
+    - name: webhookId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: retrieveWebhook
+      summary: Retrieve Webhook URL
+      tags: [Webhooks]
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Webhook configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+    put:
+      operationId: updateWebhook
+      summary: Update Webhook URL
+      tags: [Webhooks]
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookUpdate'
+      responses:
+        '200':
+          description: Webhook updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+    delete:
+      operationId: deleteWebhook
+      summary: Delete Webhook URL
+      tags: [Webhooks]
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Webhook deleted.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    WebhookRequest:
+      type: object
+      required: [type, url, events]
+      properties:
+        type:
+          type: string
+          enum: [order, dispute]
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+            example: order_approved
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+    WebhookUpdate:
+      type: object
+      required: [url, events]
+      properties:
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+    WebhookResponse:
+      type: object
+      properties:
+        merchant_id:
+          type: string
+          format: uuid
+        webhook_id:
+          type: string
+          format: uuid
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+        headers:
+          type: object
+          additionalProperties:
+            type: string

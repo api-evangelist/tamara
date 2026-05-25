@@ -1,0 +1,101 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Tamara
+providerId: tamara
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: false
+tags:
+- Fintech
+- BNPL
+- Payments
+- Shariah Compliant
+- MENA
+- FinOps
+- FOCUS
+description: |
+  FOCUS-aligned FinOps mapping for Tamara. Tamara's revenue is per-transaction commission
+  (MDR) deducted from merchant settlements on a weekly cycle, plus optional refund/dispute
+  adjustments. There is no usage-priced API plane and no token/seat billing — the cost
+  surface lives entirely inside Tamara's settlement invoices to the merchant.
+notes: |
+  Reconcile billing currency, charge categories, and meter definitions against your signed
+  Tamara merchant agreement and your weekly Tamara settlement and tax invoices.
+sources:
+- https://docs.tamara.co/docs/pp-settlement-invoices
+- https://docs.tamara.co/docs/pp-settle-invoice-understand-settlements
+- https://docs.tamara.co/docs/pp-settle-invoice-reports
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Tamara
+serviceCategory: Payments
+billingModel:
+  pricingCategory: Per-Transaction Commission (MDR)
+  billingFrequency: Weekly
+  billingCurrency: SAR
+  alternateCurrencies: [AED, BHD, KWD, OMR]
+  chargeCategories:
+  - Usage
+  - Adjustment
+  - Tax
+focusColumns:
+  ServiceName: Tamara BNPL
+  ServiceCategory: Fintech
+  ProviderName: Tamara
+  PublisherName: Tamara
+  InvoiceIssuerName: Tamara
+  BillingCurrency: SAR
+  ChargeCategory: Usage
+meters:
+- name: per_transaction_commission
+  description: MDR percentage applied to each captured order, deducted from gross settlement amount.
+  unit: percentage_of_transaction_value
+  aggregation: sum
+  dimensions:
+  - merchant_id
+  - country
+  - currency
+  - payment_type
+- name: refund_adjustment
+  description: Refunds reduce the next settlement; full or partial reversals against captures.
+  unit: amount
+  aggregation: sum
+  dimensions:
+  - merchant_id
+  - country
+  - currency
+- name: dispute_chargeback
+  description: Dispute outcomes can debit the merchant's settlement when the claim is accepted in favour of the consumer.
+  unit: amount
+  aggregation: sum
+  dimensions:
+  - merchant_id
+  - dispute_status
+  - currency
+principles:
+- name: Visibility
+  description: |
+    Pull Tamara settlement and tax invoices from the Partners Portal weekly and reconcile
+    against the GET /orders/{order_id} feed and order/dispute webhook stream.
+- name: Allocation
+  description: |
+    Tag Tamara invoice line items by merchant, country, and product line so settlements roll
+    up into your finance store under the same business-unit dimensions you use for other PSPs.
+- name: Optimization
+  description: |
+    Levers include negotiating the MDR percentage at renewal (volume tiers), enabling the
+    appropriate instalment count for the basket size, and tightening dispute response SLAs
+    to reduce chargeback losses.
+- name: Accountability
+  description: |
+    Assign a contract owner for the Tamara merchant agreement and a dispute-operations owner
+    to action awaiting_merchant_response disputes within the SLA window.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

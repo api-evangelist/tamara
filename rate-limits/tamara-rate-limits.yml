@@ -1,0 +1,57 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Tamara
+providerId: tamara
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: false
+tags:
+- Fintech
+- BNPL
+- Payments
+- Rate Limiting
+- Throttling
+description: |
+  Tamara does not publish a per-merchant request-per-minute/quota table in its public
+  documentation. The merchant integration is structured around customer-driven checkout
+  events and merchant-driven order operations (authorise/capture/cancel/refund), so most
+  traffic is naturally bounded by retail volume.
+notes: |
+  Use the policy guidance below until Tamara publishes concrete numeric limits or
+  exposes a Retry-After response convention.
+sources:
+- https://docs.tamara.co/
+- https://docs.tamara.co/reference/tamara-api-reference-documentation
+- https://docs.tamara.co/docs/online-go-live-testing-checklist
+responseCodes:
+  throttled: 429
+limits:
+- name: Default Merchant API
+  scope: merchant
+  metric: requests
+  limit: not publicly documented
+  notes: Tamara's docs do not publish a numeric per-second/per-minute quota; traffic is bounded by retail purchase volume.
+- name: Sandbox
+  scope: merchant
+  metric: requests
+  limit: sandbox shared environment
+  notes: Sandbox at api-sandbox.tamara.co is shared infrastructure intended for integration testing, not load testing.
+- name: Channel Partner API
+  scope: channel_partner
+  metric: requests
+  limit: not publicly documented
+  notes: Numeric quotas for partner-api.tamara.co are negotiated as part of the channel partner agreement.
+policies:
+- name: Idempotency
+  description: |
+    Re-issuing a `POST /orders/{order_id}/authorise` after a non-2xx response is unsafe — Tamara
+    instructs merchants to verify order status via Get Order Details before retrying, and to
+    not retry on Expired or Declined.
+- name: Webhook Retries
+  description: Tamara webhooks expect a 2xx response from the merchant endpoint quickly; non-2xx will be retried.
+- name: Backoff
+  description: Clients should implement exponential backoff with jitter on 429 and 5xx responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

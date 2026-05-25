@@ -1,0 +1,120 @@
+vocabulary: Tamara Vocabulary
+version: '0.1'
+provider: Tamara
+providerId: tamara
+created: '2026-05-24'
+modified: '2026-05-24'
+description: |
+  Domain vocabulary covering Tamara's BNPL platform — its products, lifecycle states, regulatory framing,
+  and operational concepts — for use in cross-API search, indexing, and Naftiko governance.
+sources:
+- https://docs.tamara.co/
+- https://docs.tamara.co/reference/tamara-api-reference-documentation
+- https://tamara.co/en
+tags:
+- BNPL
+- Fintech
+- Payments
+- Shariah Compliant
+- MENA
+concepts:
+- term: BNPL
+  definition: Buy Now, Pay Later — split-payment consumer credit offered at point of sale.
+  related: [Pay Later, Instalments]
+- term: Pay Later
+  definition: Tamara's flagship product allowing customers to split a purchase into 2, 3, or 4 instalments (up to 24 months under the SAMA consumer-finance license) with no late fees.
+- term: Pay Now
+  definition: A one-time, full-amount payment option offered alongside BNPL inside the Tamara checkout.
+- term: Shariah Compliant
+  definition: A financing product structured to comply with Islamic finance principles — no interest (riba), no late fees on consumer instalments.
+- term: SAMA
+  definition: Saudi Central Bank — Tamara's primary financial regulator (license No. 95/A Sh/202502).
+- term: Checkout Session
+  definition: A hosted-checkout artifact created via POST /checkout that returns a checkout_url Tamara hosts for the consumer to complete payment.
+- term: Order
+  definition: A merchant transaction processed via Tamara, tracked through the lifecycle new → approved → authorised → captured → settled / refunded.
+- term: Authorise
+  definition: The merchant-side acknowledgement that the consumer's order has been approved and the merchant is ready to fulfil it.
+- term: Capture
+  definition: A request to draw funds against an authorised order (full or partial). Auto-capture occurs at 21 days post-authorisation.
+- term: Refund
+  definition: A reversal of captured funds back to the consumer, full or partial. Tamara exposes a legacy and a simplified refund endpoint.
+- term: Dispute
+  definition: A consumer-initiated challenge against an order; tracked through open, awaiting_merchant_response, claim_accepted, claim_rejected, closed.
+- term: Webhook
+  definition: An HTTPS callback registered by the merchant that receives order and dispute lifecycle events authenticated via a tamaraToken JWT.
+- term: Channel Partner
+  definition: A PSP, e-commerce platform, or aggregator that onboards merchants onto Tamara on their behalf via the partner-api.tamara.co surface.
+- term: Merchant Onboarding
+  definition: The KYB/KYC submission flow channel partners use to enrol a new merchant, returning an onboarding_code and (on activation) API/public/notification keys.
+- term: Settlement
+  definition: The Tamara-to-merchant payout cycle covering captured-then-fulfilled orders; merchants reconcile settlements via the Partners Portal.
+- term: Pre-Checkout Eligibility
+  definition: An optional API call to determine whether Tamara should be displayed as a payment method for a given customer and basket amount.
+- term: In-Store Checkout
+  definition: Brick-and-mortar BNPL flows where the merchant generates an SMS payment link or QR code the consumer pays via the Tamara app.
+- term: Partners Portal
+  definition: The web dashboard at partners.tamara.co where merchants manage orders, disputes, settlements, users, and API credentials.
+currencies:
+- SAR
+- AED
+- BHD
+- KWD
+- OMR
+countries:
+- SA
+- AE
+- BH
+- KW
+- OM
+locales:
+- ar_SA
+- en_US
+orderStatuses:
+- new
+- approved
+- on_hold
+- declined
+- authorised
+- canceled
+- updated
+- fully_captured
+- partially_captured
+- fully_refunded
+- partially_refunded
+- expired
+disputeStatuses:
+- open
+- awaiting_merchant_response
+- cancelled
+- claim_accepted
+- claim_rejected
+- closed
+- under_review
+paymentTypes:
+- PAY_BY_INSTALMENTS
+- PAY_NOW
+webhookEvents:
+  order:
+  - order_approved
+  - order_on_hold
+  - order_declined
+  - order_authorised
+  - order_canceled
+  - order_updated
+  - order_captured
+  - order_refunded
+  - order_expired
+  dispute:
+  - OrderDisputeAwaitingMerchantResponse
+  - OrderDisputeClosedMerchantAcceptedClaim
+  - OrderDisputeClosedMerchantRejectedClaim
+  - OrderDisputeClosed
+  channelPartner:
+  - qualified
+  - disqualified
+  - ready_to_transact
+  - resubmission_required
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

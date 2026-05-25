@@ -1,0 +1,208 @@
+openapi: 3.0.3
+info:
+  title: Tamara In-Store Checkout API
+  description: |
+    Generate Tamara checkout sessions for brick-and-mortar stores through SMS payment links
+    or QR codes that customers scan with the Tamara consumer app to complete the BNPL
+    purchase in-aisle.
+  version: 1.0.0
+  contact:
+    name: Tamara Merchant Support
+    url: https://docs.tamara.co/
+servers:
+- url: https://api.tamara.co
+  description: Production
+- url: https://api-sandbox.tamara.co
+  description: Sandbox
+tags:
+- name: In-Store Checkout
+paths:
+  /checkout/in-store-session:
+    post:
+      operationId: createInStoreSmsSession
+      summary: Create In-Store SMS Payment Link Checkout Session
+      description: |
+        Create an in-store checkout session and SMS a Tamara payment link to the supplied
+        consumer phone number. Returns a `checkout_id`, `order_id`, and `checkout_deeplink`.
+      tags: [In-Store Checkout]
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InStoreSmsRequest'
+      responses:
+        '200':
+          description: Session created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InStoreSessionResponse'
+  /checkout/in-store:
+    post:
+      operationId: createInStoreQrSession
+      summary: Create In-Store QR Code Checkout Session
+      description: |
+        Create an in-store checkout deeplink that can be rendered as a QR code for the
+        consumer to scan in-store with the Tamara app.
+      tags: [In-Store Checkout]
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: X-Device-Id
+        in: header
+        required: true
+        schema:
+          type: string
+        description: POS device identifier.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InStoreQrRequest'
+      responses:
+        '200':
+          description: Session created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InStoreSessionResponse'
+  /checkout/{checkout_id}/void:
+    post:
+      operationId: voidCheckoutSession
+      summary: Void Checkout Session
+      description: Void an in-store checkout session before the consumer completes the payment.
+      tags: [In-Store Checkout]
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: checkout_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: order_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: store_code
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Void result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: success
+                  captured_amount:
+                    $ref: '#/components/schemas/Money'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Money:
+      type: object
+      required: [amount, currency]
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+          enum: [SAR, AED, BHD, KWD, OMR]
+    Item:
+      type: object
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        total_amount:
+          $ref: '#/components/schemas/Money'
+    InStoreSmsRequest:
+      type: object
+      required: [total_amount, phone_number, order_reference_id, items]
+      properties:
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        phone_number:
+          type: string
+        order_reference_id:
+          type: string
+        order_number:
+          type: string
+        email:
+          type: string
+        locale:
+          type: string
+          enum: [ar_SA, en_US]
+        payment_type:
+          type: string
+          enum: [PAY_BY_INSTALMENTS, PAY_NOW]
+        expires_in_minutes:
+          type: integer
+          minimum: 5
+          maximum: 1440
+          default: 15
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        additional_data:
+          type: object
+          properties:
+            store_code:
+              type: string
+    InStoreQrRequest:
+      type: object
+      required: [amount, platform]
+      properties:
+        amount:
+          $ref: '#/components/schemas/Money'
+        order_reference_id:
+          type: string
+        order_number:
+          type: string
+        platform:
+          type: string
+          description: Identifier for the POS or QR partner platform.
+          example: PARTNERNAME_POS_QR
+        locale:
+          type: string
+          enum: [ar_SA, en_US]
+        additional_data:
+          type: object
+          properties:
+            store_code:
+              type: string
+    InStoreSessionResponse:
+      type: object
+      properties:
+        checkout_id:
+          type: string
+          format: uuid
+        order_id:
+          type: string
+          format: uuid
+        checkout_deeplink:
+          type: string
+          format: uri
