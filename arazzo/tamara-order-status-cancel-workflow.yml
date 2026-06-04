@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: Tamara Order Status Cancel
+  summary: Read an order's status and cancel it only when it is still cancellable.
+  description: >-
+    Safely cancels a Tamara order by first reading its status and branching on the
+    order lifecycle. When the order is approved or authorised it is still
+    cancellable, so the workflow cancels it (or reduces its amount) before capture;
+    when the order has already moved past the cancellable states the flow ends
+    without calling cancel. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI descriptions.
+  version: 1.0.0
+sourceDescriptions:
+- name: ordersApi
+  url: ../openapi/tamara-orders-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: order-status-cancel
+  summary: Cancel a Tamara order when its status shows it is still cancellable.
+  description: >-
+    Reads an order's status and cancels it (or reduces its amount before capture)
+    only when it is in the approved or authorised state.
+  inputs:
+    type: object
+    required:
+    - merchantToken
+    - orderId
+    - cancelAmount
+    properties:
+      merchantToken:
+        type: string
+        description: Tamara-issued merchant API bearer token.
+      orderId:
+        type: string
+        description: The Tamara order_id (uuid) to inspect and cancel.
+      cancelAmount:
+        type: object
+        description: Money object (amount + currency) to cancel or reduce by.
+      items:
+        type: array
+        description: Optional line items affected by the cancellation.
+        items:
+          type: object
+  steps:
+  - stepId: getOrder
+    description: >-
+      Read the order so the workflow can branch on whether it is still in a
+      cancellable state (approved or authorised) before capture.
+    operationId: getOrderDetails
+    parameters:
+    - name: order_id
+      in: path
+      value: $inputs.orderId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderStatus: $response.body#/status
+      totalAmount: $response.body#/total_amount
+    onSuccess:
+    - name: stillAuthorised
+      type: goto
+      stepId: cancel
+      criteria:
+      - context: $response.body
+        condition: $.status == "authorised"
+        type: jsonpath
+    - name: stillApproved
+      type: goto
+      stepId: cancel
+      criteria:
+      - context: $response.body
+        condition: $.status == "approved"
+        type: jsonpath
+    - name: notCancellable
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status != "authorised" && $.status != "approved"
+        type: jsonpath
+  - stepId: cancel
+    description: >-
+      Cancel the authorised order or reduce its total amount before capture,
+      returning the cancellation id and updated amount.
+    operationId: cancelOrder
+    parameters:
+    - name: order_id
+      in: path
+      value: $inputs.orderId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        total_amount: $inputs.cancelAmount
+        items: $inputs.items
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      cancelId: $response.body#/cancel_id
+      cancelStatus: $response.body#/status
+      canceledAmount: $response.body#/canceled_amount
+  outputs:
+    orderId: $inputs.orderId
+    orderStatus: $steps.getOrder.outputs.orderStatus
+    cancelId: $steps.cancel.outputs.cancelId
+    cancelStatus: $steps.cancel.outputs.cancelStatus

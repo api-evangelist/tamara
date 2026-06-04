@@ -215,6 +215,36 @@ apis:
   - url: capabilities/channel-partners.yaml
     type: NaftikoCapability
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/tamara-authorise-and-capture-order-workflow.yml
+    name: Tamara Authorise and Capture Order
+    summary: Inspect an order, authorise it when approved, then capture funds on fulfilment.
+  - url: arazzo/tamara-authorise-capture-refund-order-workflow.yml
+    name: Tamara Authorise, Capture and Refund Order
+    summary: "Run the full post-checkout money lifecycle \u2014 authorise, capture, then refund."
+  - url: arazzo/tamara-capture-and-legacy-refund-workflow.yml
+    name: Tamara Capture and Legacy Refund
+    summary: Capture an authorised order, then refund against the returned capture id.
+  - url: arazzo/tamara-capture-and-refund-order-workflow.yml
+    name: Tamara Capture and Refund Order
+    summary: Capture funds against an authorised order, then issue a simplified refund.
+  - url: arazzo/tamara-create-and-authorise-order-workflow.yml
+    name: Tamara Create and Authorise Order
+    summary: Create a checkout session, poll the resulting order, and authorise it once approved.
+  - url: arazzo/tamara-eligibility-gated-checkout-workflow.yml
+    name: Tamara Eligibility-Gated Checkout
+    summary: Check pre-checkout eligibility, then create a checkout session only when eligible.
+  - url: arazzo/tamara-full-bnpl-lifecycle-workflow.yml
+    name: Tamara Full BNPL Lifecycle
+    summary: Create a checkout session, confirm approval, authorise, and capture in one flow.
+  - url: arazzo/tamara-order-status-cancel-workflow.yml
+    name: Tamara Order Status Cancel
+    summary: Read an order's status and cancel it only when it is still cancellable.
+  - url: arazzo/tamara-order-status-refund-workflow.yml
+    name: Tamara Order Status Refund
+    summary: Read an order's status and refund it only when funds have been captured.
 - type: Documentation
   url: https://docs.tamara.co/
 - type: APIReference

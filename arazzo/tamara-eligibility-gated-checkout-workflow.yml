@@ -1,0 +1,170 @@
+arazzo: 1.0.1
+info:
+  title: Tamara Eligibility-Gated Checkout
+  summary: Check pre-checkout eligibility, then create a checkout session only when eligible.
+  description: >-
+    Presents Tamara as a payment option only to eligible customers. The workflow
+    runs a pre-checkout eligibility decision for the customer and order amount,
+    branches on the boolean result, and creates a hosted checkout session followed
+    by an order read only when the customer is eligible; otherwise it ends without
+    creating a session. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI descriptions.
+  version: 1.0.0
+sourceDescriptions:
+- name: eligibilityApi
+  url: ../openapi/tamara-eligibility-api-openapi.yml
+  type: openapi
+- name: checkoutApi
+  url: ../openapi/tamara-checkout-api-openapi.yml
+  type: openapi
+- name: ordersApi
+  url: ../openapi/tamara-orders-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: eligibility-gated-checkout
+  summary: Gate Tamara checkout-session creation behind a pre-checkout eligibility check.
+  description: >-
+    Checks whether the customer is eligible for the order amount and, only when
+    eligible, creates a checkout session and reads back the resulting order.
+  inputs:
+    type: object
+    required:
+    - merchantToken
+    - eligibilityOrder
+    - orderReferenceId
+    - totalAmount
+    - description
+    - countryCode
+    - paymentType
+    - items
+    - consumer
+    - shippingAddress
+    - taxAmount
+    - shippingAmount
+    - merchantUrl
+    properties:
+      merchantToken:
+        type: string
+        description: Tamara-issued merchant API bearer token.
+      eligibilityOrder:
+        type: object
+        description: Eligibility order object with amount and currency.
+      eligibilityCustomer:
+        type: object
+        description: Optional eligibility customer object with an E.164 phone.
+      orderReferenceId:
+        type: string
+        description: The merchant's own reference id for the order.
+      totalAmount:
+        type: object
+        description: Money object with amount and currency for the order total.
+      description:
+        type: string
+        description: Short description of the order (max 256 chars).
+      countryCode:
+        type: string
+        description: Two-letter country code (SA, AE, BH, KW, OM).
+      paymentType:
+        type: string
+        description: PAY_BY_INSTALMENTS or PAY_NOW.
+      items:
+        type: array
+        description: Line items in the order.
+        items:
+          type: object
+      consumer:
+        type: object
+        description: Consumer first_name, last_name, phone_number and optional details.
+      shippingAddress:
+        type: object
+        description: Shipping address for the order.
+      taxAmount:
+        type: object
+        description: Money object for the total tax amount.
+      shippingAmount:
+        type: object
+        description: Money object for the shipping amount.
+      merchantUrl:
+        type: object
+        description: Merchant success/failure/cancel redirect URLs.
+  steps:
+  - stepId: checkEligibility
+    description: >-
+      Check whether the supplied customer is treated as eligible by Tamara for the
+      order amount before presenting Tamara at checkout.
+    operationId: preCheckoutEligibility
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        order: $inputs.eligibilityOrder
+        customer: $inputs.eligibilityCustomer
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      isEligible: $response.body#/is_eligible
+    onSuccess:
+    - name: eligible
+      type: goto
+      stepId: createSession
+      criteria:
+      - context: $response.body
+        condition: $.is_eligible == true
+        type: jsonpath
+    - name: notEligible
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.is_eligible == false
+        type: jsonpath
+  - stepId: createSession
+    description: >-
+      Create a hosted checkout session for the eligible customer so Tamara can
+      complete the BNPL or Pay-Now flow.
+    operationId: createCheckoutSession
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        order_reference_id: $inputs.orderReferenceId
+        total_amount: $inputs.totalAmount
+        description: $inputs.description
+        country_code: $inputs.countryCode
+        payment_type: $inputs.paymentType
+        items: $inputs.items
+        consumer: $inputs.consumer
+        shipping_address: $inputs.shippingAddress
+        tax_amount: $inputs.taxAmount
+        shipping_amount: $inputs.shippingAmount
+        merchant_url: $inputs.merchantUrl
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/order_id
+      checkoutUrl: $response.body#/checkout_url
+  - stepId: getOrder
+    description: >-
+      Read the order Tamara created to surface its initial status to the caller.
+    operationId: getOrderDetails
+    parameters:
+    - name: order_id
+      in: path
+      value: $steps.createSession.outputs.orderId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderStatus: $response.body#/status
+  outputs:
+    isEligible: $steps.checkEligibility.outputs.isEligible
+    orderId: $steps.createSession.outputs.orderId
+    checkoutUrl: $steps.createSession.outputs.checkoutUrl
+    orderStatus: $steps.getOrder.outputs.orderStatus

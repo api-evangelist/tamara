@@ -1,0 +1,171 @@
+arazzo: 1.0.1
+info:
+  title: Tamara Create and Authorise Order
+  summary: Create a checkout session, poll the resulting order, and authorise it once approved.
+  description: >-
+    Drives the first half of Tamara's online BNPL lifecycle. The workflow creates
+    a hosted checkout session, captures the returned order_id, reads the order
+    back to inspect its status, and then branches: when Tamara has approved the
+    order it transitions it to authorised, otherwise it ends without authorising.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI descriptions.
+  version: 1.0.0
+sourceDescriptions:
+- name: checkoutApi
+  url: ../openapi/tamara-checkout-api-openapi.yml
+  type: openapi
+- name: ordersApi
+  url: ../openapi/tamara-orders-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-and-authorise-order
+  summary: Create a Tamara checkout session and authorise the order after it is approved.
+  description: >-
+    Creates a hosted checkout session for the supplied order, retrieves the order
+    Tamara created, and authorises it only when the order status is approved.
+  inputs:
+    type: object
+    required:
+    - merchantToken
+    - orderReferenceId
+    - totalAmount
+    - description
+    - countryCode
+    - paymentType
+    - items
+    - consumer
+    - shippingAddress
+    - taxAmount
+    - shippingAmount
+    - merchantUrl
+    properties:
+      merchantToken:
+        type: string
+        description: Tamara-issued merchant API bearer token.
+      orderReferenceId:
+        type: string
+        description: The merchant's own reference id for the order.
+      orderNumber:
+        type: string
+        description: Optional human-facing order number.
+      totalAmount:
+        type: object
+        description: Money object with amount and currency for the order total.
+      description:
+        type: string
+        description: Short description of the order (max 256 chars).
+      countryCode:
+        type: string
+        description: Two-letter country code (SA, AE, BH, KW, OM).
+      paymentType:
+        type: string
+        description: PAY_BY_INSTALMENTS or PAY_NOW.
+      instalments:
+        type: integer
+        description: Optional number of instalments (2-24).
+      items:
+        type: array
+        description: Line items in the order.
+        items:
+          type: object
+      consumer:
+        type: object
+        description: Consumer first_name, last_name, phone_number and optional details.
+      shippingAddress:
+        type: object
+        description: Shipping address for the order.
+      taxAmount:
+        type: object
+        description: Money object for the total tax amount.
+      shippingAmount:
+        type: object
+        description: Money object for the shipping amount.
+      merchantUrl:
+        type: object
+        description: Merchant success/failure/cancel redirect URLs.
+  steps:
+  - stepId: createSession
+    description: >-
+      Create a hosted checkout session so Tamara can collect payment and complete
+      the BNPL or Pay-Now flow with the consumer.
+    operationId: createCheckoutSession
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        order_reference_id: $inputs.orderReferenceId
+        order_number: $inputs.orderNumber
+        total_amount: $inputs.totalAmount
+        description: $inputs.description
+        country_code: $inputs.countryCode
+        payment_type: $inputs.paymentType
+        instalments: $inputs.instalments
+        items: $inputs.items
+        consumer: $inputs.consumer
+        shipping_address: $inputs.shippingAddress
+        tax_amount: $inputs.taxAmount
+        shipping_amount: $inputs.shippingAmount
+        merchant_url: $inputs.merchantUrl
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/order_id
+      checkoutUrl: $response.body#/checkout_url
+      checkoutStatus: $response.body#/status
+  - stepId: getOrder
+    description: >-
+      Read the order Tamara created so the workflow can inspect its current status
+      before attempting to authorise it.
+    operationId: getOrderDetails
+    parameters:
+    - name: order_id
+      in: path
+      value: $steps.createSession.outputs.orderId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderStatus: $response.body#/status
+      totalAmount: $response.body#/total_amount
+    onSuccess:
+    - name: orderApproved
+      type: goto
+      stepId: authorise
+      criteria:
+      - context: $response.body
+        condition: $.status == "approved"
+        type: jsonpath
+    - name: orderNotApproved
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status != "approved"
+        type: jsonpath
+  - stepId: authorise
+    description: >-
+      Transition the approved order to authorised. Should be called on receipt of
+      the order_approved webhook; uncaptured orders auto-capture after 21 days.
+    operationId: authoriseOrder
+    parameters:
+    - name: order_id
+      in: path
+      value: $steps.createSession.outputs.orderId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      authorisedStatus: $response.body#/status
+      authorizedAmount: $response.body#/authorized_amount
+      autoCaptured: $response.body#/auto_captured
+  outputs:
+    orderId: $steps.createSession.outputs.orderId
+    checkoutUrl: $steps.createSession.outputs.checkoutUrl
+    orderStatus: $steps.getOrder.outputs.orderStatus
+    authorisedStatus: $steps.authorise.outputs.authorisedStatus

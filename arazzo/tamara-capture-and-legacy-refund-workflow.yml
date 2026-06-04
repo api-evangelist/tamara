@@ -1,0 +1,98 @@
+arazzo: 1.0.1
+info:
+  title: Tamara Capture and Legacy Refund
+  summary: Capture an authorised order, then refund against the returned capture id.
+  description: >-
+    Supports integrations still on Tamara's legacy refund endpoint, which refunds
+    against named captures rather than the order as a whole. The workflow captures
+    funds against an authorised order, takes the capture_id returned by the
+    capture, and issues a legacy refund that targets that specific capture. New
+    integrations should prefer the simplified-refund surface; this flow is
+    provided for parity with existing capture-scoped refund logic. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI descriptions.
+  version: 1.0.0
+sourceDescriptions:
+- name: paymentsApi
+  url: ../openapi/tamara-payments-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: capture-and-legacy-refund
+  summary: Capture a Tamara order and refund against the resulting capture id.
+  description: >-
+    Captures the supplied amount against an authorised order and then refunds
+    against the returned capture id using the legacy capture-scoped refund
+    endpoint.
+  inputs:
+    type: object
+    required:
+    - merchantToken
+    - orderId
+    - captureAmount
+    - shippingInfo
+    - refundAmount
+    properties:
+      merchantToken:
+        type: string
+        description: Tamara-issued merchant API bearer token.
+      orderId:
+        type: string
+        description: The Tamara order_id (uuid) to capture then refund.
+      captureAmount:
+        type: object
+        description: Money object (amount + currency) to capture.
+      shippingInfo:
+        type: object
+        description: Shipping info (shipped_at, shipping_company, tracking_number, tracking_url).
+      refundAmount:
+        type: object
+        description: Money object (amount + currency) to refund against the capture.
+  steps:
+  - stepId: capture
+    description: >-
+      Perform a full or partial capture against the authorised order, confirming
+      shipment or fulfilment of items to the customer, and surface the capture id.
+    operationId: captureOrder
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        order_id: $inputs.orderId
+        total_amount: $inputs.captureAmount
+        shipping_info: $inputs.shippingInfo
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      captureId: $response.body#/capture_id
+      captureStatus: $response.body#/status
+      capturedAmount: $response.body#/captured_amount
+  - stepId: legacyRefund
+    description: >-
+      Process a refund against the named capture returned by the capture step using
+      the legacy capture-scoped refund endpoint.
+    operationId: refund
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        order_id: $inputs.orderId
+        refunds:
+        - capture_id: $steps.capture.outputs.captureId
+          total_amount: $inputs.refundAmount
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      refundStatus: $response.body#/status
+      refundedAmount: $response.body#/refunded_amount
+      refunds: $response.body#/refunds
+  outputs:
+    orderId: $inputs.orderId
+    captureId: $steps.capture.outputs.captureId
+    refundStatus: $steps.legacyRefund.outputs.refundStatus
+    refundedAmount: $steps.legacyRefund.outputs.refundedAmount

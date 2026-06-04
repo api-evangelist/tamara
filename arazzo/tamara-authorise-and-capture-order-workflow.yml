@@ -1,0 +1,124 @@
+arazzo: 1.0.1
+info:
+  title: Tamara Authorise and Capture Order
+  summary: Inspect an order, authorise it when approved, then capture funds on fulfilment.
+  description: >-
+    Covers the merchant-side fulfilment hand-off for a Tamara order. The workflow
+    reads the order to confirm it is approved, authorises it, and then performs a
+    full or partial capture to confirm shipment of the goods. When the order is
+    not in an approved state the flow ends before authorising. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI descriptions.
+  version: 1.0.0
+sourceDescriptions:
+- name: ordersApi
+  url: ../openapi/tamara-orders-api-openapi.yml
+  type: openapi
+- name: paymentsApi
+  url: ../openapi/tamara-payments-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: authorise-and-capture-order
+  summary: Authorise an approved Tamara order and capture funds against it.
+  description: >-
+    Reads an order, authorises it when its status is approved, and then captures
+    the supplied amount, confirming fulfilment of the order to the consumer.
+  inputs:
+    type: object
+    required:
+    - merchantToken
+    - orderId
+    - captureAmount
+    - shippingInfo
+    properties:
+      merchantToken:
+        type: string
+        description: Tamara-issued merchant API bearer token.
+      orderId:
+        type: string
+        description: The Tamara order_id (uuid) to authorise and capture.
+      captureAmount:
+        type: object
+        description: Money object (amount + currency) to capture.
+      shippingInfo:
+        type: object
+        description: Shipping info (shipped_at, shipping_company, tracking_number, tracking_url).
+      items:
+        type: array
+        description: Optional captured line items.
+        items:
+          type: object
+  steps:
+  - stepId: getOrder
+    description: >-
+      Read the order to confirm it is approved before authorising and capturing.
+    operationId: getOrderDetails
+    parameters:
+    - name: order_id
+      in: path
+      value: $inputs.orderId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderStatus: $response.body#/status
+      totalAmount: $response.body#/total_amount
+    onSuccess:
+    - name: orderApproved
+      type: goto
+      stepId: authorise
+      criteria:
+      - context: $response.body
+        condition: $.status == "approved"
+        type: jsonpath
+    - name: orderNotApproved
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status != "approved"
+        type: jsonpath
+  - stepId: authorise
+    description: >-
+      Transition the approved order to authorised so funds can be captured.
+    operationId: authoriseOrder
+    parameters:
+    - name: order_id
+      in: path
+      value: $inputs.orderId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      authorisedStatus: $response.body#/status
+      authorizedAmount: $response.body#/authorized_amount
+  - stepId: capture
+    description: >-
+      Perform a full or partial capture against the authorised order, confirming
+      shipment or fulfilment of items to the customer.
+    operationId: captureOrder
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        order_id: $inputs.orderId
+        total_amount: $inputs.captureAmount
+        shipping_info: $inputs.shippingInfo
+        items: $inputs.items
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      captureId: $response.body#/capture_id
+      captureStatus: $response.body#/status
+      capturedAmount: $response.body#/captured_amount
+  outputs:
+    orderId: $inputs.orderId
+    authorisedStatus: $steps.authorise.outputs.authorisedStatus
+    captureId: $steps.capture.outputs.captureId
+    captureStatus: $steps.capture.outputs.captureStatus

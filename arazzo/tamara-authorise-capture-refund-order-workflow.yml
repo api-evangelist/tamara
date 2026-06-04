@@ -1,0 +1,124 @@
+arazzo: 1.0.1
+info:
+  title: Tamara Authorise, Capture and Refund Order
+  summary: Run the full post-checkout money lifecycle — authorise, capture, then refund.
+  description: >-
+    Exercises the complete merchant-side money lifecycle for a single Tamara
+    order in one pass: it authorises an approved order, captures funds against
+    it, and then issues a simplified refund. This is useful for end-to-end
+    reconciliation tests and for orders that are returned shortly after capture.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI descriptions.
+  version: 1.0.0
+sourceDescriptions:
+- name: ordersApi
+  url: ../openapi/tamara-orders-api-openapi.yml
+  type: openapi
+- name: paymentsApi
+  url: ../openapi/tamara-payments-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: authorise-capture-refund-order
+  summary: Authorise, capture, and then refund a Tamara order end to end.
+  description: >-
+    Authorises an approved order, captures the supplied amount, and finally
+    refunds part or all of it using the simplified-refund surface.
+  inputs:
+    type: object
+    required:
+    - merchantToken
+    - orderId
+    - captureAmount
+    - shippingInfo
+    - refundAmount
+    - refundComment
+    properties:
+      merchantToken:
+        type: string
+        description: Tamara-issued merchant API bearer token.
+      orderId:
+        type: string
+        description: The Tamara order_id (uuid) to process.
+      captureAmount:
+        type: object
+        description: Money object (amount + currency) to capture.
+      shippingInfo:
+        type: object
+        description: Shipping info (shipped_at, shipping_company, tracking_number, tracking_url).
+      refundAmount:
+        type: object
+        description: Money object (amount + currency) to refund.
+      refundComment:
+        type: string
+        description: Reason/comment recorded against the refund.
+      merchantRefundId:
+        type: string
+        description: Optional merchant-side refund id for idempotency/reconciliation.
+  steps:
+  - stepId: authorise
+    description: >-
+      Transition the approved order to authorised so funds can be captured.
+    operationId: authoriseOrder
+    parameters:
+    - name: order_id
+      in: path
+      value: $inputs.orderId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      authorisedStatus: $response.body#/status
+      authorizedAmount: $response.body#/authorized_amount
+  - stepId: capture
+    description: >-
+      Perform a full or partial capture against the authorised order, confirming
+      shipment or fulfilment of items to the customer.
+    operationId: captureOrder
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        order_id: $inputs.orderId
+        total_amount: $inputs.captureAmount
+        shipping_info: $inputs.shippingInfo
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      captureId: $response.body#/capture_id
+      captureStatus: $response.body#/status
+      capturedAmount: $response.body#/captured_amount
+  - stepId: refund
+    description: >-
+      Process a partial or full refund against the captured order using the modern
+      simplified-refund surface (no capture ids required).
+    operationId: simplifiedRefund
+    parameters:
+    - name: order_id
+      in: path
+      value: $inputs.orderId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        total_amount: $inputs.refundAmount
+        comment: $inputs.refundComment
+        merchant_refund_id: $inputs.merchantRefundId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      refundId: $response.body#/refund_id
+      refundStatus: $response.body#/status
+      refundedAmount: $response.body#/refunded_amount
+  outputs:
+    orderId: $inputs.orderId
+    authorisedStatus: $steps.authorise.outputs.authorisedStatus
+    captureId: $steps.capture.outputs.captureId
+    refundId: $steps.refund.outputs.refundId
+    refundStatus: $steps.refund.outputs.refundStatus

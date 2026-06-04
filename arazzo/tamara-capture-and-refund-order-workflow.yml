@@ -1,0 +1,105 @@
+arazzo: 1.0.1
+info:
+  title: Tamara Capture and Refund Order
+  summary: Capture funds against an authorised order, then issue a simplified refund.
+  description: >-
+    Chains the two money-movement steps a merchant runs after fulfilment changes.
+    The workflow captures the supplied amount against an already-authorised order
+    and then immediately issues a simplified refund against the same order using
+    the modern refund surface, which does not require the caller to specify
+    individual capture ids. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI descriptions.
+  version: 1.0.0
+sourceDescriptions:
+- name: paymentsApi
+  url: ../openapi/tamara-payments-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: capture-and-refund-order
+  summary: Capture an authorised Tamara order and then refund part or all of it.
+  description: >-
+    Captures the supplied amount against an authorised order, then processes a
+    partial or full simplified refund against that order.
+  inputs:
+    type: object
+    required:
+    - merchantToken
+    - orderId
+    - captureAmount
+    - shippingInfo
+    - refundAmount
+    - refundComment
+    properties:
+      merchantToken:
+        type: string
+        description: Tamara-issued merchant API bearer token.
+      orderId:
+        type: string
+        description: The Tamara order_id (uuid) to capture then refund.
+      captureAmount:
+        type: object
+        description: Money object (amount + currency) to capture.
+      shippingInfo:
+        type: object
+        description: Shipping info (shipped_at, shipping_company, tracking_number, tracking_url).
+      refundAmount:
+        type: object
+        description: Money object (amount + currency) to refund.
+      refundComment:
+        type: string
+        description: Reason/comment recorded against the refund.
+      merchantRefundId:
+        type: string
+        description: Optional merchant-side refund id for idempotency/reconciliation.
+  steps:
+  - stepId: capture
+    description: >-
+      Perform a full or partial capture against the authorised order, confirming
+      shipment or fulfilment of items to the customer.
+    operationId: captureOrder
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        order_id: $inputs.orderId
+        total_amount: $inputs.captureAmount
+        shipping_info: $inputs.shippingInfo
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      captureId: $response.body#/capture_id
+      captureStatus: $response.body#/status
+      capturedAmount: $response.body#/captured_amount
+  - stepId: refund
+    description: >-
+      Process a partial or full refund against the captured order using the modern
+      simplified-refund surface (no capture ids required).
+    operationId: simplifiedRefund
+    parameters:
+    - name: order_id
+      in: path
+      value: $inputs.orderId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.merchantToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        total_amount: $inputs.refundAmount
+        comment: $inputs.refundComment
+        merchant_refund_id: $inputs.merchantRefundId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      refundId: $response.body#/refund_id
+      refundStatus: $response.body#/status
+      refundedAmount: $response.body#/refunded_amount
+  outputs:
+    orderId: $inputs.orderId
+    captureId: $steps.capture.outputs.captureId
+    captureStatus: $steps.capture.outputs.captureStatus
+    refundId: $steps.refund.outputs.refundId
+    refundStatus: $steps.refund.outputs.refundStatus
