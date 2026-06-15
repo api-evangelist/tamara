@@ -1,0 +1,389 @@
+{
+  "item": [
+    {
+      "id": "0d1b3c03-62a6-4288-a648-bcdb256bdac0",
+      "name": "In-Store Checkout",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a9a3db8c-3e6b-401e-b3d2-80fb963c64f4",
+          "name": "Create In-Store SMS Payment Link Checkout Session",
+          "request": {
+            "name": "Create In-Store SMS Payment Link Checkout Session",
+            "description": {
+              "content": "Create an in-store checkout session and SMS a Tamara payment link to the supplied\nconsumer phone number. Returns a `checkout_id`, `order_id`, and `checkout_deeplink`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checkout",
+                "in-store-session"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"total_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"phone_number\": \"<string>\",\n  \"order_reference_id\": \"<string>\",\n  \"items\": [\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    }\n  ],\n  \"order_number\": \"<string>\",\n  \"email\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"expires_in_minutes\": 15,\n  \"additional_data\": {\n    \"store_code\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aee44dcb-1ada-488d-8f84-251c395e615b",
+              "name": "Session created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout",
+                    "in-store-session"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"phone_number\": \"<string>\",\n  \"order_reference_id\": \"<string>\",\n  \"items\": [\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    }\n  ],\n  \"order_number\": \"<string>\",\n  \"email\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"expires_in_minutes\": 15,\n  \"additional_data\": {\n    \"store_code\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"checkout_id\": \"8ee939ac-95a8-9b60-04be-7ca476474df1\",\n  \"order_id\": \"5117a2ff-3a59-5378-e4f0-3346ed0ae60f\",\n  \"checkout_deeplink\": \"https://ey.lobHYxi,RVKu\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "847770c0-74dc-49a5-9895-f8ae111c7575",
+          "name": "Create In-Store QR Code Checkout Session",
+          "request": {
+            "name": "Create In-Store QR Code Checkout Session",
+            "description": {
+              "content": "Create an in-store checkout deeplink that can be rendered as a QR code for the\nconsumer to scan in-store with the Tamara app.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checkout",
+                "in-store"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) POS device identifier.",
+                "key": "X-Device-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"platform\": \"<string>\",\n  \"order_reference_id\": \"<string>\",\n  \"order_number\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"additional_data\": {\n    \"store_code\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "04327a78-c4f1-4c61-811b-cfb40c3fde92",
+              "name": "Session created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout",
+                    "in-store"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) POS device identifier.",
+                    "key": "X-Device-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"platform\": \"PARTNERNAME_POS_QR\",\n  \"order_reference_id\": \"<string>\",\n  \"order_number\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"additional_data\": {\n    \"store_code\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"checkout_id\": \"8ee939ac-95a8-9b60-04be-7ca476474df1\",\n  \"order_id\": \"5117a2ff-3a59-5378-e4f0-3346ed0ae60f\",\n  \"checkout_deeplink\": \"https://ey.lobHYxi,RVKu\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5df37216-19b7-4ed3-b62e-a46bda8ab5de",
+          "name": "Void Checkout Session",
+          "request": {
+            "name": "Void Checkout Session",
+            "description": {
+              "content": "Void an in-store checkout session before the consumer completes the payment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checkout",
+                ":checkout_id",
+                "void"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "order_id",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "store_code",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "checkout_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4f6ba8f5-a3f9-4ec2-ad0f-10bba148511f",
+              "name": "Void result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout",
+                    ":checkout_id",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "order_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "store_code",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "checkout_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"success\",\n  \"captured_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tamara.co",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3fe265d0-2a47-469c-8511-6417174c6cae",
+    "name": "Tamara In-Store Checkout API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Generate Tamara checkout sessions for brick-and-mortar stores through SMS payment links\nor QR codes that customers scan with the Tamara consumer app to complete the BNPL\npurchase in-aisle.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+      "type": "text/plain"
+    }
+  }
+}

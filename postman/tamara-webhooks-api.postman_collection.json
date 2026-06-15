@@ -1,0 +1,454 @@
+{
+  "info": {
+    "_postman_id": "317c15ef-4d58-412f-bdef-33a71010634e",
+    "name": "Tamara Webhooks API",
+    "description": "Register and manage HTTPS webhook endpoints that receive order and dispute lifecycle\nevents from Tamara. Notifications include a JWT-encoded `tamaraToken` in the query\nstring and Authorization header for verification.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:55.000Z",
+    "updatedAt": "2026-06-05T15:18:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-317c15ef-4d58-412f-bdef-33a71010634e"
+  },
+  "item": [
+    {
+      "name": "webhooks",
+      "item": [
+        {
+          "name": "{webhookId}",
+          "item": [
+            {
+              "name": "Retrieve Webhook URL",
+              "id": "260054b8-96de-4b04-9ef7-4c9deb5fba85",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/:webhookId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    ":webhookId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "69b7c2c4-0f09-4d5d-b418-8745ff427bd3",
+                      "key": "webhookId",
+                      "value": "<uuid>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "a4c85b7b-f37d-4550-ba9c-69a3127d7daa",
+                  "name": "Webhook configuration.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/:webhookId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        ":webhookId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhookId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"merchant_id\": \"<uuid>\",\n  \"webhook_id\": \"<uuid>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": {\n    \"inb4\": \"<string>\",\n    \"culpa5\": \"<string>\",\n    \"nisi_8\": \"<string>\",\n    \"ex2e9\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:18:55.000Z",
+                  "updatedAt": "2026-06-05T15:18:55.000Z",
+                  "uid": "35240-a4c85b7b-f37d-4550-ba9c-69a3127d7daa"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:55.000Z",
+              "updatedAt": "2026-06-05T15:18:55.000Z",
+              "uid": "35240-260054b8-96de-4b04-9ef7-4c9deb5fba85"
+            },
+            {
+              "name": "Update Webhook URL",
+              "id": "2dd19a2f-d4c1-4477-ad11-18d8965a4a2a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": {\n    \"cillum3\": \"<string>\",\n    \"tempor_a\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/:webhookId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    ":webhookId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "7d3dd9b4-f8ed-4dd6-a246-31688e12ba59",
+                      "key": "webhookId",
+                      "value": "<uuid>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "5f86fc26-0f95-447c-8658-b66b7c3b3353",
+                  "name": "Webhook updated.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": {\n    \"cillum3\": \"<string>\",\n    \"tempor_a\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/:webhookId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        ":webhookId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhookId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"merchant_id\": \"<uuid>\",\n  \"webhook_id\": \"<uuid>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": {\n    \"inb4\": \"<string>\",\n    \"culpa5\": \"<string>\",\n    \"nisi_8\": \"<string>\",\n    \"ex2e9\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:18:55.000Z",
+                  "updatedAt": "2026-06-05T15:18:55.000Z",
+                  "uid": "35240-5f86fc26-0f95-447c-8658-b66b7c3b3353"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:55.000Z",
+              "updatedAt": "2026-06-05T15:18:55.000Z",
+              "uid": "35240-2dd19a2f-d4c1-4477-ad11-18d8965a4a2a"
+            },
+            {
+              "name": "Delete Webhook URL",
+              "id": "d0a341eb-b6d7-4750-aacb-6a4e44b20e9a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/:webhookId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    ":webhookId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "c6ab1861-6d36-4e5e-a8b3-c900d4953f03",
+                      "key": "webhookId",
+                      "value": "<uuid>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "421d15fd-4a4e-4103-8067-fe5906ec453c",
+                  "name": "Webhook deleted.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/:webhookId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        ":webhookId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhookId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:55.000Z",
+                  "updatedAt": "2026-06-05T15:18:55.000Z",
+                  "uid": "35240-421d15fd-4a4e-4103-8067-fe5906ec453c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:55.000Z",
+              "updatedAt": "2026-06-05T15:18:55.000Z",
+              "uid": "35240-d0a341eb-b6d7-4750-aacb-6a4e44b20e9a"
+            }
+          ],
+          "id": "bbed31b3-109b-4aeb-90d3-8eb4ff18428d",
+          "createdAt": "2026-06-05T15:18:55.000Z",
+          "updatedAt": "2026-06-05T15:18:55.000Z",
+          "uid": "35240-bbed31b3-109b-4aeb-90d3-8eb4ff18428d"
+        },
+        {
+          "name": "Register Webhook URL",
+          "id": "23593901-d04a-4379-bf62-91a6ddc84bd0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"dispute\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": {\n    \"in_c13\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/webhooks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks"
+              ]
+            },
+            "description": "Register a new webhook endpoint that Tamara will POST notifications to."
+          },
+          "response": [
+            {
+              "id": "195141f7-ab72-47ee-9a02-82cb71fcb15f",
+              "name": "Webhook registered.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"dispute\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": {\n    \"in_c13\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"merchant_id\": \"<uuid>\",\n  \"webhook_id\": \"<uuid>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": {\n    \"inb4\": \"<string>\",\n    \"culpa5\": \"<string>\",\n    \"nisi_8\": \"<string>\",\n    \"ex2e9\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:18:55.000Z",
+              "updatedAt": "2026-06-05T15:18:55.000Z",
+              "uid": "35240-195141f7-ab72-47ee-9a02-82cb71fcb15f"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:55.000Z",
+          "updatedAt": "2026-06-05T15:18:55.000Z",
+          "uid": "35240-23593901-d04a-4379-bf62-91a6ddc84bd0"
+        }
+      ],
+      "id": "c25bcf8f-c2ab-4bdb-b474-08207cc1f2dc",
+      "createdAt": "2026-06-05T15:18:55.000Z",
+      "updatedAt": "2026-06-05T15:18:55.000Z",
+      "uid": "35240-c25bcf8f-c2ab-4bdb-b474-08207cc1f2dc"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.tamara.co"
+    }
+  ]
+}

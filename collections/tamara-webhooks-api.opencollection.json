@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tamara Webhooks API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register Webhook URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tamara.co/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Register a new webhook endpoint that Tamara will POST notifications to."
+        },
+        {
+          "info": {
+            "name": "Retrieve Webhook URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tamara.co/webhooks/:webhookId",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve Webhook URL"
+        },
+        {
+          "info": {
+            "name": "Update Webhook URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tamara.co/webhooks/:webhookId",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update Webhook URL"
+        },
+        {
+          "info": {
+            "name": "Delete Webhook URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tamara.co/webhooks/:webhookId",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete Webhook URL"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

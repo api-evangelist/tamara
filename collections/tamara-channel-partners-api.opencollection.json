@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tamara Channel Partners API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Merchant Onboarding",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Merchant Onboarding",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-api.tamara.co/channel-partners/merchant-onboarding/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Submit merchant and KYB information to initiate automated onboarding and verification."
+        },
+        {
+          "info": {
+            "name": "Retrieve Merchant Onboarding",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-api.tamara.co/channel-partners/merchant-onboarding/:onboardingCode",
+            "params": [
+              {
+                "name": "onboardingCode",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve Merchant Onboarding"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Merchant API Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Merchant API Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-api.tamara.co/channel-partners/merchant/:merchantId/api-key",
+            "params": [
+              {
+                "name": "merchantId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve API, public, and notification keys for an onboarded merchant."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Channel Partner Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register Channel Partner Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-api.tamara.co/channel-partners/webhooks/register",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Register a new webhook for onboarding status notifications."
+        },
+        {
+          "info": {
+            "name": "Retrieve Channel Partner Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-api.tamara.co/channel-partners/webhooks",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve Channel Partner Webhooks"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,196 @@
+{
+  "info": {
+    "_postman_id": "c044c57c-eb47-4086-876b-5946f911d615",
+    "name": "Tamara Checkout API",
+    "description": "Create online checkout sessions that send customer and order information to Tamara\nand receive a hosted checkout URL where the consumer completes the BNPL or Pay-Now flow.\nSupports SAR, AED, BHD, KWD, and OMR across Saudi Arabia, the UAE, Bahrain, Kuwait, and Oman.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:51.000Z",
+    "updatedAt": "2026-06-05T15:18:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c044c57c-eb47-4086-876b-5946f911d615"
+  },
+  "item": [
+    {
+      "name": "checkout",
+      "item": [
+        {
+          "name": "Create Checkout Session",
+          "id": "dc8bc5cc-a576-44e1-8d4c-1ae93fb22eab",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_reference_id\": \"<string>\",\n  \"total_amount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"KWD\"\n  },\n  \"description\": \"<string>\",\n  \"country_code\": \"SA\",\n  \"payment_type\": \"PAY_BY_INSTALMENTS\",\n  \"items\": [\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"KWD\"\n      },\n      \"unit_price\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"OMR\"\n      },\n      \"discount_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"KWD\"\n      },\n      \"tax_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"BHD\"\n      },\n      \"image_url\": \"<uri>\"\n    },\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"OMR\"\n      },\n      \"unit_price\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"BHD\"\n      },\n      \"discount_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"OMR\"\n      },\n      \"tax_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"OMR\"\n      },\n      \"image_url\": \"<uri>\"\n    }\n  ],\n  \"consumer\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<email>\",\n    \"date_of_birth\": \"<date>\",\n    \"national_id\": \"<string>\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"region\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  },\n  \"tax_amount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"BHD\"\n  },\n  \"shipping_amount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"AED\"\n  },\n  \"merchant_url\": {\n    \"success\": \"<uri>\",\n    \"failure\": \"<uri>\",\n    \"cancel\": \"<uri>\",\n    \"notification\": \"<uri>\"\n  },\n  \"order_number\": \"<string>\",\n  \"instalments\": \"<integer>\",\n  \"locale\": \"ar_SA\",\n  \"billing_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"region\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  },\n  \"discount\": {\n    \"name\": \"<string>\",\n    \"amount\": {\n      \"amount\": \"<double>\",\n      \"currency\": \"OMR\"\n    }\n  },\n  \"platform\": \"<string>\",\n  \"is_mobile\": \"<boolean>\",\n  \"risk_assessment\": {\n    \"Excepteurbc4\": false,\n    \"officia_917\": true\n  },\n  \"expires_in_minutes\": 30,\n  \"additional_data\": {\n    \"aliqua827\": -87360335,\n    \"quifd6\": -25140040,\n    \"ullamco_a\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkout"
+              ]
+            },
+            "description": "Create a hosted checkout session where Tamara collects payment information and\ncompletes the BNPL or Pay-Now flow with the consumer. Store the returned\n`order_id` and redirect the customer to `checkout_url`.\n"
+          },
+          "response": [
+            {
+              "id": "e826ca08-a453-4b54-afd2-f29a8e713800",
+              "name": "Checkout session created.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_reference_id\": \"<string>\",\n  \"total_amount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"KWD\"\n  },\n  \"description\": \"<string>\",\n  \"country_code\": \"SA\",\n  \"payment_type\": \"PAY_BY_INSTALMENTS\",\n  \"items\": [\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"KWD\"\n      },\n      \"unit_price\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"OMR\"\n      },\n      \"discount_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"KWD\"\n      },\n      \"tax_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"BHD\"\n      },\n      \"image_url\": \"<uri>\"\n    },\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"OMR\"\n      },\n      \"unit_price\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"BHD\"\n      },\n      \"discount_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"OMR\"\n      },\n      \"tax_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"OMR\"\n      },\n      \"image_url\": \"<uri>\"\n    }\n  ],\n  \"consumer\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<email>\",\n    \"date_of_birth\": \"<date>\",\n    \"national_id\": \"<string>\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"region\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  },\n  \"tax_amount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"BHD\"\n  },\n  \"shipping_amount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"AED\"\n  },\n  \"merchant_url\": {\n    \"success\": \"<uri>\",\n    \"failure\": \"<uri>\",\n    \"cancel\": \"<uri>\",\n    \"notification\": \"<uri>\"\n  },\n  \"order_number\": \"<string>\",\n  \"instalments\": \"<integer>\",\n  \"locale\": \"ar_SA\",\n  \"billing_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"region\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  },\n  \"discount\": {\n    \"name\": \"<string>\",\n    \"amount\": {\n      \"amount\": \"<double>\",\n      \"currency\": \"OMR\"\n    }\n  },\n  \"platform\": \"<string>\",\n  \"is_mobile\": \"<boolean>\",\n  \"risk_assessment\": {\n    \"Excepteurbc4\": false,\n    \"officia_917\": true\n  },\n  \"expires_in_minutes\": 30,\n  \"additional_data\": {\n    \"aliqua827\": -87360335,\n    \"quifd6\": -25140040,\n    \"ullamco_a\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/checkout",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "checkout"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"order_id\": \"<uuid>\",\n  \"checkout_id\": \"<uuid>\",\n  \"checkout_url\": \"<uri>\",\n  \"status\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:18:51.000Z",
+              "updatedAt": "2026-06-05T15:18:51.000Z",
+              "uid": "35240-e826ca08-a453-4b54-afd2-f29a8e713800"
+            },
+            {
+              "id": "410beaca-df0f-4fd7-a458-6451bb494b84",
+              "name": "Validation failure (e.g. unsupported country/currency combination).",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_reference_id\": \"<string>\",\n  \"total_amount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"KWD\"\n  },\n  \"description\": \"<string>\",\n  \"country_code\": \"SA\",\n  \"payment_type\": \"PAY_BY_INSTALMENTS\",\n  \"items\": [\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"KWD\"\n      },\n      \"unit_price\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"OMR\"\n      },\n      \"discount_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"KWD\"\n      },\n      \"tax_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"BHD\"\n      },\n      \"image_url\": \"<uri>\"\n    },\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"OMR\"\n      },\n      \"unit_price\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"BHD\"\n      },\n      \"discount_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"OMR\"\n      },\n      \"tax_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"OMR\"\n      },\n      \"image_url\": \"<uri>\"\n    }\n  ],\n  \"consumer\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<email>\",\n    \"date_of_birth\": \"<date>\",\n    \"national_id\": \"<string>\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"region\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  },\n  \"tax_amount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"BHD\"\n  },\n  \"shipping_amount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"AED\"\n  },\n  \"merchant_url\": {\n    \"success\": \"<uri>\",\n    \"failure\": \"<uri>\",\n    \"cancel\": \"<uri>\",\n    \"notification\": \"<uri>\"\n  },\n  \"order_number\": \"<string>\",\n  \"instalments\": \"<integer>\",\n  \"locale\": \"ar_SA\",\n  \"billing_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"region\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  },\n  \"discount\": {\n    \"name\": \"<string>\",\n    \"amount\": {\n      \"amount\": \"<double>\",\n      \"currency\": \"OMR\"\n    }\n  },\n  \"platform\": \"<string>\",\n  \"is_mobile\": \"<boolean>\",\n  \"risk_assessment\": {\n    \"Excepteurbc4\": false,\n    \"officia_917\": true\n  },\n  \"expires_in_minutes\": 30,\n  \"additional_data\": {\n    \"aliqua827\": -87360335,\n    \"quifd6\": -25140040,\n    \"ullamco_a\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/checkout",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "checkout"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"errors\": [\n    {\n      \"error_code\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"error_code\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:18:51.000Z",
+              "updatedAt": "2026-06-05T15:18:51.000Z",
+              "uid": "35240-410beaca-df0f-4fd7-a458-6451bb494b84"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:51.000Z",
+          "updatedAt": "2026-06-05T15:18:51.000Z",
+          "uid": "35240-dc8bc5cc-a576-44e1-8d4c-1ae93fb22eab"
+        }
+      ],
+      "id": "bfbbf90b-5953-440f-b098-6775753098b2",
+      "createdAt": "2026-06-05T15:18:51.000Z",
+      "updatedAt": "2026-06-05T15:18:51.000Z",
+      "uid": "35240-bfbbf90b-5953-440f-b098-6775753098b2"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.tamara.co"
+    }
+  ]
+}

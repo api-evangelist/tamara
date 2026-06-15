@@ -1,0 +1,388 @@
+{
+  "item": [
+    {
+      "id": "5e82edca-fb33-4cc0-9ce4-fdd7f7630abb",
+      "name": "Captures",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "08a44710-38b2-4810-b856-dba9a153f1ba",
+          "name": "Capture Order",
+          "request": {
+            "name": "Capture Order",
+            "description": {
+              "content": "Perform a full or partial capture of an authorised order, confirming shipment or\nfulfilment of items to the customer. Status returned will be `fully_captured` or\n`partially_captured` based on the amount captured.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "capture"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": \"<uuid>\",\n  \"total_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"shipping_info\": {\n    \"shipped_at\": \"<dateTime>\",\n    \"shipping_company\": \"<string>\",\n    \"tracking_number\": \"<string>\",\n    \"tracking_url\": \"<uri>\"\n  },\n  \"items\": [\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    }\n  ],\n  \"discount_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"shipping_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"tax_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8ff21e3d-f8c5-4835-aeae-4fbc6de9aed1",
+              "name": "Capture successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "capture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"<uuid>\",\n  \"total_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"shipping_info\": {\n    \"shipped_at\": \"<dateTime>\",\n    \"shipping_company\": \"<string>\",\n    \"tracking_number\": \"<string>\",\n    \"tracking_url\": \"<uri>\"\n  },\n  \"items\": [\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    }\n  ],\n  \"discount_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"shipping_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"tax_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"capture_id\": \"ddf432ca-423b-9d51-f83e-325b636b3f74\",\n  \"order_id\": \"971aa76e-fcf8-bf0f-522a-15c71f8cec52\",\n  \"status\": \"fully_captured\",\n  \"captured_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "52bc45ab-2513-417b-b40e-052e39fa54e7",
+      "name": "Refunds",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1bb54f34-063e-4370-acbb-23d3a8f3e26e",
+          "name": "Simplified Refund",
+          "request": {
+            "name": "Simplified Refund",
+            "description": {
+              "content": "Modern refund surface that processes a partial or full refund against an order without\nrequiring the caller to specify individual capture ids.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "simplified-refund",
+                ":order_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "order_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"total_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"comment\": \"<string>\",\n  \"merchant_refund_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "42a71b09-74e4-4326-8e0e-06e2025794fb",
+              "name": "Refund successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "simplified-refund",
+                    ":order_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "order_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"comment\": \"Refund for the order A123\",\n  \"merchant_refund_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"order_id\": \"d3d7b837-e044-9bc8-9214-e2d0b9ac17f0\",\n  \"refund_id\": \"361602f2-baca-517c-9bc7-4c810439dd0d\",\n  \"capture_id\": \"441c55aa-53f3-0533-94a7-072bd8a01e0f\",\n  \"comment\": \"string\",\n  \"status\": \"partially_refunded\",\n  \"refunded_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b7c01db-b8d3-416c-8733-644dde6d3020",
+          "name": "Refund",
+          "request": {
+            "name": "Refund",
+            "description": {
+              "content": "Legacy refund endpoint that processes one or more refunds against named captures\nbelonging to an order. New integrations should prefer `/payments/simplified-refund/{order_id}`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "refund"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": \"<uuid>\",\n  \"refunds\": [\n    {\n      \"capture_id\": \"<string>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"refund_id\": \"<string>\",\n      \"tax_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"shipping_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"discount_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"items\": [\n        {\n          \"reference_id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"name\": \"<string>\",\n          \"sku\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"total_amount\": {\n            \"amount\": \"<number>\",\n            \"currency\": \"<string>\"\n          }\n        },\n        {\n          \"reference_id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"name\": \"<string>\",\n          \"sku\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"total_amount\": {\n            \"amount\": \"<number>\",\n            \"currency\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"capture_id\": \"<string>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"refund_id\": \"<string>\",\n      \"tax_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"shipping_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"discount_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"items\": [\n        {\n          \"reference_id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"name\": \"<string>\",\n          \"sku\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"total_amount\": {\n            \"amount\": \"<number>\",\n            \"currency\": \"<string>\"\n          }\n        },\n        {\n          \"reference_id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"name\": \"<string>\",\n          \"sku\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"total_amount\": {\n            \"amount\": \"<number>\",\n            \"currency\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "34da5dd8-c0b9-492d-b609-eba36bff12e2",
+              "name": "Refund(s) successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"<uuid>\",\n  \"refunds\": [\n    {\n      \"capture_id\": \"<string>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"refund_id\": \"<string>\",\n      \"tax_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"shipping_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"discount_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"items\": [\n        {\n          \"reference_id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"name\": \"<string>\",\n          \"sku\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"total_amount\": {\n            \"amount\": \"<number>\",\n            \"currency\": \"<string>\"\n          }\n        },\n        {\n          \"reference_id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"name\": \"<string>\",\n          \"sku\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"total_amount\": {\n            \"amount\": \"<number>\",\n            \"currency\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"capture_id\": \"<string>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"refund_id\": \"<string>\",\n      \"tax_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"shipping_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"discount_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"items\": [\n        {\n          \"reference_id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"name\": \"<string>\",\n          \"sku\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"total_amount\": {\n            \"amount\": \"<number>\",\n            \"currency\": \"<string>\"\n          }\n        },\n        {\n          \"reference_id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"name\": \"<string>\",\n          \"sku\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"total_amount\": {\n            \"amount\": \"<number>\",\n            \"currency\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"order_id\": \"b4be698d-8e6f-5005-4d26-a0cdd56ef983\",\n  \"refunds\": [\n    {\n      \"refund_id\": \"string\",\n      \"capture_id\": \"string\"\n    },\n    {\n      \"refund_id\": \"string\",\n      \"capture_id\": \"string\"\n    }\n  ],\n  \"status\": \"fully_refunded\",\n  \"refunded_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tamara.co",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "be965d5a-47dc-4e47-a395-ae75d79d668d",
+    "name": "Tamara Payments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Capture funds against an authorised order and process refunds via either the modern\nsimplified-refund endpoint or the legacy refund endpoint.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+      "type": "text/plain"
+    }
+  }
+}

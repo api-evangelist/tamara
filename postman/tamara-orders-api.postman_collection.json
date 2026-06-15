@@ -1,0 +1,616 @@
+{
+  "info": {
+    "_postman_id": "00df92a6-beb8-4e6d-adce-5c76535da5f9",
+    "name": "Tamara Orders API",
+    "description": "Authorise, retrieve, update, and cancel orders created via Tamara checkout sessions.\nThe Orders API mirrors Tamara's online checkout lifecycle (new \u2192 approved \u2192\nauthorised \u2192 captured \u2192 refunded) and is the merchant's primary post-checkout integration.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:52.000Z",
+    "updatedAt": "2026-06-05T15:18:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-00df92a6-beb8-4e6d-adce-5c76535da5f9"
+  },
+  "item": [
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "{order_id}",
+          "item": [
+            {
+              "name": "authorise",
+              "item": [
+                {
+                  "name": "Authorise Order",
+                  "id": "e00fa19c-cc74-4fc4-830c-11b5918fd6d4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:order_id/authorise",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":order_id",
+                        "authorise"
+                      ],
+                      "variable": [
+                        {
+                          "id": "05a341ad-9206-4690-b109-3f3af2dca275",
+                          "key": "order_id",
+                          "value": "<uuid>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Transition an `approved` order to `authorised`. Should be called on receipt of the\n`order_approved` webhook event. Orders not captured within 21 days auto-capture automatically.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "1dcc1dd2-2d54-4030-9285-868d9c062a44",
+                      "name": "Authorisation successful.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:order_id/authorise",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":order_id",
+                            "authorise"
+                          ],
+                          "variable": [
+                            {
+                              "key": "order_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"order_id\": \"<uuid>\",\n  \"status\": \"<string>\",\n  \"order_expiry_time\": \"<string>\",\n  \"payment_type\": \"PAY_BY_INSTALMENTS\",\n  \"auto_captured\": \"<boolean>\",\n  \"authorized_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"AED\"\n  },\n  \"capture_id\": \"<uuid>\"\n}",
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-1dcc1dd2-2d54-4030-9285-868d9c062a44"
+                    },
+                    {
+                      "id": "b120dc75-7625-468f-babb-f3b603170759",
+                      "name": "Authorisation failed; verify order status before retrying.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:order_id/authorise",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":order_id",
+                            "authorise"
+                          ],
+                          "variable": [
+                            {
+                              "key": "order_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-b120dc75-7625-468f-babb-f3b603170759"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-e00fa19c-cc74-4fc4-830c-11b5918fd6d4"
+                }
+              ],
+              "id": "5295fae4-689d-4e67-99b5-203590fbb691",
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-5295fae4-689d-4e67-99b5-203590fbb691"
+            },
+            {
+              "name": "cancel",
+              "item": [
+                {
+                  "name": "Cancel Order",
+                  "id": "a9870793-e23f-4318-a4e2-b6a4d1684674",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"total_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"OMR\"\n  },\n  \"shipping_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"OMR\"\n  },\n  \"tax_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"BHD\"\n  },\n  \"discount_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"KWD\"\n  },\n  \"items\": [\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"KWD\"\n      }\n    },\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"KWD\"\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:order_id/cancel",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":order_id",
+                        "cancel"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b88ec0c4-e539-499e-886a-939c365e851b",
+                          "key": "order_id",
+                          "value": "<uuid>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Cancel an authorised order or reduce its total amount before capture. Returns the\ncancellation id and updated amount.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "9640e777-550a-4f73-8fc9-50c2065db440",
+                      "name": "Cancelled or updated.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"total_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"OMR\"\n  },\n  \"shipping_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"OMR\"\n  },\n  \"tax_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"BHD\"\n  },\n  \"discount_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"KWD\"\n  },\n  \"items\": [\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"KWD\"\n      }\n    },\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"KWD\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:order_id/cancel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":order_id",
+                            "cancel"
+                          ],
+                          "variable": [
+                            {
+                              "key": "order_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"cancel_id\": \"<uuid>\",\n  \"order_id\": \"<uuid>\",\n  \"status\": \"canceled\",\n  \"canceled_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"OMR\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-9640e777-550a-4f73-8fc9-50c2065db440"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-a9870793-e23f-4318-a4e2-b6a4d1684674"
+                }
+              ],
+              "id": "d5f7ac13-ef12-48d2-869c-3224c1e16a20",
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-d5f7ac13-ef12-48d2-869c-3224c1e16a20"
+            },
+            {
+              "name": "reference-id",
+              "item": [
+                {
+                  "name": "Update Order Reference ID",
+                  "id": "2f02307c-4b8b-484d-be25-2ab94863fc71",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"order_reference_id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:order_id/reference-id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":order_id",
+                        "reference-id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "71158345-b19e-4b7d-8825-21272f27b9b1",
+                          "key": "order_id",
+                          "value": "<uuid>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Update the `order_reference_id` stored on Tamara's side at any point after the checkout session has been created."
+                  },
+                  "response": [
+                    {
+                      "id": "ed19f572-8242-4875-8969-97ba365729fd",
+                      "name": "Reference id updated.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"order_reference_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:order_id/reference-id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":order_id",
+                            "reference-id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "order_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-ed19f572-8242-4875-8969-97ba365729fd"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-2f02307c-4b8b-484d-be25-2ab94863fc71"
+                }
+              ],
+              "id": "fdb10211-0c40-469f-bb9d-450abdde93ec",
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-fdb10211-0c40-469f-bb9d-450abdde93ec"
+            },
+            {
+              "name": "Get Order Details by Order ID",
+              "id": "b138263b-14db-46d5-bc1f-2ca18a23f140",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orders/:order_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders",
+                    ":order_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "73364332-a51b-475c-9d0e-49c8916cee35",
+                      "key": "order_id",
+                      "value": "<uuid>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Fetch all order details available on Tamara's side using the unique `order_id`."
+              },
+              "response": [
+                {
+                  "id": "bb216644-cf26-4ebc-982e-c9719b7a1bc6",
+                  "name": "Order details.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:order_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":order_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "order_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"order_id\": \"<uuid>\",\n  \"order_reference_id\": \"<string>\",\n  \"order_number\": \"<string>\",\n  \"status\": \"fully_refunded\",\n  \"payment_type\": \"PAY_BY_INSTALMENTS\",\n  \"instalments\": \"<integer>\",\n  \"total_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"BHD\"\n  },\n  \"captured_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"OMR\"\n  },\n  \"refunded_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"BHD\"\n  },\n  \"canceled_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"BHD\"\n  },\n  \"consumer\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"date_of_birth\": \"<date>\"\n  },\n  \"items\": [\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"AED\"\n      }\n    },\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"AED\"\n      }\n    }\n  ],\n  \"transactions\": {},\n  \"created_at\": \"<dateTime>\",\n  \"order_expiry_time\": \"<dateTime>\",\n  \"settlement\": {\n    \"labore_d88\": \"nisi eu consectetur\",\n    \"aliquip1\": \"dolore ut\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-bb216644-cf26-4ebc-982e-c9719b7a1bc6"
+                },
+                {
+                  "id": "d2eb7d96-041f-4d1a-9ac6-de44c3d2c25f",
+                  "name": "Order not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:order_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":order_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "order_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-d2eb7d96-041f-4d1a-9ac6-de44c3d2c25f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-b138263b-14db-46d5-bc1f-2ca18a23f140"
+            }
+          ],
+          "id": "f0c0ac7a-4f1f-4ec5-ada0-10ac5bbca571",
+          "createdAt": "2026-06-05T15:18:52.000Z",
+          "updatedAt": "2026-06-05T15:18:52.000Z",
+          "uid": "35240-f0c0ac7a-4f1f-4ec5-ada0-10ac5bbca571"
+        }
+      ],
+      "id": "80ed744f-6544-4ef7-b2d1-cf12bb6a12dc",
+      "createdAt": "2026-06-05T15:18:52.000Z",
+      "updatedAt": "2026-06-05T15:18:52.000Z",
+      "uid": "35240-80ed744f-6544-4ef7-b2d1-cf12bb6a12dc"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.tamara.co"
+    }
+  ]
+}

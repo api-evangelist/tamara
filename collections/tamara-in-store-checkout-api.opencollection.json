@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tamara In-Store Checkout API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "In-Store Checkout",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create In-Store SMS Payment Link Checkout Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tamara.co/checkout/in-store-session",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create an in-store checkout session and SMS a Tamara payment link to the supplied\nconsumer phone number. Returns a `checkout_id`, `order_id`, and `checkout_deeplink`.\n"
+        },
+        {
+          "info": {
+            "name": "Create In-Store QR Code Checkout Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tamara.co/checkout/in-store",
+            "headers": [
+              {
+                "name": "X-Device-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create an in-store checkout deeplink that can be rendered as a QR code for the\nconsumer to scan in-store with the Tamara app.\n"
+        },
+        {
+          "info": {
+            "name": "Void Checkout Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tamara.co/checkout/:checkout_id/void",
+            "params": [
+              {
+                "name": "checkout_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "store_code",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Void an in-store checkout session before the consumer completes the payment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

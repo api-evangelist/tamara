@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tamara Disputes API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Disputes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Dispute Case Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tamara.co/external/merchants/orders/disputes/",
+            "headers": [
+              {
+                "name": "x-requested-with",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "merchant_order_reference_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dispute_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dispute_status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_parent",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all disputes or filter by order id, merchant order reference id, dispute id,\norder status, or dispute status.\n"
+        },
+        {
+          "info": {
+            "name": "Update Disputes by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tamara.co/external/merchants/orders/disputes/:dispute_id",
+            "params": [
+              {
+                "name": "dispute_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "comment",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "attachment",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "delivery_provider",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "order_delivery_tracking_id",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Append a comment and optional supporting attachment to an existing dispute."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

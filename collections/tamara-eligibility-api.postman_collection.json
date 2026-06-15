@@ -1,0 +1,192 @@
+{
+  "item": [
+    {
+      "id": "75e2fe97-abb7-4dab-860f-c55de70201d9",
+      "name": "Eligibility",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a3270f5d-f4ba-4965-b61d-cf80b398f2fc",
+          "name": "Pre-Checkout Eligibility",
+          "request": {
+            "name": "Pre-Checkout Eligibility",
+            "description": {
+              "content": "Check whether the supplied customer (identified by phone number) is treated as\neligible by Tamara for the order amount. If the phone number is not passed the\ncustomer is treated as eligible.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pre-checkout",
+                "v1",
+                "eligibility"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"customer\": {\n    \"phone\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cba15fba-41d8-49f3-9aa8-3320578016d1",
+              "name": "Eligibility decision.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pre-checkout",
+                    "v1",
+                    "eligibility"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order\": {\n    \"amount\": 300,\n    \"currency\": \"<string>\"\n  },\n  \"customer\": {\n    \"phone\": \"966501234567\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"is_eligible\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e114611d-cefd-40e6-bf04-9728b2a80278",
+              "name": "Validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pre-checkout",
+                    "v1",
+                    "eligibility"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order\": {\n    \"amount\": 300,\n    \"currency\": \"<string>\"\n  },\n  \"customer\": {\n    \"phone\": \"966501234567\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tamara.co",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0553a45b-16f4-45c1-9093-6f55f3e41896",
+    "name": "Tamara Pre-Checkout Eligibility API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Determine whether Tamara considers a customer eligible for a BNPL purchase before\npresenting Tamara as a payment option at checkout.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+      "type": "text/plain"
+    }
+  }
+}

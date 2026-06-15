@@ -1,0 +1,589 @@
+{
+  "info": {
+    "_postman_id": "e408875b-0ba5-495c-8978-c0a0620913a2",
+    "name": "Tamara Channel Partners API",
+    "description": "Allow payment service providers, platforms, and aggregators to onboard merchants onto\nTamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding\nstatus and merchant API keys, and register onboarding event webhooks.\n\n\nContact Support:\n Name: Tamara Partner Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:58.000Z",
+    "updatedAt": "2026-06-05T15:18:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e408875b-0ba5-495c-8978-c0a0620913a2"
+  },
+  "item": [
+    {
+      "name": "channel-partners",
+      "item": [
+        {
+          "name": "merchant-onboarding",
+          "item": [
+            {
+              "name": "create",
+              "item": [
+                {
+                  "name": "Create Merchant Onboarding",
+                  "id": "516e40a4-a0f1-4847-bfa1-240548ee4916",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"country\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"business_kyc\": {\n    \"business_name\": \"<string>\",\n    \"country_of_operations\": \"<string>\",\n    \"business_type\": \"freelance\",\n    \"website_url\": \"<uri>\",\n    \"online\": \"<boolean>\",\n    \"in_store\": \"<boolean>\",\n    \"annual_gmv\": \"<string>\",\n    \"category\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"sub_category\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"platform\": \"<string>\"\n  },\n  \"locale\": \"<string>\",\n  \"country_code\": \"<string>\",\n  \"hear_about_tamara\": \"<string>\",\n  \"external_channel_partner_id\": \"<string>\",\n  \"bank_kyc\": {\n    \"iban\": \"<string>\",\n    \"email_for_settlement_report\": \"<string>\",\n    \"beneficiary_name\": \"<string>\",\n    \"swift_code\": \"<string>\"\n  },\n  \"legal_kyc\": {\n    \"cr_number\": \"<string>\",\n    \"national_id_number\": \"<string>\",\n    \"entity_name\": \"<string>\",\n    \"legal_address\": \"<string>\",\n    \"legal_signatory_name\": \"<string>\"\n  },\n  \"user_defined_data\": {\n    \"et_66\": -13856484,\n    \"cillum12\": true\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/channel-partners/merchant-onboarding/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "channel-partners",
+                        "merchant-onboarding",
+                        "create"
+                      ]
+                    },
+                    "description": "Submit merchant and KYB information to initiate automated onboarding and verification."
+                  },
+                  "response": [
+                    {
+                      "id": "cb4a3bc8-22d4-4933-aaf3-7a2a9cd4be83",
+                      "name": "Onboarding submitted.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"country\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"business_kyc\": {\n    \"business_name\": \"<string>\",\n    \"country_of_operations\": \"<string>\",\n    \"business_type\": \"freelance\",\n    \"website_url\": \"<uri>\",\n    \"online\": \"<boolean>\",\n    \"in_store\": \"<boolean>\",\n    \"annual_gmv\": \"<string>\",\n    \"category\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"sub_category\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"platform\": \"<string>\"\n  },\n  \"locale\": \"<string>\",\n  \"country_code\": \"<string>\",\n  \"hear_about_tamara\": \"<string>\",\n  \"external_channel_partner_id\": \"<string>\",\n  \"bank_kyc\": {\n    \"iban\": \"<string>\",\n    \"email_for_settlement_report\": \"<string>\",\n    \"beneficiary_name\": \"<string>\",\n    \"swift_code\": \"<string>\"\n  },\n  \"legal_kyc\": {\n    \"cr_number\": \"<string>\",\n    \"national_id_number\": \"<string>\",\n    \"entity_name\": \"<string>\",\n    \"legal_address\": \"<string>\",\n    \"legal_signatory_name\": \"<string>\"\n  },\n  \"user_defined_data\": {\n    \"et_66\": -13856484,\n    \"cillum12\": true\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/channel-partners/merchant-onboarding/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "channel-partners",
+                            "merchant-onboarding",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"onboarding_code\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:59.000Z",
+                      "updatedAt": "2026-06-05T15:18:59.000Z",
+                      "uid": "35240-cb4a3bc8-22d4-4933-aaf3-7a2a9cd4be83"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:59.000Z",
+                  "updatedAt": "2026-06-05T15:18:59.000Z",
+                  "uid": "35240-516e40a4-a0f1-4847-bfa1-240548ee4916"
+                }
+              ],
+              "id": "661d5504-6aa4-4aeb-9a91-294dd30eb452",
+              "createdAt": "2026-06-05T15:18:59.000Z",
+              "updatedAt": "2026-06-05T15:18:59.000Z",
+              "uid": "35240-661d5504-6aa4-4aeb-9a91-294dd30eb452"
+            },
+            {
+              "name": "{onboardingCode}",
+              "item": [
+                {
+                  "name": "Retrieve Merchant Onboarding",
+                  "id": "d6a9b29d-bcc8-4b7f-8948-459bf6cf204a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/channel-partners/merchant-onboarding/:onboardingCode",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "channel-partners",
+                        "merchant-onboarding",
+                        ":onboardingCode"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f1b85f27-4d1a-4674-88df-06a4c1c211a6",
+                          "key": "onboardingCode",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "bebffb13-275a-459b-95e7-dd1c69f1da43",
+                      "name": "Onboarding details.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/channel-partners/merchant-onboarding/:onboardingCode",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "channel-partners",
+                            "merchant-onboarding",
+                            ":onboardingCode"
+                          ],
+                          "variable": [
+                            {
+                              "key": "onboardingCode"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:59.000Z",
+                      "updatedAt": "2026-06-05T15:18:59.000Z",
+                      "uid": "35240-bebffb13-275a-459b-95e7-dd1c69f1da43"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:59.000Z",
+                  "updatedAt": "2026-06-05T15:18:59.000Z",
+                  "uid": "35240-d6a9b29d-bcc8-4b7f-8948-459bf6cf204a"
+                }
+              ],
+              "id": "2cbcbc7d-5923-4d4a-8ebe-2fc19358ee4b",
+              "createdAt": "2026-06-05T15:18:59.000Z",
+              "updatedAt": "2026-06-05T15:18:59.000Z",
+              "uid": "35240-2cbcbc7d-5923-4d4a-8ebe-2fc19358ee4b"
+            }
+          ],
+          "id": "84ff54ec-7526-4a7f-a4c5-2fedf88842d4",
+          "createdAt": "2026-06-05T15:18:59.000Z",
+          "updatedAt": "2026-06-05T15:18:59.000Z",
+          "uid": "35240-84ff54ec-7526-4a7f-a4c5-2fedf88842d4"
+        },
+        {
+          "name": "merchant",
+          "item": [
+            {
+              "name": "{merchantId}",
+              "item": [
+                {
+                  "name": "api-key",
+                  "item": [
+                    {
+                      "name": "Retrieve Merchant API Keys",
+                      "id": "73e0f84c-e76f-422a-87ce-68eb633bb829",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/channel-partners/merchant/:merchantId/api-key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "channel-partners",
+                            "merchant",
+                            ":merchantId",
+                            "api-key"
+                          ],
+                          "variable": [
+                            {
+                              "id": "17999ed4-2869-4708-8949-2a45ec99f9a3",
+                              "key": "merchantId",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Retrieve API, public, and notification keys for an onboarded merchant."
+                      },
+                      "response": [
+                        {
+                          "id": "94577a89-51ad-4105-8893-400b78c48435",
+                          "name": "Merchant API keys.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/channel-partners/merchant/:merchantId/api-key",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "channel-partners",
+                                "merchant",
+                                ":merchantId",
+                                "api-key"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "merchantId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"api_key\": \"<string>\",\n  \"public_key\": \"<string>\",\n  \"notification_key\": \"<string>\",\n  \"merchant_id\": \"<uuid>\",\n  \"merchant_code\": \"<string>\",\n  \"merchant_status\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:18:59.000Z",
+                          "updatedAt": "2026-06-05T15:18:59.000Z",
+                          "uid": "35240-94577a89-51ad-4105-8893-400b78c48435"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:59.000Z",
+                      "updatedAt": "2026-06-05T15:18:59.000Z",
+                      "uid": "35240-73e0f84c-e76f-422a-87ce-68eb633bb829"
+                    }
+                  ],
+                  "id": "90f297eb-4802-4de7-8636-90e93d3ce887",
+                  "createdAt": "2026-06-05T15:18:59.000Z",
+                  "updatedAt": "2026-06-05T15:18:59.000Z",
+                  "uid": "35240-90f297eb-4802-4de7-8636-90e93d3ce887"
+                }
+              ],
+              "id": "bb0cac0b-6c9c-471f-bac8-138a32262e8b",
+              "createdAt": "2026-06-05T15:18:59.000Z",
+              "updatedAt": "2026-06-05T15:18:59.000Z",
+              "uid": "35240-bb0cac0b-6c9c-471f-bac8-138a32262e8b"
+            }
+          ],
+          "id": "a6cad9d8-02db-4b47-b3e2-d2432148ed7a",
+          "createdAt": "2026-06-05T15:18:59.000Z",
+          "updatedAt": "2026-06-05T15:18:59.000Z",
+          "uid": "35240-a6cad9d8-02db-4b47-b3e2-d2432148ed7a"
+        },
+        {
+          "name": "webhooks",
+          "item": [
+            {
+              "name": "register",
+              "item": [
+                {
+                  "name": "Register Channel Partner Webhook",
+                  "id": "fc358735-6bb4-41ba-92ff-1e00a7c9719b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"qualified\",\n    \"qualified\"\n  ],\n  \"headers\": {\n    \"amet_5\": \"<string>\",\n    \"in2b9\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/channel-partners/webhooks/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "channel-partners",
+                        "webhooks",
+                        "register"
+                      ]
+                    },
+                    "description": "Register a new webhook for onboarding status notifications."
+                  },
+                  "response": [
+                    {
+                      "id": "ae08301b-eded-47ae-ba0e-4c506876a344",
+                      "name": "Webhook registered.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"qualified\",\n    \"qualified\"\n  ],\n  \"headers\": {\n    \"amet_5\": \"<string>\",\n    \"in2b9\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/channel-partners/webhooks/register",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "channel-partners",
+                            "webhooks",
+                            "register"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:59.000Z",
+                      "updatedAt": "2026-06-05T15:18:59.000Z",
+                      "uid": "35240-ae08301b-eded-47ae-ba0e-4c506876a344"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:59.000Z",
+                  "updatedAt": "2026-06-05T15:18:59.000Z",
+                  "uid": "35240-fc358735-6bb4-41ba-92ff-1e00a7c9719b"
+                }
+              ],
+              "id": "c46e2c3d-be59-4834-8677-0f3cca55ec55",
+              "createdAt": "2026-06-05T15:18:59.000Z",
+              "updatedAt": "2026-06-05T15:18:59.000Z",
+              "uid": "35240-c46e2c3d-be59-4834-8677-0f3cca55ec55"
+            },
+            {
+              "name": "Retrieve Channel Partner Webhooks",
+              "id": "c74657b0-f1d2-42d3-b88d-d59561957913",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/channel-partners/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "channel-partners",
+                    "webhooks"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "d55be89c-3cc7-4dbc-b9d6-1cd579c4c814",
+                  "name": "Channel partner webhooks.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/channel-partners/webhooks",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "channel-partners",
+                        "webhooks"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<uuid>\",\n    \"url\": \"<uri>\",\n    \"events\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"headers\": {\n      \"id6_\": \"<string>\"\n    }\n  },\n  {\n    \"id\": \"<uuid>\",\n    \"url\": \"<uri>\",\n    \"events\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"headers\": {\n      \"est9\": \"<string>\",\n      \"non_9a\": \"<string>\"\n    }\n  }\n]",
+                  "createdAt": "2026-06-05T15:18:59.000Z",
+                  "updatedAt": "2026-06-05T15:18:59.000Z",
+                  "uid": "35240-d55be89c-3cc7-4dbc-b9d6-1cd579c4c814"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:59.000Z",
+              "updatedAt": "2026-06-05T15:18:59.000Z",
+              "uid": "35240-c74657b0-f1d2-42d3-b88d-d59561957913"
+            }
+          ],
+          "id": "7a29435f-cfd3-4b5b-a3b0-f367c1e5d7f3",
+          "createdAt": "2026-06-05T15:18:59.000Z",
+          "updatedAt": "2026-06-05T15:18:59.000Z",
+          "uid": "35240-7a29435f-cfd3-4b5b-a3b0-f367c1e5d7f3"
+        }
+      ],
+      "id": "928736f2-86dd-4c56-ae94-4ccd6e692b10",
+      "createdAt": "2026-06-05T15:18:59.000Z",
+      "updatedAt": "2026-06-05T15:18:59.000Z",
+      "uid": "35240-928736f2-86dd-4c56-ae94-4ccd6e692b10"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://partner-api.tamara.co"
+    }
+  ]
+}

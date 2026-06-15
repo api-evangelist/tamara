@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tamara Pre-Checkout Eligibility API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Eligibility",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Pre-Checkout Eligibility",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tamara.co/pre-checkout/v1/eligibility",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Check whether the supplied customer (identified by phone number) is treated as\neligible by Tamara for the order amount. If the phone number is not passed the\ncustomer is treated as eligible.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,394 @@
+{
+  "item": [
+    {
+      "id": "c7522210-55f5-4ccb-ac8a-ceb9f1100f9b",
+      "name": "Disputes",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "336cd88a-5d84-4c7e-a896-fdf3abd82016",
+          "name": "Get Dispute Case Details",
+          "request": {
+            "name": "Get Dispute Case Details",
+            "description": {
+              "content": "List all disputes or filter by order id, merchant order reference id, dispute id,\norder status, or dispute status.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "external",
+                "merchants",
+                "orders",
+                "disputes",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "order_id",
+                  "value": "<uuid>"
+                },
+                {
+                  "disabled": false,
+                  "key": "merchant_order_reference_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dispute_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dispute_status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_parent",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Tamara child merchant id (optional, used by parent merchants).",
+                "key": "x-requested-with",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d430e97d-35c6-49ea-9aa1-a864f1c017db",
+              "name": "Disputes list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "external",
+                    "merchants",
+                    "orders",
+                    "disputes",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "order_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "merchant_order_reference_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dispute_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dispute_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "is_parent",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Tamara child merchant id (optional, used by parent merchants).",
+                    "key": "x-requested-with",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 4838,\n  \"data\": {\n    \"merchant_details\": {\n      \"merchant_id\": \"string\",\n      \"merchant_code\": \"string\",\n      \"merchant_name\": \"string\",\n      \"merchant_status\": \"string\"\n    },\n    \"disputes\": {\n      \"key_0\": {\n        \"dispute_id\": 5737,\n        \"order_id\": \"46519788-fde1-507a-df25-4a22b3846c76\",\n        \"merchant_order_reference_id\": \"string\",\n        \"order_status\": \"string\",\n        \"dispute_status\": \"open\",\n        \"opened_at\": \"2008-04-10T08:01:46.446Z\",\n        \"closed_at\": \"1949-07-27T03:44:48.080Z\",\n        \"amount\": {\n          \"amount\": 1087.2462009089402,\n          \"currency\": \"string\"\n        },\n        \"activities\": [\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"1978-01-06T12:52:23.256Z\"\n          },\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"2007-06-13T02:32:53.454Z\"\n          }\n        ]\n      },\n      \"key_1\": {\n        \"dispute_id\": 6139,\n        \"order_id\": \"49e01f02-c8cb-19cf-40b9-d38848d7216b\",\n        \"merchant_order_reference_id\": \"string\",\n        \"order_status\": \"string\",\n        \"dispute_status\": \"under_review\",\n        \"opened_at\": \"1971-09-03T20:43:55.917Z\",\n        \"closed_at\": \"2018-11-30T10:14:37.360Z\",\n        \"amount\": {\n          \"amount\": 9977.532843471903,\n          \"currency\": \"string\"\n        },\n        \"activities\": [\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"1959-05-13T08:13:33.901Z\"\n          },\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"2019-10-14T12:34:31.903Z\"\n          }\n        ]\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "629fc618-77e6-48de-b237-9837c3e36cca",
+          "name": "Update Disputes by ID",
+          "request": {
+            "name": "Update Disputes by ID",
+            "description": {
+              "content": "Append a comment and optional supporting attachment to an existing dispute.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "external",
+                "merchants",
+                "orders",
+                "disputes",
+                ":dispute_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "dispute_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "comment",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) "
+                },
+                {
+                  "key": "attachment",
+                  "type": "file",
+                  "description": ""
+                },
+                {
+                  "key": "delivery_provider",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "order_delivery_tracking_id",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "43e82d22-a5fc-4055-9fbc-d614680a267d",
+              "name": "Dispute updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "external",
+                    "merchants",
+                    "orders",
+                    "disputes",
+                    ":dispute_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "dispute_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "comment",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "attachment",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "delivery_provider",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "order_delivery_tracking_id",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"order.dispute.updated_successfully\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tamara.co",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7aae6a86-dc74-4c3b-aa0e-e441bb69b721",
+    "name": "Tamara Disputes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query merchant disputes raised against Tamara orders and append comments or proof\nattachments to existing dispute cases. Filter by order id, dispute id, order status,\nor dispute status.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+      "type": "text/plain"
+    }
+  }
+}

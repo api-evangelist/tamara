@@ -1,0 +1,190 @@
+{
+  "item": [
+    {
+      "id": "a75d1a63-51dc-4b49-a8ac-1db053852c5b",
+      "name": "Checkout Sessions",
+      "description": {
+        "content": "Create and manage hosted-checkout sessions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2ce752fa-c3f4-4f9b-95f2-2f0b3689aef6",
+          "name": "Create Checkout Session",
+          "request": {
+            "name": "Create Checkout Session",
+            "description": {
+              "content": "Create a hosted checkout session where Tamara collects payment information and\ncompletes the BNPL or Pay-Now flow with the consumer. Store the returned\n`order_id` and redirect the customer to `checkout_url`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checkout"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_reference_id\": \"<string>\",\n  \"total_amount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"country_code\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"items\": [\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"<string>\"\n      },\n      \"unit_price\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"<string>\"\n      },\n      \"discount_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"<string>\"\n      },\n      \"tax_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"<string>\"\n      },\n      \"image_url\": \"<uri>\"\n    },\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"<string>\"\n      },\n      \"unit_price\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"<string>\"\n      },\n      \"discount_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"<string>\"\n      },\n      \"tax_amount\": {\n        \"amount\": \"<double>\",\n        \"currency\": \"<string>\"\n      },\n      \"image_url\": \"<uri>\"\n    }\n  ],\n  \"consumer\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<email>\",\n    \"date_of_birth\": \"<date>\",\n    \"national_id\": \"<string>\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"region\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  },\n  \"tax_amount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"<string>\"\n  },\n  \"shipping_amount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"<string>\"\n  },\n  \"merchant_url\": {\n    \"success\": \"<uri>\",\n    \"failure\": \"<uri>\",\n    \"cancel\": \"<uri>\",\n    \"notification\": \"<uri>\"\n  },\n  \"order_number\": \"<string>\",\n  \"instalments\": \"<integer>\",\n  \"locale\": \"<string>\",\n  \"billing_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"region\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  },\n  \"discount\": {\n    \"name\": \"<string>\",\n    \"amount\": {\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\"\n    }\n  },\n  \"platform\": \"<string>\",\n  \"is_mobile\": \"<boolean>\",\n  \"risk_assessment\": {\n    \"key_0\": \"string\"\n  },\n  \"expires_in_minutes\": 30,\n  \"additional_data\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "28489dac-4a1d-461b-bf82-f18fa149e899",
+              "name": "Checkout session created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_reference_id\": \"<string>\",\n  \"total_amount\": {\n    \"amount\": 300,\n    \"currency\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"country_code\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"items\": [\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"unit_price\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"discount_amount\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"tax_amount\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"image_url\": \"<uri>\"\n    },\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"unit_price\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"discount_amount\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"tax_amount\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"image_url\": \"<uri>\"\n    }\n  ],\n  \"consumer\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<email>\",\n    \"date_of_birth\": \"<date>\",\n    \"national_id\": \"<string>\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"region\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  },\n  \"tax_amount\": {\n    \"amount\": 300,\n    \"currency\": \"<string>\"\n  },\n  \"shipping_amount\": {\n    \"amount\": 300,\n    \"currency\": \"<string>\"\n  },\n  \"merchant_url\": {\n    \"success\": \"<uri>\",\n    \"failure\": \"<uri>\",\n    \"cancel\": \"<uri>\",\n    \"notification\": \"<uri>\"\n  },\n  \"order_number\": \"<string>\",\n  \"instalments\": \"<integer>\",\n  \"locale\": \"<string>\",\n  \"billing_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"region\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  },\n  \"discount\": {\n    \"name\": \"<string>\",\n    \"amount\": {\n      \"amount\": 300,\n      \"currency\": \"<string>\"\n    }\n  },\n  \"platform\": \"<string>\",\n  \"is_mobile\": \"<boolean>\",\n  \"risk_assessment\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": 964,\n    \"key_3\": 5971\n  },\n  \"expires_in_minutes\": 30,\n  \"additional_data\": {\n    \"key_0\": 7973.144126073853\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"order_id\": \"b21a3c4e-072d-0028-e36c-ed391049d694\",\n  \"checkout_id\": \"100e2ba7-1c58-3e24-f908-7527bf98b912\",\n  \"checkout_url\": \"http://blluN.twOSqWzEZ\",\n  \"status\": \"new\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6691060d-bd19-4367-9799-e23941409636",
+              "name": "Validation failure (e.g. unsupported country/currency combination).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_reference_id\": \"<string>\",\n  \"total_amount\": {\n    \"amount\": 300,\n    \"currency\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"country_code\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"items\": [\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"unit_price\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"discount_amount\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"tax_amount\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"image_url\": \"<uri>\"\n    },\n    {\n      \"reference_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"total_amount\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"unit_price\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"discount_amount\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"tax_amount\": {\n        \"amount\": 300,\n        \"currency\": \"<string>\"\n      },\n      \"image_url\": \"<uri>\"\n    }\n  ],\n  \"consumer\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<email>\",\n    \"date_of_birth\": \"<date>\",\n    \"national_id\": \"<string>\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"region\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  },\n  \"tax_amount\": {\n    \"amount\": 300,\n    \"currency\": \"<string>\"\n  },\n  \"shipping_amount\": {\n    \"amount\": 300,\n    \"currency\": \"<string>\"\n  },\n  \"merchant_url\": {\n    \"success\": \"<uri>\",\n    \"failure\": \"<uri>\",\n    \"cancel\": \"<uri>\",\n    \"notification\": \"<uri>\"\n  },\n  \"order_number\": \"<string>\",\n  \"instalments\": \"<integer>\",\n  \"locale\": \"<string>\",\n  \"billing_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"region\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  },\n  \"discount\": {\n    \"name\": \"<string>\",\n    \"amount\": {\n      \"amount\": 300,\n      \"currency\": \"<string>\"\n    }\n  },\n  \"platform\": \"<string>\",\n  \"is_mobile\": \"<boolean>\",\n  \"risk_assessment\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": 964,\n    \"key_3\": 5971\n  },\n  \"expires_in_minutes\": 30,\n  \"additional_data\": {\n    \"key_0\": 7973.144126073853\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"error_code\": \"string\",\n      \"description\": \"string\"\n    },\n    {\n      \"error_code\": \"string\",\n      \"description\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tamara.co",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "448f424b-175c-48bf-b104-39644e546b88",
+    "name": "Tamara Checkout API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Create online checkout sessions that send customer and order information to Tamara\nand receive a hosted checkout URL where the consumer completes the BNPL or Pay-Now flow.\nSupports SAR, AED, BHD, KWD, and OMR across Saudi Arabia, the UAE, Bahrain, Kuwait, and Oman.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+      "type": "text/plain"
+    }
+  }
+}

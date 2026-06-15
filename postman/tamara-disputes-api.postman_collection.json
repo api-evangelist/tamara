@@ -1,0 +1,397 @@
+{
+  "info": {
+    "_postman_id": "e46b95f3-0775-4d8b-be95-b043296efaf0",
+    "name": "Tamara Disputes API",
+    "description": "Query merchant disputes raised against Tamara orders and append comments or proof\nattachments to existing dispute cases. Filter by order id, dispute id, order status,\nor dispute status.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:56.000Z",
+    "updatedAt": "2026-06-05T15:18:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e46b95f3-0775-4d8b-be95-b043296efaf0"
+  },
+  "item": [
+    {
+      "name": "external",
+      "item": [
+        {
+          "name": "merchants",
+          "item": [
+            {
+              "name": "orders",
+              "item": [
+                {
+                  "name": "disputes",
+                  "item": [
+                    {
+                      "name": "{dispute_id}",
+                      "item": [
+                        {
+                          "name": "Update Disputes by ID",
+                          "id": "cdd868ad-9870-4da3-8922-7e10c8374fe1",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "formdata",
+                              "formdata": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "comment",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "key": "attachment",
+                                  "type": "file",
+                                  "value": null
+                                },
+                                {
+                                  "key": "delivery_provider",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "key": "order_delivery_tracking_id",
+                                  "value": "<string>",
+                                  "type": "text"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/external/merchants/orders/disputes/:dispute_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "external",
+                                "merchants",
+                                "orders",
+                                "disputes",
+                                ":dispute_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b3d607d4-41f9-495a-bf86-f13262428391",
+                                  "key": "dispute_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Append a comment and optional supporting attachment to an existing dispute."
+                          },
+                          "response": [
+                            {
+                              "id": "404ab13c-ac48-4b53-ad53-93033bf2e3cd",
+                              "name": "Dispute updated.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "multipart/form-data"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "formdata",
+                                  "formdata": [
+                                    {
+                                      "description": "(Required) ",
+                                      "key": "comment",
+                                      "value": "<string>",
+                                      "type": "text"
+                                    },
+                                    {
+                                      "key": "attachment",
+                                      "type": "file"
+                                    },
+                                    {
+                                      "key": "delivery_provider",
+                                      "value": "<string>",
+                                      "type": "text"
+                                    },
+                                    {
+                                      "key": "order_delivery_tracking_id",
+                                      "value": "<string>",
+                                      "type": "text"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/external/merchants/orders/disputes/:dispute_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "external",
+                                    "merchants",
+                                    "orders",
+                                    "disputes",
+                                    ":dispute_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "dispute_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:18:56.000Z",
+                              "updatedAt": "2026-06-05T15:18:56.000Z",
+                              "uid": "35240-404ab13c-ac48-4b53-ad53-93033bf2e3cd"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:56.000Z",
+                          "updatedAt": "2026-06-05T15:18:56.000Z",
+                          "uid": "35240-cdd868ad-9870-4da3-8922-7e10c8374fe1"
+                        }
+                      ],
+                      "id": "ff5b8923-df0d-443e-a9fa-6690610a10a4",
+                      "createdAt": "2026-06-05T15:18:56.000Z",
+                      "updatedAt": "2026-06-05T15:18:56.000Z",
+                      "uid": "35240-ff5b8923-df0d-443e-a9fa-6690610a10a4"
+                    },
+                    {
+                      "name": "Get Dispute Case Details",
+                      "id": "980c7eac-65ed-42b2-8cd8-85b4e6432ac4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Tamara child merchant id (optional, used by parent merchants).",
+                            "key": "x-requested-with",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/external/merchants/orders/disputes/?order_id=<uuid>&merchant_order_reference_id=<string>&dispute_id=<integer>&order_status=partially_captured&dispute_status=open&is_parent=<boolean>&limit=<integer>&page=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "external",
+                            "merchants",
+                            "orders",
+                            "disputes",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "key": "order_id",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "merchant_order_reference_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "dispute_id",
+                              "value": "<integer>"
+                            },
+                            {
+                              "key": "order_status",
+                              "value": "partially_captured"
+                            },
+                            {
+                              "key": "dispute_status",
+                              "value": "open"
+                            },
+                            {
+                              "key": "is_parent",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "key": "page",
+                              "value": "<integer>"
+                            }
+                          ]
+                        },
+                        "description": "List all disputes or filter by order id, merchant order reference id, dispute id,\norder status, or dispute status.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "1eed25bb-2a93-41d8-a77d-eb85968a6101",
+                          "name": "Disputes list.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Tamara child merchant id (optional, used by parent merchants).",
+                                "key": "x-requested-with",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/external/merchants/orders/disputes/?order_id=<uuid>&merchant_order_reference_id=<string>&dispute_id=<integer>&order_status=partially_captured&dispute_status=open&is_parent=<boolean>&limit=<integer>&page=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "external",
+                                "merchants",
+                                "orders",
+                                "disputes",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "key": "order_id",
+                                  "value": "<uuid>"
+                                },
+                                {
+                                  "key": "merchant_order_reference_id",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "dispute_id",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "key": "order_status",
+                                  "value": "partially_captured"
+                                },
+                                {
+                                  "key": "dispute_status",
+                                  "value": "open"
+                                },
+                                {
+                                  "key": "is_parent",
+                                  "value": "<boolean>"
+                                },
+                                {
+                                  "key": "limit",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "key": "page",
+                                  "value": "<integer>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"total\": \"<integer>\",\n  \"data\": {\n    \"merchant_details\": {\n      \"merchant_id\": \"<string>\",\n      \"merchant_code\": \"<string>\",\n      \"merchant_name\": \"<string>\",\n      \"merchant_status\": \"<string>\"\n    },\n    \"disputes\": {\n      \"ut_23\": {\n        \"dispute_id\": \"<integer>\",\n        \"order_id\": \"<uuid>\",\n        \"merchant_order_reference_id\": \"<string>\",\n        \"order_status\": \"<string>\",\n        \"dispute_status\": \"awaiting_merchant_response\",\n        \"opened_at\": \"<dateTime>\",\n        \"closed_at\": \"<dateTime>\",\n        \"amount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"activities\": [\n          {\n            \"event\": \"<string>\",\n            \"comment\": \"<string>\",\n            \"attachments\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"created_at\": \"<dateTime>\"\n          },\n          {\n            \"event\": \"<string>\",\n            \"comment\": \"<string>\",\n            \"attachments\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"created_at\": \"<dateTime>\"\n          }\n        ]\n      },\n      \"Duis_f\": {\n        \"dispute_id\": \"<integer>\",\n        \"order_id\": \"<uuid>\",\n        \"merchant_order_reference_id\": \"<string>\",\n        \"order_status\": \"<string>\",\n        \"dispute_status\": \"claim_accepted\",\n        \"opened_at\": \"<dateTime>\",\n        \"closed_at\": \"<dateTime>\",\n        \"amount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"activities\": [\n          {\n            \"event\": \"<string>\",\n            \"comment\": \"<string>\",\n            \"attachments\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"created_at\": \"<dateTime>\"\n          },\n          {\n            \"event\": \"<string>\",\n            \"comment\": \"<string>\",\n            \"attachments\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"created_at\": \"<dateTime>\"\n          }\n        ]\n      }\n    }\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:56.000Z",
+                          "updatedAt": "2026-06-05T15:18:56.000Z",
+                          "uid": "35240-1eed25bb-2a93-41d8-a77d-eb85968a6101"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:56.000Z",
+                      "updatedAt": "2026-06-05T15:18:56.000Z",
+                      "uid": "35240-980c7eac-65ed-42b2-8cd8-85b4e6432ac4"
+                    }
+                  ],
+                  "id": "b3450138-b8e2-4c0e-84da-6150b1733efd",
+                  "createdAt": "2026-06-05T15:18:56.000Z",
+                  "updatedAt": "2026-06-05T15:18:56.000Z",
+                  "uid": "35240-b3450138-b8e2-4c0e-84da-6150b1733efd"
+                }
+              ],
+              "id": "de8f8cf3-877a-4061-99b4-de1059789316",
+              "createdAt": "2026-06-05T15:18:56.000Z",
+              "updatedAt": "2026-06-05T15:18:56.000Z",
+              "uid": "35240-de8f8cf3-877a-4061-99b4-de1059789316"
+            }
+          ],
+          "id": "a7a0d028-42a1-44dd-ba08-6ffcb6518dce",
+          "createdAt": "2026-06-05T15:18:56.000Z",
+          "updatedAt": "2026-06-05T15:18:56.000Z",
+          "uid": "35240-a7a0d028-42a1-44dd-ba08-6ffcb6518dce"
+        }
+      ],
+      "id": "1408df65-89ca-4a9c-8949-c280df6f3ed8",
+      "createdAt": "2026-06-05T15:18:56.000Z",
+      "updatedAt": "2026-06-05T15:18:56.000Z",
+      "uid": "35240-1408df65-89ca-4a9c-8949-c280df6f3ed8"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.tamara.co"
+    }
+  ]
+}

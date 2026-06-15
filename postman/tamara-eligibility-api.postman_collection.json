@@ -1,0 +1,211 @@
+{
+  "info": {
+    "_postman_id": "475ab28d-2978-4d20-a5e8-35781339a847",
+    "name": "Tamara Pre-Checkout Eligibility API",
+    "description": "Determine whether Tamara considers a customer eligible for a BNPL purchase before\npresenting Tamara as a payment option at checkout.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:57.000Z",
+    "updatedAt": "2026-06-05T15:18:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-475ab28d-2978-4d20-a5e8-35781339a847"
+  },
+  "item": [
+    {
+      "name": "pre-checkout",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "eligibility",
+              "item": [
+                {
+                  "name": "Pre-Checkout Eligibility",
+                  "id": "b4435d45-b976-4e4d-b966-eb4de67737e3",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"order\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"BHD\"\n  },\n  \"customer\": {\n    \"phone\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/pre-checkout/v1/eligibility",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pre-checkout",
+                        "v1",
+                        "eligibility"
+                      ]
+                    },
+                    "description": "Check whether the supplied customer (identified by phone number) is treated as\neligible by Tamara for the order amount. If the phone number is not passed the\ncustomer is treated as eligible.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "3a5c5cee-63d0-458b-aa25-bd114923894d",
+                      "name": "Eligibility decision.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"order\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"BHD\"\n  },\n  \"customer\": {\n    \"phone\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/pre-checkout/v1/eligibility",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "pre-checkout",
+                            "v1",
+                            "eligibility"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"is_eligible\": \"<boolean>\"\n}",
+                      "createdAt": "2026-06-05T15:18:58.000Z",
+                      "updatedAt": "2026-06-05T15:18:58.000Z",
+                      "uid": "35240-3a5c5cee-63d0-458b-aa25-bd114923894d"
+                    },
+                    {
+                      "id": "4387c30c-aabd-4ba1-8f7f-ddf8a17ae38f",
+                      "name": "Validation error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"order\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"BHD\"\n  },\n  \"customer\": {\n    \"phone\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/pre-checkout/v1/eligibility",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "pre-checkout",
+                            "v1",
+                            "eligibility"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:58.000Z",
+                      "updatedAt": "2026-06-05T15:18:58.000Z",
+                      "uid": "35240-4387c30c-aabd-4ba1-8f7f-ddf8a17ae38f"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:58.000Z",
+                  "updatedAt": "2026-06-05T15:18:58.000Z",
+                  "uid": "35240-b4435d45-b976-4e4d-b966-eb4de67737e3"
+                }
+              ],
+              "id": "afe02ee1-1516-46fc-8cd0-982ed3b20df4",
+              "createdAt": "2026-06-05T15:18:58.000Z",
+              "updatedAt": "2026-06-05T15:18:58.000Z",
+              "uid": "35240-afe02ee1-1516-46fc-8cd0-982ed3b20df4"
+            }
+          ],
+          "id": "e3ac3384-294b-4879-b308-a2f92d84c077",
+          "createdAt": "2026-06-05T15:18:58.000Z",
+          "updatedAt": "2026-06-05T15:18:58.000Z",
+          "uid": "35240-e3ac3384-294b-4879-b308-a2f92d84c077"
+        }
+      ],
+      "id": "b859f183-1126-4e3f-a7e5-4981933bd20f",
+      "createdAt": "2026-06-05T15:18:58.000Z",
+      "updatedAt": "2026-06-05T15:18:58.000Z",
+      "uid": "35240-b859f183-1126-4e3f-a7e5-4981933bd20f"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.tamara.co"
+    }
+  ]
+}
