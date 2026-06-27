@@ -2,17 +2,11 @@
   "repo": "tamara",
   "feeds": [
     {
-      "source": "https://tamara.co/en-sa/blog-landing",
-      "feed_url": "https://tamara.co/en-sa/blog-landing",
-      "title": "",
+      "source": "https://tamara.co/en-SA/blog",
       "saved": 0,
-      "method": "none"
-    },
-    {
-      "source": "https://tamara.co/en-SA/business",
-      "error": "HTTPError"
+      "error": "HTTP 404 Not Found"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T13:15:02Z"
 }
