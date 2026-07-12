@@ -1,0 +1,21 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/tamara-channel-partners-api-openapi.yml, openapi/tamara-checkout-api-openapi.yml,
+  openapi/tamara-disputes-api-openapi.yml, openapi/tamara-eligibility-api-openapi.yml, openapi/tamara-in-store-checkout-api-openapi.yml,
+  openapi/tamara-orders-api-openapi.yml, openapi/tamara-payments-api-openapi.yml, openapi/tamara-webhooks-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/tamara-channel-partners-api-openapi.yml
+  - openapi/tamara-checkout-api-openapi.yml
+  - openapi/tamara-disputes-api-openapi.yml
+  - openapi/tamara-eligibility-api-openapi.yml
+  - openapi/tamara-in-store-checkout-api-openapi.yml
+  - openapi/tamara-orders-api-openapi.yml
+  - openapi/tamara-payments-api-openapi.yml
+  - openapi/tamara-webhooks-api-openapi.yml

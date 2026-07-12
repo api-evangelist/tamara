@@ -208,6 +208,10 @@ apis:
       - url: openapi/tamara-channel-partners-api-openapi.yml
         type: OpenAPI
 common:
+  - type: DomainSecurity
+    url: security/tamara-domain-security.yml
+  - type: Authentication
+    url: authentication/tamara-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/tamara/overview
   - type: Arazzo
