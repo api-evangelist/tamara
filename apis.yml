@@ -208,6 +208,8 @@ apis:
       - url: openapi/tamara-channel-partners-api-openapi.yml
         type: OpenAPI
 common:
+  - type: AgenticAccess
+    url: agentic-access/tamara-agentic-access.yml
   - type: DomainSecurity
     url: security/tamara-domain-security.yml
   - type: Authentication
