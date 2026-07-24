@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  title: Tamara Channel Partners Captures Channel Partner Webhooks API
+  description: 'Allow payment service providers, platforms, and aggregators to onboard merchants onto
+
+    Tamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding
+
+    status and merchant API keys, and register onboarding event webhooks.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Tamara Partner Support
+    url: https://docs.tamara.co/
+servers:
+- url: https://partner-api.tamara.co
+  description: Production
+- url: https://partner-api-sandbox.tamara.co
+  description: Sandbox
+tags:
+- name: Channel Partner Webhooks
+paths:
+  /channel-partners/webhooks/register:
+    post:
+      operationId: registerChannelPartnerWebhook
+      summary: Register Channel Partner Webhook
+      description: Register a new webhook for onboarding status notifications.
+      tags:
+      - Channel Partner Webhooks
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnerWebhookRequest'
+      responses:
+        '201':
+          description: Webhook registered.
+  /channel-partners/webhooks:
+    get:
+      operationId: listChannelPartnerWebhooks
+      summary: Retrieve Channel Partner Webhooks
+      tags:
+      - Channel Partner Webhooks
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Channel partner webhooks.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PartnerWebhook'
+components:
+  schemas:
+    PartnerWebhook:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+    PartnerWebhookRequest:
+      type: object
+      required:
+      - url
+      - events
+      properties:
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+            - qualified
+            - disqualified
+            - ready_to_transact
+            - resubmission_required
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

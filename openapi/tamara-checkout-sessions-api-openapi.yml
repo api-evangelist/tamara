@@ -1,21 +1,21 @@
 openapi: 3.0.3
 info:
-  title: Tamara Checkout API
-  description: |
-    Create online checkout sessions that send customer and order information to Tamara
-    and receive a hosted checkout URL where the consumer completes the BNPL or Pay-Now flow.
-    Supports SAR, AED, BHD, KWD, and OMR across Saudi Arabia, the UAE, Bahrain, Kuwait, and Oman.
+  title: Tamara Channel Partners Captures Checkout Sessions API
+  description: 'Allow payment service providers, platforms, and aggregators to onboard merchants onto
+
+    Tamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding
+
+    status and merchant API keys, and register onboarding event webhooks.
+
+    '
   version: 1.0.0
   contact:
-    name: Tamara Merchant Support
+    name: Tamara Partner Support
     url: https://docs.tamara.co/
-  license:
-    name: Proprietary
-    url: https://tamara.co/en-SA/legal/terms-conditions
 servers:
-- url: https://api.tamara.co
+- url: https://partner-api.tamara.co
   description: Production
-- url: https://api-sandbox.tamara.co
+- url: https://partner-api-sandbox.tamara.co
   description: Sandbox
 tags:
 - name: Checkout Sessions
@@ -25,10 +25,13 @@ paths:
     post:
       operationId: createCheckoutSession
       summary: Create Checkout Session
-      description: |
-        Create a hosted checkout session where Tamara collects payment information and
+      description: 'Create a hosted checkout session where Tamara collects payment information and
+
         completes the BNPL or Pay-Now flow with the consumer. Store the returned
+
         `order_id` and redirect the customer to `checkout_url`.
+
+        '
       tags:
       - Checkout Sessions
       security:
@@ -53,57 +56,106 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: Tamara-issued merchant API token.
   schemas:
-    Money:
+    CheckoutSessionRequest:
       type: object
       required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: number
-          format: double
-          example: 300
-        currency:
-          type: string
-          enum: [SAR, AED, BHD, KWD, OMR]
-    Item:
-      type: object
-      required:
-      - reference_id
-      - type
-      - name
-      - sku
-      - quantity
+      - order_reference_id
       - total_amount
+      - description
+      - country_code
+      - payment_type
+      - items
+      - consumer
+      - shipping_address
+      - tax_amount
+      - shipping_amount
+      - merchant_url
       properties:
-        reference_id:
+        order_reference_id:
           type: string
-        type:
+        order_number:
           type: string
-        name:
-          type: string
-        sku:
-          type: string
-        quantity:
-          type: integer
-        unit_price:
-          $ref: '#/components/schemas/Money'
-        discount_amount:
-          $ref: '#/components/schemas/Money'
-        tax_amount:
-          $ref: '#/components/schemas/Money'
         total_amount:
           $ref: '#/components/schemas/Money'
-        image_url:
+        description:
+          type: string
+          maxLength: 256
+        country_code:
+          type: string
+          enum:
+          - SA
+          - AE
+          - BH
+          - KW
+          - OM
+        payment_type:
+          type: string
+          enum:
+          - PAY_BY_INSTALMENTS
+          - PAY_NOW
+        instalments:
+          type: integer
+          minimum: 2
+          maximum: 24
+        locale:
+          type: string
+          enum:
+          - ar_SA
+          - en_US
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        consumer:
+          $ref: '#/components/schemas/Consumer'
+        billing_address:
+          $ref: '#/components/schemas/Address'
+        shipping_address:
+          $ref: '#/components/schemas/Address'
+        discount:
+          type: object
+          properties:
+            name:
+              type: string
+            amount:
+              $ref: '#/components/schemas/Money'
+        tax_amount:
+          $ref: '#/components/schemas/Money'
+        shipping_amount:
+          $ref: '#/components/schemas/Money'
+        merchant_url:
+          $ref: '#/components/schemas/MerchantUrls'
+        platform:
+          type: string
+        is_mobile:
+          type: boolean
+        risk_assessment:
+          type: object
+          additionalProperties: true
+        expires_in_minutes:
+          type: integer
+          minimum: 5
+          maximum: 1440
+          default: 30
+        additional_data:
+          type: object
+          additionalProperties: true
+    CheckoutSessionResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        checkout_id:
+          type: string
+          format: uuid
+        checkout_url:
           type: string
           format: uri
+        status:
+          type: string
+          example: new
     Consumer:
       type: object
       required:
@@ -172,96 +224,55 @@ components:
         notification:
           type: string
           format: uri
-    CheckoutSessionRequest:
+    Item:
       type: object
       required:
-      - order_reference_id
+      - reference_id
+      - type
+      - name
+      - sku
+      - quantity
       - total_amount
-      - description
-      - country_code
-      - payment_type
-      - items
-      - consumer
-      - shipping_address
-      - tax_amount
-      - shipping_amount
-      - merchant_url
       properties:
-        order_reference_id:
+        reference_id:
           type: string
-        order_number:
+        type:
           type: string
-        total_amount:
-          $ref: '#/components/schemas/Money'
-        description:
+        name:
           type: string
-          maxLength: 256
-        country_code:
+        sku:
           type: string
-          enum: [SA, AE, BH, KW, OM]
-        payment_type:
-          type: string
-          enum: [PAY_BY_INSTALMENTS, PAY_NOW]
-        instalments:
+        quantity:
           type: integer
-          minimum: 2
-          maximum: 24
-        locale:
-          type: string
-          enum: [ar_SA, en_US]
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-        consumer:
-          $ref: '#/components/schemas/Consumer'
-        billing_address:
-          $ref: '#/components/schemas/Address'
-        shipping_address:
-          $ref: '#/components/schemas/Address'
-        discount:
-          type: object
-          properties:
-            name:
-              type: string
-            amount:
-              $ref: '#/components/schemas/Money'
+        unit_price:
+          $ref: '#/components/schemas/Money'
+        discount_amount:
+          $ref: '#/components/schemas/Money'
         tax_amount:
           $ref: '#/components/schemas/Money'
-        shipping_amount:
+        total_amount:
           $ref: '#/components/schemas/Money'
-        merchant_url:
-          $ref: '#/components/schemas/MerchantUrls'
-        platform:
-          type: string
-        is_mobile:
-          type: boolean
-        risk_assessment:
-          type: object
-          additionalProperties: true
-        expires_in_minutes:
-          type: integer
-          minimum: 5
-          maximum: 1440
-          default: 30
-        additional_data:
-          type: object
-          additionalProperties: true
-    CheckoutSessionResponse:
-      type: object
-      properties:
-        order_id:
-          type: string
-          format: uuid
-        checkout_id:
-          type: string
-          format: uuid
-        checkout_url:
+        image_url:
           type: string
           format: uri
-        status:
+    Money:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+          format: double
+          example: 300
+        currency:
           type: string
-          example: new
+          enum:
+          - SAR
+          - AED
+          - BHD
+          - KWD
+          - OMR
     Error:
       type: object
       properties:
@@ -276,3 +287,7 @@ components:
                 type: string
               description:
                 type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

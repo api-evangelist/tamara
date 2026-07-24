@@ -1,17 +1,21 @@
 openapi: 3.0.3
 info:
-  title: Tamara Pre-Checkout Eligibility API
-  description: |
-    Determine whether Tamara considers a customer eligible for a BNPL purchase before
-    presenting Tamara as a payment option at checkout.
+  title: Tamara Channel Partners Captures Eligibility API
+  description: 'Allow payment service providers, platforms, and aggregators to onboard merchants onto
+
+    Tamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding
+
+    status and merchant API keys, and register onboarding event webhooks.
+
+    '
   version: 1.0.0
   contact:
-    name: Tamara Merchant Support
+    name: Tamara Partner Support
     url: https://docs.tamara.co/
 servers:
-- url: https://api.tamara.co
+- url: https://partner-api.tamara.co
   description: Production
-- url: https://api-sandbox.tamara.co
+- url: https://partner-api-sandbox.tamara.co
   description: Sandbox
 tags:
 - name: Eligibility
@@ -20,11 +24,15 @@ paths:
     post:
       operationId: preCheckoutEligibility
       summary: Pre-Checkout Eligibility
-      description: |
-        Check whether the supplied customer (identified by phone number) is treated as
+      description: 'Check whether the supplied customer (identified by phone number) is treated as
+
         eligible by Tamara for the order amount. If the phone number is not passed the
+
         customer is treated as eligible.
-      tags: [Eligibility]
+
+        '
+      tags:
+      - Eligibility
       security:
       - bearerAuth: []
       requestBody:
@@ -43,25 +51,29 @@ paths:
         '400':
           description: Validation error.
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
   schemas:
     EligibilityRequest:
       type: object
-      required: [order]
+      required:
+      - order
       properties:
         order:
           type: object
-          required: [amount, currency]
+          required:
+          - amount
+          - currency
           properties:
             amount:
               type: number
               example: 300
             currency:
               type: string
-              enum: [SAR, AED, BHD, KWD, OMR]
+              enum:
+              - SAR
+              - AED
+              - BHD
+              - KWD
+              - OMR
         customer:
           type: object
           properties:
@@ -74,3 +86,7 @@ components:
       properties:
         is_eligible:
           type: boolean
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

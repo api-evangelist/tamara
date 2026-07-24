@@ -1,0 +1,67 @@
+openapi: 3.0.3
+info:
+  title: Tamara Channel Partners Captures Merchant API Keys API
+  description: 'Allow payment service providers, platforms, and aggregators to onboard merchants onto
+
+    Tamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding
+
+    status and merchant API keys, and register onboarding event webhooks.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Tamara Partner Support
+    url: https://docs.tamara.co/
+servers:
+- url: https://partner-api.tamara.co
+  description: Production
+- url: https://partner-api-sandbox.tamara.co
+  description: Sandbox
+tags:
+- name: Merchant API Keys
+paths:
+  /channel-partners/merchant/{merchantId}/api-key:
+    get:
+      operationId: retrieveMerchantApiKeys
+      summary: Retrieve Merchant API Keys
+      description: Retrieve API, public, and notification keys for an onboarded merchant.
+      tags:
+      - Merchant API Keys
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Merchant API keys.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MerchantApiKeys'
+components:
+  schemas:
+    MerchantApiKeys:
+      type: object
+      properties:
+        api_key:
+          type: string
+        public_key:
+          type: string
+        notification_key:
+          type: string
+        merchant_id:
+          type: string
+          format: uuid
+        merchant_code:
+          type: string
+        merchant_status:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

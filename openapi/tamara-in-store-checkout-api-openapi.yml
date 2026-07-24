@@ -1,18 +1,21 @@
 openapi: 3.0.3
 info:
-  title: Tamara In-Store Checkout API
-  description: |
-    Generate Tamara checkout sessions for brick-and-mortar stores through SMS payment links
-    or QR codes that customers scan with the Tamara consumer app to complete the BNPL
-    purchase in-aisle.
+  title: Tamara Channel Partners Captures In-Store Checkout API
+  description: 'Allow payment service providers, platforms, and aggregators to onboard merchants onto
+
+    Tamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding
+
+    status and merchant API keys, and register onboarding event webhooks.
+
+    '
   version: 1.0.0
   contact:
-    name: Tamara Merchant Support
+    name: Tamara Partner Support
     url: https://docs.tamara.co/
 servers:
-- url: https://api.tamara.co
+- url: https://partner-api.tamara.co
   description: Production
-- url: https://api-sandbox.tamara.co
+- url: https://partner-api-sandbox.tamara.co
   description: Sandbox
 tags:
 - name: In-Store Checkout
@@ -21,10 +24,13 @@ paths:
     post:
       operationId: createInStoreSmsSession
       summary: Create In-Store SMS Payment Link Checkout Session
-      description: |
-        Create an in-store checkout session and SMS a Tamara payment link to the supplied
+      description: 'Create an in-store checkout session and SMS a Tamara payment link to the supplied
+
         consumer phone number. Returns a `checkout_id`, `order_id`, and `checkout_deeplink`.
-      tags: [In-Store Checkout]
+
+        '
+      tags:
+      - In-Store Checkout
       security:
       - bearerAuth: []
       requestBody:
@@ -44,10 +50,13 @@ paths:
     post:
       operationId: createInStoreQrSession
       summary: Create In-Store QR Code Checkout Session
-      description: |
-        Create an in-store checkout deeplink that can be rendered as a QR code for the
+      description: 'Create an in-store checkout deeplink that can be rendered as a QR code for the
+
         consumer to scan in-store with the Tamara app.
-      tags: [In-Store Checkout]
+
+        '
+      tags:
+      - In-Store Checkout
       security:
       - bearerAuth: []
       parameters:
@@ -75,7 +84,8 @@ paths:
       operationId: voidCheckoutSession
       summary: Void Checkout Session
       description: Void an in-store checkout session before the consumer completes the payment.
-      tags: [In-Store Checkout]
+      tags:
+      - In-Store Checkout
       security:
       - bearerAuth: []
       parameters:
@@ -109,20 +119,7 @@ paths:
                   captured_amount:
                     $ref: '#/components/schemas/Money'
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
   schemas:
-    Money:
-      type: object
-      required: [amount, currency]
-      properties:
-        amount:
-          type: number
-        currency:
-          type: string
-          enum: [SAR, AED, BHD, KWD, OMR]
     Item:
       type: object
       properties:
@@ -140,7 +137,11 @@ components:
           $ref: '#/components/schemas/Money'
     InStoreSmsRequest:
       type: object
-      required: [total_amount, phone_number, order_reference_id, items]
+      required:
+      - total_amount
+      - phone_number
+      - order_reference_id
+      - items
       properties:
         total_amount:
           $ref: '#/components/schemas/Money'
@@ -154,10 +155,14 @@ components:
           type: string
         locale:
           type: string
-          enum: [ar_SA, en_US]
+          enum:
+          - ar_SA
+          - en_US
         payment_type:
           type: string
-          enum: [PAY_BY_INSTALMENTS, PAY_NOW]
+          enum:
+          - PAY_BY_INSTALMENTS
+          - PAY_NOW
         expires_in_minutes:
           type: integer
           minimum: 5
@@ -172,9 +177,27 @@ components:
           properties:
             store_code:
               type: string
+    Money:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+          enum:
+          - SAR
+          - AED
+          - BHD
+          - KWD
+          - OMR
     InStoreQrRequest:
       type: object
-      required: [amount, platform]
+      required:
+      - amount
+      - platform
       properties:
         amount:
           $ref: '#/components/schemas/Money'
@@ -188,7 +211,9 @@ components:
           example: PARTNERNAME_POS_QR
         locale:
           type: string
-          enum: [ar_SA, en_US]
+          enum:
+          - ar_SA
+          - en_US
         additional_data:
           type: object
           properties:
@@ -206,3 +231,7 @@ components:
         checkout_deeplink:
           type: string
           format: uri
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

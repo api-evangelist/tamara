@@ -1,0 +1,205 @@
+openapi: 3.0.3
+info:
+  title: Tamara Channel Partners Captures Refunds API
+  description: 'Allow payment service providers, platforms, and aggregators to onboard merchants onto
+
+    Tamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding
+
+    status and merchant API keys, and register onboarding event webhooks.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Tamara Partner Support
+    url: https://docs.tamara.co/
+servers:
+- url: https://partner-api.tamara.co
+  description: Production
+- url: https://partner-api-sandbox.tamara.co
+  description: Sandbox
+tags:
+- name: Refunds
+paths:
+  /payments/simplified-refund/{order_id}:
+    post:
+      operationId: simplifiedRefund
+      summary: Simplified Refund
+      description: 'Modern refund surface that processes a partial or full refund against an order without
+
+        requiring the caller to specify individual capture ids.
+
+        '
+      tags:
+      - Refunds
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimplifiedRefundRequest'
+      responses:
+        '200':
+          description: Refund successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimplifiedRefundResponse'
+  /payments/refund:
+    post:
+      operationId: refund
+      summary: Refund
+      deprecated: true
+      description: 'Legacy refund endpoint that processes one or more refunds against named captures
+
+        belonging to an order. New integrations should prefer `/payments/simplified-refund/{order_id}`.
+
+        '
+      tags:
+      - Refunds
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundRequest'
+      responses:
+        '200':
+          description: Refund(s) successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundResponse'
+components:
+  schemas:
+    Item:
+      type: object
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        total_amount:
+          $ref: '#/components/schemas/Money'
+    RefundRequest:
+      type: object
+      required:
+      - order_id
+      - refunds
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        refunds:
+          type: array
+          items:
+            type: object
+            properties:
+              capture_id:
+                type: string
+              total_amount:
+                $ref: '#/components/schemas/Money'
+              refund_id:
+                type: string
+              tax_amount:
+                $ref: '#/components/schemas/Money'
+              shipping_amount:
+                $ref: '#/components/schemas/Money'
+              discount_amount:
+                $ref: '#/components/schemas/Money'
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+    SimplifiedRefundResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        refund_id:
+          type: string
+          format: uuid
+        capture_id:
+          type: string
+          format: uuid
+        comment:
+          type: string
+        status:
+          type: string
+          enum:
+          - fully_refunded
+          - partially_refunded
+        refunded_amount:
+          $ref: '#/components/schemas/Money'
+    Money:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+          enum:
+          - SAR
+          - AED
+          - BHD
+          - KWD
+          - OMR
+    SimplifiedRefundRequest:
+      type: object
+      required:
+      - total_amount
+      - comment
+      properties:
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        comment:
+          type: string
+          example: Refund for the order A123
+        merchant_refund_id:
+          type: string
+    RefundResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        refunds:
+          type: array
+          items:
+            type: object
+            properties:
+              refund_id:
+                type: string
+              capture_id:
+                type: string
+        status:
+          type: string
+          enum:
+          - fully_refunded
+          - partially_refunded
+        refunded_amount:
+          $ref: '#/components/schemas/Money'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

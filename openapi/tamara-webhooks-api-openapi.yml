@@ -1,18 +1,21 @@
 openapi: 3.0.3
 info:
-  title: Tamara Webhooks API
-  description: |
-    Register and manage HTTPS webhook endpoints that receive order and dispute lifecycle
-    events from Tamara. Notifications include a JWT-encoded `tamaraToken` in the query
-    string and Authorization header for verification.
+  title: Tamara Channel Partners Captures Webhooks API
+  description: 'Allow payment service providers, platforms, and aggregators to onboard merchants onto
+
+    Tamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding
+
+    status and merchant API keys, and register onboarding event webhooks.
+
+    '
   version: 1.0.0
   contact:
-    name: Tamara Merchant Support
+    name: Tamara Partner Support
     url: https://docs.tamara.co/
 servers:
-- url: https://api.tamara.co
+- url: https://partner-api.tamara.co
   description: Production
-- url: https://api-sandbox.tamara.co
+- url: https://partner-api-sandbox.tamara.co
   description: Sandbox
 tags:
 - name: Webhooks
@@ -22,7 +25,8 @@ paths:
       operationId: registerWebhook
       summary: Register Webhook URL
       description: Register a new webhook endpoint that Tamara will POST notifications to.
-      tags: [Webhooks]
+      tags:
+      - Webhooks
       security:
       - bearerAuth: []
       requestBody:
@@ -49,7 +53,8 @@ paths:
     get:
       operationId: retrieveWebhook
       summary: Retrieve Webhook URL
-      tags: [Webhooks]
+      tags:
+      - Webhooks
       security:
       - bearerAuth: []
       responses:
@@ -62,7 +67,8 @@ paths:
     put:
       operationId: updateWebhook
       summary: Update Webhook URL
-      tags: [Webhooks]
+      tags:
+      - Webhooks
       security:
       - bearerAuth: []
       requestBody:
@@ -81,40 +87,20 @@ paths:
     delete:
       operationId: deleteWebhook
       summary: Delete Webhook URL
-      tags: [Webhooks]
+      tags:
+      - Webhooks
       security:
       - bearerAuth: []
       responses:
         '200':
           description: Webhook deleted.
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
   schemas:
-    WebhookRequest:
-      type: object
-      required: [type, url, events]
-      properties:
-        type:
-          type: string
-          enum: [order, dispute]
-        url:
-          type: string
-          format: uri
-        events:
-          type: array
-          items:
-            type: string
-            example: order_approved
-        headers:
-          type: object
-          additionalProperties:
-            type: string
     WebhookUpdate:
       type: object
-      required: [url, events]
+      required:
+      - url
+      - events
       properties:
         url:
           type: string
@@ -147,3 +133,31 @@ components:
           type: object
           additionalProperties:
             type: string
+    WebhookRequest:
+      type: object
+      required:
+      - type
+      - url
+      - events
+      properties:
+        type:
+          type: string
+          enum:
+          - order
+          - dispute
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+            example: order_approved
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
