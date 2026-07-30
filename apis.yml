@@ -10,6 +10,19 @@ description: >-
   white-label Tamara. The company became the first homegrown Saudi fintech unicorn in December 2023 after raising a
   US$340M Series C led by SNB Capital and Sanabil Investments and is backed by debt facilities from Goldman Sachs, Citi,
   and Apollo for its Shariah-compliant funding base.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://tamara.co/favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/tamara/refs/heads/main/apis.yml
 created: '2026-05-24'
@@ -38,175 +51,265 @@ tags:
   - E-commerce
   - POS
 apis:
-  - aid: tamara:tamara-checkout-api
-    name: Tamara Checkout API
-    description: >-
-      Create online checkout sessions that send customer and order information to Tamara and receive a hosted checkout
-      URL where the consumer completes the BNPL or Pay-Now flow. Supports SAR, AED, BHD, KWD, and OMR across Saudi
-      Arabia, the UAE, Bahrain, Kuwait, and Oman.
-    humanURL: https://docs.tamara.co/reference/createcheckoutsession
-    baseURL: https://api.tamara.co
-    tags:
-      - Checkout
-      - BNPL
-      - Payments
-      - Orders
-    properties:
-      - url: https://docs.tamara.co/reference/createcheckoutsession
-        type: Documentation
-      - url: https://docs.tamara.co/docs/direct-quick-start-guide
-        type: GettingStarted
-      - url: openapi/tamara-checkout-api-openapi.yml
-        type: OpenAPI
-      - url: rules/tamara-rules.yml
-        type: Spectral
-    contact:
-      - FN: Tamara Merchant Support
-        url: https://docs.tamara.co/
-  - aid: tamara:tamara-orders-api
-    name: Tamara Orders API
-    description: >-
-      Authorize, capture, cancel, retrieve, and update orders created via Tamara checkout sessions. Mirrors the online
-      checkout lifecycle (new → approved → authorised → captured → refunded) and is the merchant's primary post-checkout
-      integration surface.
-    humanURL: https://docs.tamara.co/reference/authoriseorder
-    baseURL: https://api.tamara.co
-    tags:
-      - Orders
-      - Authorise
-      - Capture
-      - Cancel
-      - BNPL
-    properties:
-      - url: https://docs.tamara.co/reference/authoriseorder
-        type: Documentation
-      - url: https://docs.tamara.co/docs/online-order-status-flow
-        type: Documentation
-      - url: openapi/tamara-orders-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/tamara-order-schema.json
-        type: JSONSchema
-  - aid: tamara:tamara-payments-api
-    name: Tamara Payments API
-    description: >-
-      Capture funds against an authorised order and process refunds. Includes the legacy /payments/refund endpoint and
-      the modern /payments/simplified-refund/{order_id} surface introduced to simplify partial and full refunds against
-      captures.
-    humanURL: https://docs.tamara.co/reference/captureorder
-    baseURL: https://api.tamara.co
-    tags:
-      - Payments
-      - Captures
-      - Refunds
-    properties:
-      - url: https://docs.tamara.co/reference/captureorder
-        type: Documentation
-      - url: https://docs.tamara.co/reference/simplifiedrefund
-        type: Documentation
-      - url: openapi/tamara-payments-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/tamara-capture-schema.json
-        type: JSONSchema
-      - url: json-schema/tamara-refund-schema.json
-        type: JSONSchema
-  - aid: tamara:tamara-in-store-checkout-api
-    name: Tamara In-Store Checkout API
-    description: >-
-      Generate Tamara checkout sessions for brick-and-mortar stores through SMS payment links or QR codes that customers
-      scan with the Tamara consumer app to complete the BNPL purchase in-aisle. Includes the void operation for in-store
-      sessions that need to be cancelled before completion.
-    humanURL: https://docs.tamara.co/reference/createinstorecheckoutsession
-    baseURL: https://api.tamara.co
-    tags:
-      - In-store
-      - POS
-      - SMS
-      - QR Code
-      - Checkout
-      - BNPL
-    properties:
-      - url: https://docs.tamara.co/reference/createinstorecheckoutsession
-        type: Documentation
-      - url: https://docs.tamara.co/reference/createinstoreqrcode
-        type: Documentation
-      - url: https://docs.tamara.co/docs/pos-integration
-        type: Documentation
-      - url: openapi/tamara-in-store-checkout-api-openapi.yml
-        type: OpenAPI
-  - aid: tamara:tamara-webhooks-api
-    name: Tamara Webhooks API
-    description: >-
-      Register and manage HTTPS webhook endpoints that receive order and dispute lifecycle events from Tamara
-      (order_approved, order_authorised, order_captured, order_refunded, order_canceled, order_expired, dispute events,
-      and more). Webhooks carry a JWT-encoded `tamaraToken` for verification.
-    humanURL: https://docs.tamara.co/reference/getting-started-with-webhooks
-    baseURL: https://api.tamara.co
-    tags:
-      - Webhooks
-      - Events
-      - Notifications
-    properties:
-      - url: https://docs.tamara.co/reference/getting-started-with-webhooks
-        type: Documentation
-      - url: https://docs.tamara.co/docs/transaction-authorisation
-        type: Documentation
-      - url: openapi/tamara-webhooks-api-openapi.yml
-        type: OpenAPI
-  - aid: tamara:tamara-disputes-api
-    name: Tamara Disputes API
-    description: >-
-      Query, filter, and update merchant disputes raised against Tamara orders. Supports listing disputes by order id,
-      dispute id, order status, or dispute status; and appending comments and proof attachments to an existing dispute
-      case.
-    humanURL: https://docs.tamara.co/reference/get_external-merchants-orders-disputes
-    baseURL: https://api.tamara.co
-    tags:
-      - Disputes
-      - Chargebacks
-      - Merchant Operations
-    properties:
-      - url: https://docs.tamara.co/reference/get_external-merchants-orders-disputes
-        type: Documentation
-      - url: https://docs.tamara.co/docs/dispute-management-best-practices
-        type: Documentation
-      - url: openapi/tamara-disputes-api-openapi.yml
-        type: OpenAPI
-  - aid: tamara:tamara-eligibility-api
-    name: Tamara Pre-Checkout Eligibility API
-    description: >-
-      Check whether Tamara considers a customer eligible for a BNPL purchase before exposing Tamara as a payment method
-      on the merchant's checkout page. The endpoint accepts an order amount/currency and a customer phone number and
-      returns a boolean eligibility indicator.
-    humanURL: https://docs.tamara.co/reference/pre-checkout-eligibility
-    baseURL: https://api.tamara.co
-    tags:
-      - Eligibility
-      - Pre-Checkout
-      - Risk
-    properties:
-      - url: https://docs.tamara.co/reference/pre-checkout-eligibility
-        type: Documentation
-      - url: openapi/tamara-eligibility-api-openapi.yml
-        type: OpenAPI
-  - aid: tamara:tamara-channel-partners-api
-    name: Tamara Channel Partners API
-    description: >-
-      Allow payment service providers, platforms, and aggregators to onboard merchants onto Tamara on their behalf.
-      Submit merchant KYB/KYC information, retrieve onboarding status and merchant API keys, and register onboarding
-      event webhooks. Hosted on a dedicated partner subdomain (partner-api.tamara.co).
-    humanURL: https://docs.tamara.co/reference/post_channel-partners-merchant-onboarding-create
-    baseURL: https://partner-api.tamara.co
-    tags:
-      - Channel Partners
-      - Onboarding
-      - KYB
-      - KYC
-      - PSP
-    properties:
-      - url: https://docs.tamara.co/reference/post_channel-partners-merchant-onboarding-create
-        type: Documentation
-      - url: openapi/tamara-channel-partners-api-openapi.yml
-        type: OpenAPI
+- aid: tamara:tamara-orders-api
+  name: Tamara Orders API
+  description: >-
+    Authorize, capture, cancel, retrieve, and update orders created via Tamara checkout sessions. Mirrors
+    the online checkout lifecycle (new → approved → authorised → captured → refunded) and is the merchant's
+    primary post-checkout integration surface.
+  humanURL: https://docs.tamara.co/reference/authoriseorder
+  baseURL: https://api.tamara.co
+  tags:
+  - Orders
+  - Authorise
+  - Capture
+  - Cancel
+  - BNPL
+  properties:
+  - url: https://docs.tamara.co/reference/authoriseorder
+    type: Documentation
+  - url: https://docs.tamara.co/docs/online-order-status-flow
+    type: Documentation
+  - url: openapi/tamara-orders-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/tamara-order-schema.json
+    type: JSONSchema
+- aid: tamara:tamara-in-store-checkout-api
+  name: Tamara In-Store Checkout API
+  description: >-
+    Generate Tamara checkout sessions for brick-and-mortar stores through SMS payment links or QR codes
+    that customers scan with the Tamara consumer app to complete the BNPL purchase in-aisle. Includes
+    the void operation for in-store sessions that need to be cancelled before completion.
+  humanURL: https://docs.tamara.co/reference/createinstorecheckoutsession
+  baseURL: https://api.tamara.co
+  tags:
+  - In-store
+  - POS
+  - SMS
+  - QR Code
+  - Checkout
+  - BNPL
+  properties:
+  - url: https://docs.tamara.co/reference/createinstorecheckoutsession
+    type: Documentation
+  - url: https://docs.tamara.co/reference/createinstoreqrcode
+    type: Documentation
+  - url: https://docs.tamara.co/docs/pos-integration
+    type: Documentation
+  - url: openapi/tamara-in-store-checkout-api-openapi.yml
+    type: OpenAPI
+- aid: tamara:tamara-webhooks-api
+  name: Tamara Webhooks API
+  description: >-
+    Register and manage HTTPS webhook endpoints that receive order and dispute lifecycle events from Tamara
+    (order_approved, order_authorised, order_captured, order_refunded, order_canceled, order_expired,
+    dispute events, and more). Webhooks carry a JWT-encoded `tamaraToken` for verification.
+  humanURL: https://docs.tamara.co/reference/getting-started-with-webhooks
+  baseURL: https://api.tamara.co
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  properties:
+  - url: https://docs.tamara.co/reference/getting-started-with-webhooks
+    type: Documentation
+  - url: https://docs.tamara.co/docs/transaction-authorisation
+    type: Documentation
+  - url: openapi/tamara-webhooks-api-openapi.yml
+    type: OpenAPI
+- aid: tamara:tamara-disputes-api
+  name: Tamara Disputes API
+  description: >-
+    Query, filter, and update merchant disputes raised against Tamara orders. Supports listing disputes
+    by order id, dispute id, order status, or dispute status; and appending comments and proof attachments
+    to an existing dispute case.
+  humanURL: https://docs.tamara.co/reference/get_external-merchants-orders-disputes
+  baseURL: https://api.tamara.co
+  tags:
+  - Disputes
+  - Chargebacks
+  - Merchant Operations
+  properties:
+  - url: https://docs.tamara.co/reference/get_external-merchants-orders-disputes
+    type: Documentation
+  - url: https://docs.tamara.co/docs/dispute-management-best-practices
+    type: Documentation
+  - url: openapi/tamara-disputes-api-openapi.yml
+    type: OpenAPI
+- aid: tamara:tamara-eligibility-api
+  name: Tamara Pre-Checkout Eligibility API
+  description: >-
+    Check whether Tamara considers a customer eligible for a BNPL purchase before exposing Tamara as a
+    payment method on the merchant's checkout page. The endpoint accepts an order amount/currency and
+    a customer phone number and returns a boolean eligibility indicator.
+  humanURL: https://docs.tamara.co/reference/pre-checkout-eligibility
+  baseURL: https://api.tamara.co
+  tags:
+  - Eligibility
+  - Pre-Checkout
+  - Risk
+  properties:
+  - url: https://docs.tamara.co/reference/pre-checkout-eligibility
+    type: Documentation
+  - url: openapi/tamara-eligibility-api-openapi.yml
+    type: OpenAPI
+- aid: tamara:tamara-captures-api
+  name: Tamara Captures API
+  description: The Captures API from Tamara — 1 operation(s) for captures.
+  humanURL: https://docs.tamara.co/reference/createcheckoutsession
+  baseURL: https://api.tamara.co
+  tags:
+  - Captures
+  properties:
+  - type: OpenAPI
+    url: openapi/tamara-captures-api-openapi.yml
+  - type: Documentation
+    url: https://docs.tamara.co/reference/createcheckoutsession
+  - type: GettingStarted
+    url: https://docs.tamara.co/docs/direct-quick-start-guide
+  - type: Spectral
+    url: rules/tamara-rules.yml
+  - type: Documentation
+    url: https://docs.tamara.co/reference/captureorder
+  - type: Documentation
+    url: https://docs.tamara.co/reference/simplifiedrefund
+  - type: JSONSchema
+    url: json-schema/tamara-capture-schema.json
+  - type: JSONSchema
+    url: json-schema/tamara-refund-schema.json
+  - type: Documentation
+    url: https://docs.tamara.co/reference/post_channel-partners-merchant-onboarding-create
+- aid: tamara:tamara-channel-partner-webhooks-api
+  name: Tamara Channel Partner Webhooks API
+  description: >-
+    The Channel Partner Webhooks API from Tamara — 2 operation(s) for channel partner webhooks.
+  humanURL: https://docs.tamara.co/reference/createcheckoutsession
+  baseURL: https://api.tamara.co
+  tags:
+  - Channel Partner Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/tamara-channel-partner-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.tamara.co/reference/createcheckoutsession
+  - type: GettingStarted
+    url: https://docs.tamara.co/docs/direct-quick-start-guide
+  - type: Spectral
+    url: rules/tamara-rules.yml
+  - type: Documentation
+    url: https://docs.tamara.co/reference/captureorder
+  - type: Documentation
+    url: https://docs.tamara.co/reference/simplifiedrefund
+  - type: JSONSchema
+    url: json-schema/tamara-capture-schema.json
+  - type: JSONSchema
+    url: json-schema/tamara-refund-schema.json
+  - type: Documentation
+    url: https://docs.tamara.co/reference/post_channel-partners-merchant-onboarding-create
+- aid: tamara:tamara-checkout-sessions-api
+  name: Tamara Checkout Sessions API
+  description: Create and manage hosted-checkout sessions.
+  humanURL: https://docs.tamara.co/reference/createcheckoutsession
+  baseURL: https://api.tamara.co
+  tags:
+  - Checkout Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/tamara-checkout-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.tamara.co/reference/createcheckoutsession
+  - type: GettingStarted
+    url: https://docs.tamara.co/docs/direct-quick-start-guide
+  - type: Spectral
+    url: rules/tamara-rules.yml
+  - type: Documentation
+    url: https://docs.tamara.co/reference/captureorder
+  - type: Documentation
+    url: https://docs.tamara.co/reference/simplifiedrefund
+  - type: JSONSchema
+    url: json-schema/tamara-capture-schema.json
+  - type: JSONSchema
+    url: json-schema/tamara-refund-schema.json
+  - type: Documentation
+    url: https://docs.tamara.co/reference/post_channel-partners-merchant-onboarding-create
+- aid: tamara:tamara-merchant-api-keys-api
+  name: Tamara Merchant API Keys API
+  description: The Merchant API Keys API from Tamara — 1 operation(s) for merchant api keys.
+  humanURL: https://docs.tamara.co/reference/createcheckoutsession
+  baseURL: https://api.tamara.co
+  tags:
+  - Merchant API Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/tamara-merchant-api-keys-api-openapi.yml
+  - type: Documentation
+    url: https://docs.tamara.co/reference/createcheckoutsession
+  - type: GettingStarted
+    url: https://docs.tamara.co/docs/direct-quick-start-guide
+  - type: Spectral
+    url: rules/tamara-rules.yml
+  - type: Documentation
+    url: https://docs.tamara.co/reference/captureorder
+  - type: Documentation
+    url: https://docs.tamara.co/reference/simplifiedrefund
+  - type: JSONSchema
+    url: json-schema/tamara-capture-schema.json
+  - type: JSONSchema
+    url: json-schema/tamara-refund-schema.json
+  - type: Documentation
+    url: https://docs.tamara.co/reference/post_channel-partners-merchant-onboarding-create
+- aid: tamara:tamara-merchant-onboarding-api
+  name: Tamara Merchant Onboarding API
+  description: The Merchant Onboarding API from Tamara — 2 operation(s) for merchant onboarding.
+  humanURL: https://docs.tamara.co/reference/createcheckoutsession
+  baseURL: https://api.tamara.co
+  tags:
+  - Merchant Onboarding
+  properties:
+  - type: OpenAPI
+    url: openapi/tamara-merchant-onboarding-api-openapi.yml
+  - type: Documentation
+    url: https://docs.tamara.co/reference/createcheckoutsession
+  - type: GettingStarted
+    url: https://docs.tamara.co/docs/direct-quick-start-guide
+  - type: Spectral
+    url: rules/tamara-rules.yml
+  - type: Documentation
+    url: https://docs.tamara.co/reference/captureorder
+  - type: Documentation
+    url: https://docs.tamara.co/reference/simplifiedrefund
+  - type: JSONSchema
+    url: json-schema/tamara-capture-schema.json
+  - type: JSONSchema
+    url: json-schema/tamara-refund-schema.json
+  - type: Documentation
+    url: https://docs.tamara.co/reference/post_channel-partners-merchant-onboarding-create
+- aid: tamara:tamara-refunds-api
+  name: Tamara Refunds API
+  description: The Refunds API from Tamara — 2 operation(s) for refunds.
+  humanURL: https://docs.tamara.co/reference/createcheckoutsession
+  baseURL: https://api.tamara.co
+  tags:
+  - Refunds
+  properties:
+  - type: OpenAPI
+    url: openapi/tamara-refunds-api-openapi.yml
+  - type: Documentation
+    url: https://docs.tamara.co/reference/createcheckoutsession
+  - type: GettingStarted
+    url: https://docs.tamara.co/docs/direct-quick-start-guide
+  - type: Spectral
+    url: rules/tamara-rules.yml
+  - type: Documentation
+    url: https://docs.tamara.co/reference/captureorder
+  - type: Documentation
+    url: https://docs.tamara.co/reference/simplifiedrefund
+  - type: JSONSchema
+    url: json-schema/tamara-capture-schema.json
+  - type: JSONSchema
+    url: json-schema/tamara-refund-schema.json
+  - type: Documentation
+    url: https://docs.tamara.co/reference/post_channel-partners-merchant-onboarding-create
 common:
   - type: AgenticAccess
     url: agentic-access/tamara-agentic-access.yml
