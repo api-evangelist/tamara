@@ -1,0 +1,254 @@
+openapi: 3.0.3
+info:
+  title: Tamara Payments API
+  description: |
+    Capture funds against an authorised order and process refunds via either the modern
+    simplified-refund endpoint or the legacy refund endpoint.
+  version: 1.0.0
+  contact:
+    name: Tamara Merchant Support
+    url: https://docs.tamara.co/
+servers:
+- url: https://api.tamara.co
+  description: Production
+- url: https://api-sandbox.tamara.co
+  description: Sandbox
+tags:
+- name: Captures
+- name: Refunds
+paths:
+  /payments/capture:
+    post:
+      operationId: captureOrder
+      summary: Capture Order
+      description: |
+        Perform a full or partial capture of an authorised order, confirming shipment or
+        fulfilment of items to the customer. Status returned will be `fully_captured` or
+        `partially_captured` based on the amount captured.
+      tags: [Captures]
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaptureRequest'
+      responses:
+        '200':
+          description: Capture successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaptureResponse'
+  /payments/simplified-refund/{order_id}:
+    post:
+      operationId: simplifiedRefund
+      summary: Simplified Refund
+      description: |
+        Modern refund surface that processes a partial or full refund against an order without
+        requiring the caller to specify individual capture ids.
+      tags: [Refunds]
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimplifiedRefundRequest'
+      responses:
+        '200':
+          description: Refund successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimplifiedRefundResponse'
+  /payments/refund:
+    post:
+      operationId: refund
+      summary: Refund
+      deprecated: true
+      description: |
+        Legacy refund endpoint that processes one or more refunds against named captures
+        belonging to an order. New integrations should prefer `/payments/simplified-refund/{order_id}`.
+      tags: [Refunds]
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundRequest'
+      responses:
+        '200':
+          description: Refund(s) successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Tamara-issued merchant API token.
+  schemas:
+    Money:
+      type: object
+      required: [amount, currency]
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+          enum: [SAR, AED, BHD, KWD, OMR]
+    ShippingInfo:
+      type: object
+      properties:
+        shipped_at:
+          type: string
+          format: date-time
+        shipping_company:
+          type: string
+        tracking_number:
+          type: string
+        tracking_url:
+          type: string
+          format: uri
+    Item:
+      type: object
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        total_amount:
+          $ref: '#/components/schemas/Money'
+    CaptureRequest:
+      type: object
+      required: [order_id, total_amount, shipping_info]
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        shipping_info:
+          $ref: '#/components/schemas/ShippingInfo'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        discount_amount:
+          $ref: '#/components/schemas/Money'
+        shipping_amount:
+          $ref: '#/components/schemas/Money'
+        tax_amount:
+          $ref: '#/components/schemas/Money'
+    CaptureResponse:
+      type: object
+      properties:
+        capture_id:
+          type: string
+          format: uuid
+        order_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [fully_captured, partially_captured]
+        captured_amount:
+          $ref: '#/components/schemas/Money'
+    SimplifiedRefundRequest:
+      type: object
+      required: [total_amount, comment]
+      properties:
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        comment:
+          type: string
+          example: Refund for the order A123
+        merchant_refund_id:
+          type: string
+    SimplifiedRefundResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        refund_id:
+          type: string
+          format: uuid
+        capture_id:
+          type: string
+          format: uuid
+        comment:
+          type: string
+        status:
+          type: string
+          enum: [fully_refunded, partially_refunded]
+        refunded_amount:
+          $ref: '#/components/schemas/Money'
+    RefundRequest:
+      type: object
+      required: [order_id, refunds]
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        refunds:
+          type: array
+          items:
+            type: object
+            properties:
+              capture_id:
+                type: string
+              total_amount:
+                $ref: '#/components/schemas/Money'
+              refund_id:
+                type: string
+              tax_amount:
+                $ref: '#/components/schemas/Money'
+              shipping_amount:
+                $ref: '#/components/schemas/Money'
+              discount_amount:
+                $ref: '#/components/schemas/Money'
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+    RefundResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        refunds:
+          type: array
+          items:
+            type: object
+            properties:
+              refund_id:
+                type: string
+              capture_id:
+                type: string
+        status:
+          type: string
+          enum: [fully_refunded, partially_refunded]
+        refunded_amount:
+          $ref: '#/components/schemas/Money'
