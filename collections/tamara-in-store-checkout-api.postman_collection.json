@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "0d1b3c03-62a6-4288-a648-bcdb256bdac0",
+      "id": "07a714d8-fd62-4cf8-b68f-bf91d96433fa",
       "name": "In-Store Checkout",
       "description": {
         "content": "",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "a9a3db8c-3e6b-401e-b3d2-80fb963c64f4",
+          "id": "a3b317e2-defb-4592-b195-2d3c60a101e7",
           "name": "Create In-Store SMS Payment Link Checkout Session",
           "request": {
             "name": "Create In-Store SMS Payment Link Checkout Session",
@@ -60,7 +60,7 @@
           },
           "response": [
             {
-              "id": "aee44dcb-1ada-488d-8f84-251c395e615b",
+              "id": "b87da1b8-deb4-403b-a050-35b0dbc72ca0",
               "name": "Session created.",
               "originalRequest": {
                 "url": {
@@ -107,7 +107,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"checkout_id\": \"8ee939ac-95a8-9b60-04be-7ca476474df1\",\n  \"order_id\": \"5117a2ff-3a59-5378-e4f0-3346ed0ae60f\",\n  \"checkout_deeplink\": \"https://ey.lobHYxi,RVKu\"\n}",
+              "body": "{\n  \"checkout_id\": \"7a7dbf76-13b2-dd4b-9633-10d6f775fd39\",\n  \"order_id\": \"3a3dad29-4506-59d2-c0b4-ef77c000822e\",\n  \"checkout_deeplink\": \"https://OCXGI.nyjrg9sgkZ3CzqahqBEK9UO9-P,PJJg-0Rm7zcsNVzWX\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -118,7 +118,7 @@
           }
         },
         {
-          "id": "847770c0-74dc-49a5-9895-f8ae111c7575",
+          "id": "7e3bd37b-4106-4755-9c7a-eed65ad984f2",
           "name": "Create In-Store QR Code Checkout Session",
           "request": {
             "name": "Create In-Store QR Code Checkout Session",
@@ -175,7 +175,7 @@
           },
           "response": [
             {
-              "id": "04327a78-c4f1-4c61-811b-cfb40c3fde92",
+              "id": "9ee6bc6b-163c-4424-9a36-2f952376c1a2",
               "name": "Session created.",
               "originalRequest": {
                 "url": {
@@ -228,7 +228,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"checkout_id\": \"8ee939ac-95a8-9b60-04be-7ca476474df1\",\n  \"order_id\": \"5117a2ff-3a59-5378-e4f0-3346ed0ae60f\",\n  \"checkout_deeplink\": \"https://ey.lobHYxi,RVKu\"\n}",
+              "body": "{\n  \"checkout_id\": \"7a7dbf76-13b2-dd4b-9633-10d6f775fd39\",\n  \"order_id\": \"3a3dad29-4506-59d2-c0b4-ef77c000822e\",\n  \"checkout_deeplink\": \"https://OCXGI.nyjrg9sgkZ3CzqahqBEK9UO9-P,PJJg-0Rm7zcsNVzWX\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -239,7 +239,7 @@
           }
         },
         {
-          "id": "5df37216-19b7-4ed3-b62e-a46bda8ab5de",
+          "id": "a6799ce0-d8b7-4412-8eec-994331dc4a25",
           "name": "Void Checkout Session",
           "request": {
             "name": "Void Checkout Session",
@@ -298,7 +298,7 @@
           },
           "response": [
             {
-              "id": "4f6ba8f5-a3f9-4ec2-ad0f-10bba148511f",
+              "id": "418a5e2d-8536-49c7-8e60-ae728e8618fe",
               "name": "Void result.",
               "originalRequest": {
                 "url": {
@@ -373,16 +373,16 @@
   "variable": [
     {
       "type": "string",
-      "value": "https://api.tamara.co",
+      "value": "https://partner-api.tamara.co",
       "key": "baseUrl"
     }
   ],
   "info": {
-    "_postman_id": "3fe265d0-2a47-469c-8511-6417174c6cae",
-    "name": "Tamara In-Store Checkout API",
+    "_postman_id": "2779a1c2-d99f-42e7-b88a-66666e40b235",
+    "name": "Tamara Channel Partners Captures In-Store Checkout API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "Generate Tamara checkout sessions for brick-and-mortar stores through SMS payment links\nor QR codes that customers scan with the Tamara consumer app to complete the BNPL\npurchase in-aisle.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+      "content": "Allow payment service providers, platforms, and aggregators to onboard merchants onto\nTamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding\nstatus and merchant API keys, and register onboarding event webhooks.\n\n\nContact Support:\n Name: Tamara Partner Support",
       "type": "text/plain"
     }
   }

@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Tamara Orders API",
+    "name": "Tamara Channel Partners Captures Orders API",
     "version": "1.0.0"
   },
   "items": [
@@ -18,7 +18,7 @@
           },
           "http": {
             "method": "GET",
-            "url": "https://api.tamara.co/orders/:order_id",
+            "url": "https://partner-api.tamara.co/orders/:order_id",
             "params": [
               {
                 "name": "order_id",
@@ -40,7 +40,7 @@
           },
           "http": {
             "method": "POST",
-            "url": "https://api.tamara.co/orders/:order_id/authorise",
+            "url": "https://partner-api.tamara.co/orders/:order_id/authorise",
             "params": [
               {
                 "name": "order_id",
@@ -62,7 +62,7 @@
           },
           "http": {
             "method": "POST",
-            "url": "https://api.tamara.co/orders/:order_id/cancel",
+            "url": "https://partner-api.tamara.co/orders/:order_id/cancel",
             "params": [
               {
                 "name": "order_id",
@@ -88,7 +88,7 @@
           },
           "http": {
             "method": "PUT",
-            "url": "https://api.tamara.co/orders/:order_id/reference-id",
+            "url": "https://partner-api.tamara.co/orders/:order_id/reference-id",
             "params": [
               {
                 "name": "order_id",

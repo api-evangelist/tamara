@@ -1,24 +1,24 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Tamara Channel Partners Captures Eligibility API",
+    "name": "Tamara Channel Partners Captures Checkout Sessions API",
     "version": "1.0.0"
   },
   "items": [
     {
       "info": {
-        "name": "Eligibility",
+        "name": "Checkout Sessions",
         "type": "folder"
       },
       "items": [
         {
           "info": {
-            "name": "Pre-Checkout Eligibility",
+            "name": "Create Checkout Session",
             "type": "http"
           },
           "http": {
             "method": "POST",
-            "url": "https://partner-api.tamara.co/pre-checkout/v1/eligibility",
+            "url": "https://partner-api.tamara.co/checkout",
             "body": {
               "type": "json",
               "data": "{}"
@@ -28,7 +28,7 @@
               "token": "{{bearerToken}}"
             }
           },
-          "docs": "Check whether the supplied customer (identified by phone number) is treated as\neligible by Tamara for the order amount. If the phone number is not passed the\ncustomer is treated as eligible.\n"
+          "docs": "Create a hosted checkout session where Tamara collects payment information and\ncompletes the BNPL or Pay-Now flow with the consumer. Store the returned\n`order_id` and redirect the customer to `checkout_url`.\n"
         }
       ]
     }

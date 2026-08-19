@@ -1,0 +1,140 @@
+{
+  "item": [
+    {
+      "id": "4613973d-c982-4f1b-8f27-a090eb70f327",
+      "name": "Merchant API Keys",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d18583ab-9d68-4319-8f6d-fe33d875e0f2",
+          "name": "Retrieve Merchant API Keys",
+          "request": {
+            "name": "Retrieve Merchant API Keys",
+            "description": {
+              "content": "Retrieve API, public, and notification keys for an onboarded merchant.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channel-partners",
+                "merchant",
+                ":merchantId",
+                "api-key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "merchantId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "55572663-4408-470e-8488-5d786f5b2238",
+              "name": "Merchant API keys.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel-partners",
+                    "merchant",
+                    ":merchantId",
+                    "api-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "merchantId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"api_key\": \"string\",\n  \"public_key\": \"string\",\n  \"notification_key\": \"string\",\n  \"merchant_id\": \"ddce32f2-d703-e9ba-0a0d-d810a162e3d5\",\n  \"merchant_code\": \"string\",\n  \"merchant_status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://partner-api.tamara.co",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "46c6300d-585d-412d-bb56-89cae6103d55",
+    "name": "Tamara Channel Partners Captures Merchant API Keys API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Allow payment service providers, platforms, and aggregators to onboard merchants onto\nTamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding\nstatus and merchant API keys, and register onboarding event webhooks.\n\n\nContact Support:\n Name: Tamara Partner Support",
+      "type": "text/plain"
+    }
+  }
+}

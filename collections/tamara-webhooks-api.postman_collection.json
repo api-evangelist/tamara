@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "cc440c44-d691-43d3-8b08-074bf84a50d1",
+      "id": "a8089ba4-5a37-4995-9e7b-441374482cb3",
       "name": "Webhooks",
       "description": {
         "content": "",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "97ae2c88-52ce-4da6-94ad-271af9304d6f",
+          "id": "2ccbdd50-366b-4dd8-8e36-f048a2d8b3ef",
           "name": "Register Webhook URL",
           "request": {
             "name": "Register Webhook URL",
@@ -49,7 +49,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"type\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  }\n}",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -59,7 +59,7 @@
           },
           "response": [
             {
-              "id": "b2cbe285-c58f-44a1-9462-1f8686c6a552",
+              "id": "c39edc72-b05f-40ae-a5d8-7666e96f6229",
               "name": "Webhook registered.",
               "originalRequest": {
                 "url": {
@@ -89,7 +89,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"type\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"order_approved\",\n    \"order_approved\"\n  ],\n  \"headers\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"order_approved\",\n    \"order_approved\"\n  ],\n  \"headers\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -105,7 +105,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"merchant_id\": \"ab804be8-3eba-2635-c162-4325f4d5e1ef\",\n  \"webhook_id\": \"f594526d-ad74-f74c-213c-1e83a96c7527\",\n  \"url\": \"https://CVagz.jbGjlbIbdGRmcSjMoB,cj8ONeVK,+AYS9-HU4Sbo9oDwQMveviCvDFn4VO2yXrk6Yx-.Rp-M\",\n  \"events\": [\n    \"string\",\n    \"string\"\n  ],\n  \"headers\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "body": "{\n  \"merchant_id\": \"d5b20b54-28bf-d302-810b-29c746f52c45\",\n  \"webhook_id\": \"c7866785-2075-ace0-e4dd-be4afee81893\",\n  \"url\": \"https://RRpbBc.rlopV70eQzXW3Wy,383SnQ3TfEaRWc9cpmP1c6YNFn8CjRRpPVMBjUkfHlGrdopVtgZrc3pSK2TOznl+MGyV6-\",\n  \"events\": [\n    \"string\",\n    \"string\"\n  ],\n  \"headers\": {\n    \"key_0\": \"string\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -116,7 +116,7 @@
           }
         },
         {
-          "id": "2ccbcff4-0e78-427a-886d-58b882219c4b",
+          "id": "e0494c26-528e-42dd-99ae-70a7162ee619",
           "name": "Retrieve Webhook URL",
           "request": {
             "name": "Retrieve Webhook URL",
@@ -159,7 +159,7 @@
           },
           "response": [
             {
-              "id": "4c5f0db0-671f-4d47-9efd-b29a0d9a3f00",
+              "id": "69309a93-3c29-419d-a04c-51f7f242bcff",
               "name": "Webhook configuration.",
               "originalRequest": {
                 "url": {
@@ -206,7 +206,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"merchant_id\": \"b468e6cb-b2d6-0efa-d4b9-120c266bb782\",\n  \"webhook_id\": \"5272ee37-bc50-66f1-c2f4-643453089515\",\n  \"url\": \"https://ofqBqPqQKFxeEOzpBHQlPwv.usgnOIdxSwy86UDFID7rRvnF6Suea,Cvf-1WGa92sk9\",\n  \"events\": [\n    \"string\",\n    \"string\"\n  ],\n  \"headers\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "body": "{\n  \"merchant_id\": \"9ac77bc8-d0fe-e34e-3678-b2773fd62f65\",\n  \"webhook_id\": \"4fbb10b3-1691-d1b4-9fe8-1c029eecfc12\",\n  \"url\": \"https://rW.uvYNFLpVcid8oDRisDx-FJnFk8kowsZ8Jm+nEXc7VtdZgaaQJGuB1VXM3tV5raWXKEAF4vC\",\n  \"events\": [\n    \"string\",\n    \"string\"\n  ],\n  \"headers\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -217,7 +217,7 @@
           }
         },
         {
-          "id": "5d094097-79ad-44ef-a2bf-3b3a9c32c98f",
+          "id": "e064ccab-6d12-4db0-9039-5bfd4531a135",
           "name": "Update Webhook URL",
           "request": {
             "name": "Update Webhook URL",
@@ -273,7 +273,7 @@
           },
           "response": [
             {
-              "id": "7b4a54db-87aa-4507-991d-787ce44a9f5a",
+              "id": "23d69f6d-a10f-4ed6-b00c-ca4fdfba777b",
               "name": "Webhook updated.",
               "originalRequest": {
                 "url": {
@@ -312,7 +312,7 @@
                 "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -328,7 +328,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"merchant_id\": \"b468e6cb-b2d6-0efa-d4b9-120c266bb782\",\n  \"webhook_id\": \"5272ee37-bc50-66f1-c2f4-643453089515\",\n  \"url\": \"https://ofqBqPqQKFxeEOzpBHQlPwv.usgnOIdxSwy86UDFID7rRvnF6Suea,Cvf-1WGa92sk9\",\n  \"events\": [\n    \"string\",\n    \"string\"\n  ],\n  \"headers\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "body": "{\n  \"merchant_id\": \"9ac77bc8-d0fe-e34e-3678-b2773fd62f65\",\n  \"webhook_id\": \"4fbb10b3-1691-d1b4-9fe8-1c029eecfc12\",\n  \"url\": \"https://rW.uvYNFLpVcid8oDRisDx-FJnFk8kowsZ8Jm+nEXc7VtdZgaaQJGuB1VXM3tV5raWXKEAF4vC\",\n  \"events\": [\n    \"string\",\n    \"string\"\n  ],\n  \"headers\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -339,7 +339,7 @@
           }
         },
         {
-          "id": "8acd6719-2c73-473d-bbf0-fa2eaa751221",
+          "id": "3b9e127e-3fa4-4b09-8b49-6aa26c36e019",
           "name": "Delete Webhook URL",
           "request": {
             "name": "Delete Webhook URL",
@@ -376,7 +376,7 @@
           },
           "response": [
             {
-              "id": "f4034cfe-889f-420d-b396-654c695aa011",
+              "id": "d4aaa33f-e346-4aae-b72e-f42f4f61aa80",
               "name": "Webhook deleted.",
               "originalRequest": {
                 "url": {
@@ -437,16 +437,16 @@
   "variable": [
     {
       "type": "string",
-      "value": "https://api.tamara.co",
+      "value": "https://partner-api.tamara.co",
       "key": "baseUrl"
     }
   ],
   "info": {
-    "_postman_id": "7d9959a0-6454-410f-a26e-ca76611c3938",
-    "name": "Tamara Webhooks API",
+    "_postman_id": "4a6f2049-f7a1-4fd4-ac93-3aa6af77f1f0",
+    "name": "Tamara Channel Partners Captures Webhooks API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "Register and manage HTTPS webhook endpoints that receive order and dispute lifecycle\nevents from Tamara. Notifications include a JWT-encoded `tamaraToken` in the query\nstring and Authorization header for verification.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+      "content": "Allow payment service providers, platforms, and aggregators to onboard merchants onto\nTamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding\nstatus and merchant API keys, and register onboarding event webhooks.\n\n\nContact Support:\n Name: Tamara Partner Support",
       "type": "text/plain"
     }
   }

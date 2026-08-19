@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "c7522210-55f5-4ccb-ac8a-ceb9f1100f9b",
+      "id": "fcc5328c-6540-455b-8e66-b217789e624c",
       "name": "Disputes",
       "description": {
         "content": "",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "336cd88a-5d84-4c7e-a896-fdf3abd82016",
+          "id": "fbff80f7-445c-44e9-b0a7-5bbd9b81b5a7",
           "name": "Get Dispute Case Details",
           "request": {
             "name": "Get Dispute Case Details",
@@ -97,7 +97,7 @@
           },
           "response": [
             {
-              "id": "d430e97d-35c6-49ea-9aa1-a864f1c017db",
+              "id": "1869462d-ddc1-47de-aabd-d573ef462834",
               "name": "Disputes list.",
               "originalRequest": {
                 "url": {
@@ -178,7 +178,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"total\": 4838,\n  \"data\": {\n    \"merchant_details\": {\n      \"merchant_id\": \"string\",\n      \"merchant_code\": \"string\",\n      \"merchant_name\": \"string\",\n      \"merchant_status\": \"string\"\n    },\n    \"disputes\": {\n      \"key_0\": {\n        \"dispute_id\": 5737,\n        \"order_id\": \"46519788-fde1-507a-df25-4a22b3846c76\",\n        \"merchant_order_reference_id\": \"string\",\n        \"order_status\": \"string\",\n        \"dispute_status\": \"open\",\n        \"opened_at\": \"2008-04-10T08:01:46.446Z\",\n        \"closed_at\": \"1949-07-27T03:44:48.080Z\",\n        \"amount\": {\n          \"amount\": 1087.2462009089402,\n          \"currency\": \"string\"\n        },\n        \"activities\": [\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"1978-01-06T12:52:23.256Z\"\n          },\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"2007-06-13T02:32:53.454Z\"\n          }\n        ]\n      },\n      \"key_1\": {\n        \"dispute_id\": 6139,\n        \"order_id\": \"49e01f02-c8cb-19cf-40b9-d38848d7216b\",\n        \"merchant_order_reference_id\": \"string\",\n        \"order_status\": \"string\",\n        \"dispute_status\": \"under_review\",\n        \"opened_at\": \"1971-09-03T20:43:55.917Z\",\n        \"closed_at\": \"2018-11-30T10:14:37.360Z\",\n        \"amount\": {\n          \"amount\": 9977.532843471903,\n          \"currency\": \"string\"\n        },\n        \"activities\": [\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"1959-05-13T08:13:33.901Z\"\n          },\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"2019-10-14T12:34:31.903Z\"\n          }\n        ]\n      }\n    }\n  }\n}",
+              "body": "{\n  \"total\": 5324,\n  \"data\": {\n    \"merchant_details\": {\n      \"merchant_id\": \"string\",\n      \"merchant_code\": \"string\",\n      \"merchant_name\": \"string\",\n      \"merchant_status\": \"string\"\n    },\n    \"disputes\": {\n      \"key_0\": {\n        \"dispute_id\": 254,\n        \"order_id\": \"a5f42e48-f03a-ab48-2e8c-3464bf2ef936\",\n        \"merchant_order_reference_id\": \"string\",\n        \"order_status\": \"string\",\n        \"dispute_status\": \"under_review\",\n        \"opened_at\": \"1989-12-26T04:57:14.761Z\",\n        \"closed_at\": \"1947-11-19T01:10:49.144Z\",\n        \"amount\": {\n          \"amount\": 9328.14474307154,\n          \"currency\": \"string\"\n        },\n        \"activities\": [\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"1996-05-25T22:16:44.746Z\"\n          },\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"2022-07-14T21:05:58.772Z\"\n          }\n        ]\n      },\n      \"key_1\": {\n        \"dispute_id\": 2745,\n        \"order_id\": \"a47bdf2d-7390-2685-d46d-696b32a74a4d\",\n        \"merchant_order_reference_id\": \"string\",\n        \"order_status\": \"string\",\n        \"dispute_status\": \"claim_accepted\",\n        \"opened_at\": \"2007-03-13T09:46:35.386Z\",\n        \"closed_at\": \"1948-03-27T18:46:17.781Z\",\n        \"amount\": {\n          \"amount\": 5018.4376377642275,\n          \"currency\": \"string\"\n        },\n        \"activities\": [\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"1968-06-23T22:28:48.615Z\"\n          },\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"2014-02-03T02:24:33.118Z\"\n          }\n        ]\n      },\n      \"key_2\": {\n        \"dispute_id\": 2949,\n        \"order_id\": \"9ce5ece5-bba5-a051-6988-6530a319b0c3\",\n        \"merchant_order_reference_id\": \"string\",\n        \"order_status\": \"string\",\n        \"dispute_status\": \"closed\",\n        \"opened_at\": \"1968-02-06T09:44:51.168Z\",\n        \"closed_at\": \"1997-08-26T14:08:21.305Z\",\n        \"amount\": {\n          \"amount\": 2680.635416130448,\n          \"currency\": \"string\"\n        },\n        \"activities\": [\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"1968-06-02T03:32:00.603Z\"\n          },\n          {\n            \"event\": \"string\",\n            \"comment\": \"string\",\n            \"attachments\": [\n              \"string\",\n              \"string\"\n            ],\n            \"created_at\": \"2013-08-21T07:49:26.324Z\"\n          }\n        ]\n      }\n    }\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -189,7 +189,7 @@
           }
         },
         {
-          "id": "629fc618-77e6-48de-b237-9837c3e36cca",
+          "id": "b071913d-e19e-4f95-b62c-a0a1a6856e36",
           "name": "Update Disputes by ID",
           "request": {
             "name": "Update Disputes by ID",
@@ -270,7 +270,7 @@
           },
           "response": [
             {
-              "id": "43e82d22-a5fc-4055-9fbc-d614680a267d",
+              "id": "93b76774-ea44-418a-931c-a2236bd6314e",
               "name": "Dispute updated.",
               "originalRequest": {
                 "url": {
@@ -378,16 +378,16 @@
   "variable": [
     {
       "type": "string",
-      "value": "https://api.tamara.co",
+      "value": "https://partner-api.tamara.co",
       "key": "baseUrl"
     }
   ],
   "info": {
-    "_postman_id": "7aae6a86-dc74-4c3b-aa0e-e441bb69b721",
-    "name": "Tamara Disputes API",
+    "_postman_id": "e2ed447b-41cc-4c4a-adf0-ce840d4f55e2",
+    "name": "Tamara Channel Partners Captures Disputes API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "Query merchant disputes raised against Tamara orders and append comments or proof\nattachments to existing dispute cases. Filter by order id, dispute id, order status,\nor dispute status.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+      "content": "Allow payment service providers, platforms, and aggregators to onboard merchants onto\nTamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding\nstatus and merchant API keys, and register onboarding event webhooks.\n\n\nContact Support:\n Name: Tamara Partner Support",
       "type": "text/plain"
     }
   }

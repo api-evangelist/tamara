@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Tamara In-Store Checkout API",
+    "name": "Tamara Channel Partners Captures In-Store Checkout API",
     "version": "1.0.0"
   },
   "items": [
@@ -18,7 +18,7 @@
           },
           "http": {
             "method": "POST",
-            "url": "https://api.tamara.co/checkout/in-store-session",
+            "url": "https://partner-api.tamara.co/checkout/in-store-session",
             "body": {
               "type": "json",
               "data": "{}"
@@ -37,7 +37,7 @@
           },
           "http": {
             "method": "POST",
-            "url": "https://api.tamara.co/checkout/in-store",
+            "url": "https://partner-api.tamara.co/checkout/in-store",
             "headers": [
               {
                 "name": "X-Device-Id",
@@ -62,7 +62,7 @@
           },
           "http": {
             "method": "POST",
-            "url": "https://api.tamara.co/checkout/:checkout_id/void",
+            "url": "https://partner-api.tamara.co/checkout/:checkout_id/void",
             "params": [
               {
                 "name": "checkout_id",

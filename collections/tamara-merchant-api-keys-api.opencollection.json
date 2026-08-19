@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tamara Channel Partners Captures Merchant API Keys API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Merchant API Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Merchant API Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-api.tamara.co/channel-partners/merchant/:merchantId/api-key",
+            "params": [
+              {
+                "name": "merchantId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve API, public, and notification keys for an onboarded merchant."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

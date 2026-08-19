@@ -1,27 +1,27 @@
 {
   "item": [
     {
-      "id": "649a349b-0883-4ca2-9004-83f08284d787",
-      "name": "Eligibility",
+      "id": "2211ce6f-7d55-4cf7-812d-1d04c46b7b1e",
+      "name": "Channel Partner Webhooks",
       "description": {
         "content": "",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "b0788b06-ba93-4563-82ec-642590a3b564",
-          "name": "Pre-Checkout Eligibility",
+          "id": "f516050b-b3bd-42cb-a8b1-1e91dabaa2a8",
+          "name": "Register Channel Partner Webhook",
           "request": {
-            "name": "Pre-Checkout Eligibility",
+            "name": "Register Channel Partner Webhook",
             "description": {
-              "content": "Check whether the supplied customer (identified by phone number) is treated as\neligible by Tamara for the order amount. If the phone number is not passed the\ncustomer is treated as eligible.\n",
+              "content": "Register a new webhook for onboarding status notifications.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "pre-checkout",
-                "v1",
-                "eligibility"
+                "channel-partners",
+                "webhooks",
+                "register"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -32,10 +32,6 @@
             "header": [
               {
                 "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
                 "value": "application/json"
               }
             ],
@@ -51,7 +47,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"order\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"customer\": {\n    \"phone\": \"<string>\"\n  }\n}",
+              "raw": "{\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -61,14 +57,103 @@
           },
           "response": [
             {
-              "id": "7741f0e4-6cea-4c20-bb87-c14c4cd9b2c7",
-              "name": "Eligibility decision.",
+              "id": "4077d91a-6324-4961-9f37-a25de5902516",
+              "name": "Webhook registered.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "pre-checkout",
-                    "v1",
-                    "eligibility"
+                    "channel-partners",
+                    "webhooks",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aa01fff5-2183-49b4-898a-2add993c6c52",
+          "name": "Retrieve Channel Partner Webhooks",
+          "request": {
+            "name": "Retrieve Channel Partner Webhooks",
+            "description": {},
+            "url": {
+              "path": [
+                "channel-partners",
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "52a218a9-1557-4529-a54a-6e63828a6c02",
+              "name": "Channel partner webhooks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channel-partners",
+                    "webhooks"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -90,16 +175,8 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"order\": {\n    \"amount\": 300,\n    \"currency\": \"<string>\"\n  },\n  \"customer\": {\n    \"phone\": \"966501234567\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "method": "GET",
+                "body": {}
               },
               "status": "OK",
               "code": 200,
@@ -109,58 +186,9 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"is_eligible\": true\n}",
+              "body": "[\n  {\n    \"id\": \"898024f5-6f5a-7243-bc25-29d038663262\",\n    \"url\": \"http://JtP.sfuoaZQHKF0pJUxqzZT4lHzIWvmZR+z\",\n    \"events\": [\n      \"string\",\n      \"string\"\n    ],\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  {\n    \"id\": \"550b976f-3279-e16d-dfc4-9b39eacc4463\",\n    \"url\": \"http://XktzbJKgCcY.qzhrB+JucuXD-e-JpOVgSPQ8RfXhzhup4Taaqkk7261s\",\n    \"events\": [\n      \"string\",\n      \"string\"\n    ],\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  }\n]",
               "cookie": [],
               "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4d1ed4d6-9366-476e-93c1-4144839da097",
-              "name": "Validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "pre-checkout",
-                    "v1",
-                    "eligibility"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"order\": {\n    \"amount\": 300,\n    \"currency\": \"<string>\"\n  },\n  \"customer\": {\n    \"phone\": \"966501234567\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
             }
           ],
           "event": [],
@@ -181,8 +209,8 @@
     }
   ],
   "info": {
-    "_postman_id": "76067440-0d2e-4adb-8008-2c293de02a84",
-    "name": "Tamara Channel Partners Captures Eligibility API",
+    "_postman_id": "48b4fa1f-a054-4819-aac1-2c334b706cfe",
+    "name": "Tamara Channel Partners Captures Channel Partner Webhooks API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Allow payment service providers, platforms, and aggregators to onboard merchants onto\nTamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding\nstatus and merchant API keys, and register onboarding event webhooks.\n\n\nContact Support:\n Name: Tamara Partner Support",

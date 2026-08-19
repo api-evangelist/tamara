@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Tamara Disputes API",
+    "name": "Tamara Channel Partners Captures Disputes API",
     "version": "1.0.0"
   },
   "items": [
@@ -18,7 +18,7 @@
           },
           "http": {
             "method": "GET",
-            "url": "https://api.tamara.co/external/merchants/orders/disputes/",
+            "url": "https://partner-api.tamara.co/external/merchants/orders/disputes/",
             "headers": [
               {
                 "name": "x-requested-with",
@@ -81,7 +81,7 @@
           },
           "http": {
             "method": "POST",
-            "url": "https://api.tamara.co/external/merchants/orders/disputes/:dispute_id",
+            "url": "https://partner-api.tamara.co/external/merchants/orders/disputes/:dispute_id",
             "params": [
               {
                 "name": "dispute_id",

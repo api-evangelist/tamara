@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "52bebe97-aa18-4f91-8190-01315a495f85",
+      "id": "0d7b6be4-f396-4cdb-9130-743f3cc77d8d",
       "name": "Orders",
       "description": {
         "content": "",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "2856af32-481e-4aac-b25b-2abb80a5e88e",
+          "id": "c89e59d0-8f25-49bf-9601-4e0c4a205f36",
           "name": "Get Order Details by Order ID",
           "request": {
             "name": "Get Order Details by Order ID",
@@ -55,7 +55,7 @@
           },
           "response": [
             {
-              "id": "b951748a-6b82-40ca-96e2-819868d63397",
+              "id": "2c7619c9-73e3-4fb5-a496-d0e8fb0c36f8",
               "name": "Order details.",
               "originalRequest": {
                 "url": {
@@ -102,12 +102,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"order_id\": \"c7a97cb7-b0f0-465e-d556-137eff2325cb\",\n  \"order_reference_id\": \"string\",\n  \"order_number\": \"string\",\n  \"status\": \"authorised\",\n  \"payment_type\": \"PAY_BY_INSTALMENTS\",\n  \"instalments\": 8406,\n  \"total_amount\": {\n    \"amount\": 1545.617570028287,\n    \"currency\": \"KWD\"\n  },\n  \"captured_amount\": {\n    \"amount\": 8724.466284730477,\n    \"currency\": \"BHD\"\n  },\n  \"refunded_amount\": {\n    \"amount\": 723.2604862246105,\n    \"currency\": \"SAR\"\n  },\n  \"canceled_amount\": {\n    \"amount\": 2601.939120831267,\n    \"currency\": \"BHD\"\n  },\n  \"consumer\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"phone_number\": \"string\",\n    \"email\": \"string\",\n    \"date_of_birth\": \"1969-06-17\"\n  },\n  \"items\": [\n    {\n      \"reference_id\": \"string\",\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"sku\": \"string\",\n      \"quantity\": 1444,\n      \"total_amount\": {\n        \"amount\": 9491.04217504002,\n        \"currency\": \"AED\"\n      }\n    },\n    {\n      \"reference_id\": \"string\",\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"sku\": \"string\",\n      \"quantity\": 2115,\n      \"total_amount\": {\n        \"amount\": 1443.724021391053,\n        \"currency\": \"KWD\"\n      }\n    }\n  ],\n  \"transactions\": {},\n  \"created_at\": \"1994-09-25T17:33:05.915Z\",\n  \"order_expiry_time\": \"1991-09-01T05:58:01.103Z\",\n  \"settlement\": {\n    \"key_0\": 6757,\n    \"key_1\": 26,\n    \"key_2\": \"string\",\n    \"key_3\": true\n  }\n}",
+              "body": "{\n  \"order_id\": \"d462a6ef-2208-e663-099a-9fa49fb235c9\",\n  \"order_reference_id\": \"string\",\n  \"order_number\": \"string\",\n  \"status\": \"on_hold\",\n  \"payment_type\": \"PAY_BY_INSTALMENTS\",\n  \"instalments\": 7559,\n  \"total_amount\": {\n    \"amount\": 758.7728259338178,\n    \"currency\": \"BHD\"\n  },\n  \"captured_amount\": {\n    \"amount\": 8937.800263238325,\n    \"currency\": \"AED\"\n  },\n  \"refunded_amount\": {\n    \"amount\": 8956.532786965103,\n    \"currency\": \"AED\"\n  },\n  \"canceled_amount\": {\n    \"amount\": 4998.214083451883,\n    \"currency\": \"SAR\"\n  },\n  \"consumer\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"phone_number\": \"string\",\n    \"email\": \"string\",\n    \"date_of_birth\": \"1995-07-22\"\n  },\n  \"items\": [\n    {\n      \"reference_id\": \"string\",\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"sku\": \"string\",\n      \"quantity\": 2225,\n      \"total_amount\": {\n        \"amount\": 1958.3186341447456,\n        \"currency\": \"BHD\"\n      }\n    },\n    {\n      \"reference_id\": \"string\",\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"sku\": \"string\",\n      \"quantity\": 2751,\n      \"total_amount\": {\n        \"amount\": 2980.894565334953,\n        \"currency\": \"OMR\"\n      }\n    }\n  ],\n  \"transactions\": {},\n  \"created_at\": \"1986-09-16T23:33:34.963Z\",\n  \"order_expiry_time\": \"1971-12-29T03:43:56.470Z\",\n  \"settlement\": {\n    \"key_0\": false\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "7e5f76ec-552e-4377-97d1-93f272eaf078",
+              "id": "d5d53e76-019b-4369-987b-ffb889122c0d",
               "name": "Order not found.",
               "originalRequest": {
                 "url": {
@@ -165,7 +165,7 @@
           }
         },
         {
-          "id": "ffa7a93e-6e9b-4266-b372-e2b6867a23f8",
+          "id": "9f3f3cee-a16d-4e5e-bed7-1fa10d487280",
           "name": "Authorise Order",
           "request": {
             "name": "Authorise Order",
@@ -212,7 +212,7 @@
           },
           "response": [
             {
-              "id": "d64ba052-3024-4b51-a6ee-063bb40ee75e",
+              "id": "1b1c0ea1-5223-4f6e-ab64-d32756048de3",
               "name": "Authorisation successful.",
               "originalRequest": {
                 "url": {
@@ -260,12 +260,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"order_id\": \"36540b94-aa83-ecbe-a994-f1a890b2b2af\",\n  \"status\": \"authorised\",\n  \"order_expiry_time\": \"string\",\n  \"payment_type\": \"PAY_NOW\",\n  \"auto_captured\": true,\n  \"authorized_amount\": {\n    \"amount\": 1881.4360583457358,\n    \"currency\": \"OMR\"\n  },\n  \"capture_id\": \"1dd3cd86-62d9-01c9-1618-7cfd0a348f6b\"\n}",
+              "body": "{\n  \"order_id\": \"4f96b1c8-f202-2cc1-92c3-adf130e66eab\",\n  \"status\": \"authorised\",\n  \"order_expiry_time\": \"string\",\n  \"payment_type\": \"PAY_NOW\",\n  \"auto_captured\": true,\n  \"authorized_amount\": {\n    \"amount\": 4480.79844090297,\n    \"currency\": \"SAR\"\n  },\n  \"capture_id\": \"18e7b745-6f8d-fd49-2e77-db1cfc6aba6a\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "2d9c7b7a-5c80-4373-b4a0-f162429b0879",
+              "id": "308062a5-1299-4e86-b3f0-c86152feae99",
               "name": "Authorisation failed; verify order status before retrying.",
               "originalRequest": {
                 "url": {
@@ -324,7 +324,7 @@
           }
         },
         {
-          "id": "28b86c87-3321-4dd4-9fe6-05b6d20eeb7e",
+          "id": "efad43a8-447f-44e2-93cd-f3d1e21b1d6d",
           "name": "Cancel Order",
           "request": {
             "name": "Cancel Order",
@@ -384,7 +384,7 @@
           },
           "response": [
             {
-              "id": "1b9560f8-9626-4645-b601-db98eec79743",
+              "id": "433902f4-508a-421b-9801-ac0567be677d",
               "name": "Cancelled or updated.",
               "originalRequest": {
                 "url": {
@@ -440,7 +440,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"cancel_id\": \"62957c58-c8f5-47c1-99d5-731bdfed0a02\",\n  \"order_id\": \"42f96406-a667-3891-4293-9027efdfb835\",\n  \"status\": \"canceled\",\n  \"canceled_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  }\n}",
+              "body": "{\n  \"cancel_id\": \"a5c9877a-d9f1-59ac-bd26-ca4dec82f646\",\n  \"order_id\": \"3c48ef74-9e8d-fb6e-ff39-a8096e981456\",\n  \"status\": \"canceled\",\n  \"canceled_amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -451,7 +451,7 @@
           }
         },
         {
-          "id": "5c99cd7b-b97e-4b80-945d-8ccf2e00f5c0",
+          "id": "c28feca2-a8fe-4639-a939-d46ac8d27b33",
           "name": "Update Order Reference ID",
           "request": {
             "name": "Update Order Reference ID",
@@ -511,7 +511,7 @@
           },
           "response": [
             {
-              "id": "04384090-989f-4d30-898f-2781a53fc60e",
+              "id": "6056c105-6164-44b3-b7e7-2afd18201702",
               "name": "Reference id updated.",
               "originalRequest": {
                 "url": {
@@ -585,16 +585,16 @@
   "variable": [
     {
       "type": "string",
-      "value": "https://api.tamara.co",
+      "value": "https://partner-api.tamara.co",
       "key": "baseUrl"
     }
   ],
   "info": {
-    "_postman_id": "52d359a2-1705-47b1-858f-f3d6b6f3d79d",
-    "name": "Tamara Orders API",
+    "_postman_id": "7fb45bd2-7965-4481-bff1-866ee8cf7ede",
+    "name": "Tamara Channel Partners Captures Orders API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "Authorise, retrieve, update, and cancel orders created via Tamara checkout sessions.\nThe Orders API mirrors Tamara's online checkout lifecycle (new → approved →\nauthorised → captured → refunded) and is the merchant's primary post-checkout integration.\n\n\nContact Support:\n Name: Tamara Merchant Support",
+      "content": "Allow payment service providers, platforms, and aggregators to onboard merchants onto\nTamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding\nstatus and merchant API keys, and register onboarding event webhooks.\n\n\nContact Support:\n Name: Tamara Partner Support",
       "type": "text/plain"
     }
   }
