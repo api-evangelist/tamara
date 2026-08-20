@@ -42,6 +42,27 @@ tags:
   - Installments
   - Pay Later
   - Merchant Services
+  - Order
+  - Refunds
+  - Capture
+  - Webhook
+  - Disputes
+  - Channel Partners
+  - E-Commerce
+  - Point-of-Sale
+tags_raw:
+  - BNPL
+  - Buy Now Pay Later
+  - Fintech
+  - Payments
+  - Checkout
+  - Shariah Compliant
+  - MENA
+  - Saudi Arabia
+  - UAE
+  - Installments
+  - Pay Later
+  - Merchant Services
   - Orders
   - Refunds
   - Captures
@@ -60,6 +81,12 @@ apis:
   humanURL: https://docs.tamara.co/reference/authoriseorder
   baseURL: https://api.tamara.co
   tags:
+  - Order
+  - Authorise
+  - Capture
+  - Cancel
+  - BNPL
+  tags_raw:
   - Orders
   - Authorise
   - Capture
@@ -83,6 +110,13 @@ apis:
   humanURL: https://docs.tamara.co/reference/createinstorecheckoutsession
   baseURL: https://api.tamara.co
   tags:
+  - In-Store
+  - Point-of-Sale
+  - SMS
+  - QR Code
+  - Checkout
+  - BNPL
+  tags_raw:
   - In-store
   - POS
   - SMS
@@ -107,6 +141,10 @@ apis:
   humanURL: https://docs.tamara.co/reference/getting-started-with-webhooks
   baseURL: https://api.tamara.co
   tags:
+  - Webhook
+  - Event
+  - Notification
+  tags_raw:
   - Webhooks
   - Events
   - Notifications
@@ -159,6 +197,8 @@ apis:
   humanURL: https://docs.tamara.co/reference/createcheckoutsession
   baseURL: https://api.tamara.co
   tags:
+  - Capture
+  tags_raw:
   - Captures
   properties:
   - type: OpenAPI
