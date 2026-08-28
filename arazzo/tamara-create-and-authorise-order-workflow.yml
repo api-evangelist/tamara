@@ -11,8 +11,8 @@ info:
     without opening the underlying OpenAPI descriptions.
   version: 1.0.0
 sourceDescriptions:
-- name: checkoutApi
-  url: ../openapi/tamara-checkout-api-openapi.yml
+- name: checkoutSessionsApi
+  url: ../openapi/tamara-checkout-sessions-api-openapi.yml
   type: openapi
 - name: ordersApi
   url: ../openapi/tamara-orders-api-openapi.yml

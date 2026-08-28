@@ -13,8 +13,11 @@ info:
     opening the underlying OpenAPI descriptions.
   version: 1.0.0
 sourceDescriptions:
-- name: paymentsApi
-  url: ../openapi/tamara-payments-api-openapi.yml
+- name: capturesApi
+  url: ../openapi/tamara-captures-api-openapi.yml
+  type: openapi
+- name: refundsApi
+  url: ../openapi/tamara-refunds-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: capture-and-legacy-refund

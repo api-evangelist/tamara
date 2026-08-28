@@ -11,14 +11,14 @@ info:
     and executed without opening the underlying OpenAPI descriptions.
   version: 1.0.0
 sourceDescriptions:
-- name: checkoutApi
-  url: ../openapi/tamara-checkout-api-openapi.yml
+- name: capturesApi
+  url: ../openapi/tamara-captures-api-openapi.yml
+  type: openapi
+- name: checkoutSessionsApi
+  url: ../openapi/tamara-checkout-sessions-api-openapi.yml
   type: openapi
 - name: ordersApi
   url: ../openapi/tamara-orders-api-openapi.yml
-  type: openapi
-- name: paymentsApi
-  url: ../openapi/tamara-payments-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: full-bnpl-lifecycle

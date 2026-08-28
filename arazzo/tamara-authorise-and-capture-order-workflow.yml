@@ -11,11 +11,11 @@ info:
     the underlying OpenAPI descriptions.
   version: 1.0.0
 sourceDescriptions:
+- name: capturesApi
+  url: ../openapi/tamara-captures-api-openapi.yml
+  type: openapi
 - name: ordersApi
   url: ../openapi/tamara-orders-api-openapi.yml
-  type: openapi
-- name: paymentsApi
-  url: ../openapi/tamara-payments-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: authorise-and-capture-order
