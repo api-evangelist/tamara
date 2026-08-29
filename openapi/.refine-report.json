@@ -1,34 +1,38 @@
 {
   "provider": "tamara",
   "sources": [
-    "tamara-captures-api-openapi.yml",
-    "tamara-channel-partner-webhooks-api-openapi.yml",
-    "tamara-checkout-sessions-api-openapi.yml",
-    "tamara-disputes-api-openapi.yml",
-    "tamara-eligibility-api-openapi.yml",
-    "tamara-in-store-checkout-api-openapi.yml",
-    "tamara-merchant-api-keys-api-openapi.yml",
-    "tamara-merchant-onboarding-api-openapi.yml",
-    "tamara-orders-api-openapi.yml",
-    "tamara-refunds-api-openapi.yml",
-    "tamara-webhooks-api-openapi.yml"
+    "_original/tamara-channel-partners-api-openapi.yml",
+    "_original/tamara-checkout-api-openapi.yml",
+    "_original/tamara-payments-api-openapi.yml"
   ],
   "outputs": [
-    "tamara-captures-api-openapi.yml",
     "tamara-channel-partner-webhooks-api-openapi.yml",
-    "tamara-checkout-sessions-api-openapi.yml",
-    "tamara-disputes-api-openapi.yml",
-    "tamara-eligibility-api-openapi.yml",
-    "tamara-in-store-checkout-api-openapi.yml",
     "tamara-merchant-api-keys-api-openapi.yml",
     "tamara-merchant-onboarding-api-openapi.yml",
-    "tamara-orders-api-openapi.yml",
-    "tamara-refunds-api-openapi.yml",
-    "tamara-webhooks-api-openapi.yml"
+    "tamara-checkout-sessions-api-openapi.yml",
+    "tamara-captures-api-openapi.yml",
+    "tamara-refunds-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "tamara-channel-partners-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tamara-checkout-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tamara-payments-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0"
+  ],
+  "skipped": [
+    "tamara-captures-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tamara-channel-partner-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tamara-checkout-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tamara-disputes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tamara-eligibility-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tamara-in-store-checkout-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tamara-merchant-api-keys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tamara-merchant-onboarding-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tamara-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tamara-refunds-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tamara-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

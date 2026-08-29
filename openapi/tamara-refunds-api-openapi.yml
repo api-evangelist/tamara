@@ -1,21 +1,19 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Tamara Channel Partners Captures Refunds API
-  description: 'Allow payment service providers, platforms, and aggregators to onboard merchants onto
+  title: Tamara Payments Refunds API
+  description: 'Capture funds against an authorised order and process refunds via either the modern
 
-    Tamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding
-
-    status and merchant API keys, and register onboarding event webhooks.
+    simplified-refund endpoint or the legacy refund endpoint.
 
     '
   version: 1.0.0
   contact:
-    name: Tamara Partner Support
+    name: Tamara Merchant Support
     url: https://docs.tamara.co/
 servers:
-- url: https://partner-api.tamara.co
+- url: https://api.tamara.co
   description: Production
-- url: https://partner-api-sandbox.tamara.co
+- url: https://api-sandbox.tamara.co
   description: Sandbox
 tags:
 - name: Refunds
@@ -82,21 +80,22 @@ paths:
                 $ref: '#/components/schemas/RefundResponse'
 components:
   schemas:
-    Item:
+    Money:
       type: object
+      required:
+      - amount
+      - currency
       properties:
-        reference_id:
+        amount:
+          type: number
+        currency:
           type: string
-        type:
-          type: string
-        name:
-          type: string
-        sku:
-          type: string
-        quantity:
-          type: integer
-        total_amount:
-          $ref: '#/components/schemas/Money'
+          enum:
+          - SAR
+          - AED
+          - BHD
+          - KWD
+          - OMR
     RefundRequest:
       type: object
       required:
@@ -148,22 +147,6 @@ components:
           - partially_refunded
         refunded_amount:
           $ref: '#/components/schemas/Money'
-    Money:
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: number
-        currency:
-          type: string
-          enum:
-          - SAR
-          - AED
-          - BHD
-          - KWD
-          - OMR
     SimplifiedRefundRequest:
       type: object
       required:
@@ -199,7 +182,23 @@ components:
           - partially_refunded
         refunded_amount:
           $ref: '#/components/schemas/Money'
+    Item:
+      type: object
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        total_amount:
+          $ref: '#/components/schemas/Money'
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
+      description: Tamara-issued merchant API token.

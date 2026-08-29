@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Tamara Channel Partners Captures Orders API
   description: 'Allow payment service providers, platforms, and aggregators to onboard merchants onto
@@ -156,6 +156,61 @@ paths:
                     example: Order reference id was updated successfully
 components:
   schemas:
+    Money:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+          enum:
+          - SAR
+          - AED
+          - BHD
+          - KWD
+          - OMR
+    AuthoriseResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          example: authorised
+        order_expiry_time:
+          type: string
+        payment_type:
+          type: string
+          enum:
+          - PAY_BY_INSTALMENTS
+          - PAY_NOW
+        auto_captured:
+          type: boolean
+        authorized_amount:
+          $ref: '#/components/schemas/Money'
+        capture_id:
+          type: string
+          format: uuid
+    CancelResponse:
+      type: object
+      properties:
+        cancel_id:
+          type: string
+          format: uuid
+        order_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+          - updated
+          - canceled
+        canceled_amount:
+          $ref: '#/components/schemas/Money'
     Item:
       type: object
       properties:
@@ -171,6 +226,32 @@ components:
           type: integer
         total_amount:
           $ref: '#/components/schemas/Money'
+    CancelRequest:
+      type: object
+      required:
+      - total_amount
+      properties:
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        shipping_amount:
+          $ref: '#/components/schemas/Money'
+        tax_amount:
+          $ref: '#/components/schemas/Money'
+        discount_amount:
+          $ref: '#/components/schemas/Money'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
     Order:
       type: object
       properties:
@@ -253,87 +334,6 @@ components:
         settlement:
           type: object
           additionalProperties: true
-    CancelRequest:
-      type: object
-      required:
-      - total_amount
-      properties:
-        total_amount:
-          $ref: '#/components/schemas/Money'
-        shipping_amount:
-          $ref: '#/components/schemas/Money'
-        tax_amount:
-          $ref: '#/components/schemas/Money'
-        discount_amount:
-          $ref: '#/components/schemas/Money'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-    Money:
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: number
-        currency:
-          type: string
-          enum:
-          - SAR
-          - AED
-          - BHD
-          - KWD
-          - OMR
-    AuthoriseResponse:
-      type: object
-      properties:
-        order_id:
-          type: string
-          format: uuid
-        status:
-          type: string
-          example: authorised
-        order_expiry_time:
-          type: string
-        payment_type:
-          type: string
-          enum:
-          - PAY_BY_INSTALMENTS
-          - PAY_NOW
-        auto_captured:
-          type: boolean
-        authorized_amount:
-          $ref: '#/components/schemas/Money'
-        capture_id:
-          type: string
-          format: uuid
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            type: object
-    CancelResponse:
-      type: object
-      properties:
-        cancel_id:
-          type: string
-          format: uuid
-        order_id:
-          type: string
-          format: uuid
-        status:
-          type: string
-          enum:
-          - updated
-          - canceled
-        canceled_amount:
-          $ref: '#/components/schemas/Money'
   securitySchemes:
     bearerAuth:
       type: http

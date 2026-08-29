@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Tamara Channel Partners Captures In-Store Checkout API
   description: 'Allow payment service providers, platforms, and aggregators to onboard merchants onto
@@ -120,63 +120,6 @@ paths:
                     $ref: '#/components/schemas/Money'
 components:
   schemas:
-    Item:
-      type: object
-      properties:
-        reference_id:
-          type: string
-        type:
-          type: string
-        name:
-          type: string
-        sku:
-          type: string
-        quantity:
-          type: integer
-        total_amount:
-          $ref: '#/components/schemas/Money'
-    InStoreSmsRequest:
-      type: object
-      required:
-      - total_amount
-      - phone_number
-      - order_reference_id
-      - items
-      properties:
-        total_amount:
-          $ref: '#/components/schemas/Money'
-        phone_number:
-          type: string
-        order_reference_id:
-          type: string
-        order_number:
-          type: string
-        email:
-          type: string
-        locale:
-          type: string
-          enum:
-          - ar_SA
-          - en_US
-        payment_type:
-          type: string
-          enum:
-          - PAY_BY_INSTALMENTS
-          - PAY_NOW
-        expires_in_minutes:
-          type: integer
-          minimum: 5
-          maximum: 1440
-          default: 15
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-        additional_data:
-          type: object
-          properties:
-            store_code:
-              type: string
     Money:
       type: object
       required:
@@ -231,6 +174,63 @@ components:
         checkout_deeplink:
           type: string
           format: uri
+    InStoreSmsRequest:
+      type: object
+      required:
+      - total_amount
+      - phone_number
+      - order_reference_id
+      - items
+      properties:
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        phone_number:
+          type: string
+        order_reference_id:
+          type: string
+        order_number:
+          type: string
+        email:
+          type: string
+        locale:
+          type: string
+          enum:
+          - ar_SA
+          - en_US
+        payment_type:
+          type: string
+          enum:
+          - PAY_BY_INSTALMENTS
+          - PAY_NOW
+        expires_in_minutes:
+          type: integer
+          minimum: 5
+          maximum: 1440
+          default: 15
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        additional_data:
+          type: object
+          properties:
+            store_code:
+              type: string
+    Item:
+      type: object
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        total_amount:
+          $ref: '#/components/schemas/Money'
   securitySchemes:
     bearerAuth:
       type: http

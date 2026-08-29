@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Tamara Channel Partners Captures Eligibility API
   description: 'Allow payment service providers, platforms, and aggregators to onboard merchants onto
@@ -52,6 +52,11 @@ paths:
           description: Validation error.
 components:
   schemas:
+    EligibilityResponse:
+      type: object
+      properties:
+        is_eligible:
+          type: boolean
     EligibilityRequest:
       type: object
       required:
@@ -81,11 +86,6 @@ components:
               type: string
               description: E.164 phone number (omit to treat customer as eligible).
               example: '966501234567'
-    EligibilityResponse:
-      type: object
-      properties:
-        is_eligible:
-          type: boolean
   securitySchemes:
     bearerAuth:
       type: http

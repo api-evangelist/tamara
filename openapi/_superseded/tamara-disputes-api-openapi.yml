@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Tamara Channel Partners Captures Disputes API
   description: 'Allow payment service providers, platforms, and aggregators to onboard merchants onto
@@ -146,29 +146,6 @@ paths:
                     example: order.dispute.updated_successfully
 components:
   schemas:
-    DisputeList:
-      type: object
-      properties:
-        total:
-          type: integer
-        data:
-          type: object
-          properties:
-            merchant_details:
-              type: object
-              properties:
-                merchant_id:
-                  type: string
-                merchant_code:
-                  type: string
-                merchant_name:
-                  type: string
-                merchant_status:
-                  type: string
-            disputes:
-              type: object
-              additionalProperties:
-                $ref: '#/components/schemas/Dispute'
     Dispute:
       type: object
       properties:
@@ -220,6 +197,29 @@ components:
               created_at:
                 type: string
                 format: date-time
+    DisputeList:
+      type: object
+      properties:
+        total:
+          type: integer
+        data:
+          type: object
+          properties:
+            merchant_details:
+              type: object
+              properties:
+                merchant_id:
+                  type: string
+                merchant_code:
+                  type: string
+                merchant_name:
+                  type: string
+                merchant_status:
+                  type: string
+            disputes:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/Dispute'
   securitySchemes:
     bearerAuth:
       type: http
