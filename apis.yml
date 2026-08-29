@@ -10,6 +10,18 @@ description: >-
   white-label Tamara. The company became the first homegrown Saudi fintech unicorn in December 2023 after raising a
   US$340M Series C led by SNB Capital and Sanabil Investments and is backed by debt facilities from Goldman Sachs, Citi,
   and Apollo for its Shariah-compliant funding base.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
