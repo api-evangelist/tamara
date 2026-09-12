@@ -245,6 +245,8 @@ apis:
   - type: Documentation
     url: https://docs.tamara.co/reference/post_channel-partners-merchant-onboarding-create
 common:
+  - type: Website
+    url: https://www.tamara.co/
   - type: AgenticAccess
     url: agentic-access/tamara-agentic-access.yml
   - type: DomainSecurity
