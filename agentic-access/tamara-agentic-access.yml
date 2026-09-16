@@ -1,58 +1,40 @@
-generated: '2026-07-15'
+generated: '2026-09-16'
 method: generated
-source: openapi/tamara-channel-partners-api-openapi.yml, openapi/tamara-checkout-api-openapi.yml,
-  openapi/tamara-disputes-api-openapi.yml, openapi/tamara-eligibility-api-openapi.yml, openapi/tamara-in-store-checkout-api-openapi.yml,
-  openapi/tamara-orders-api-openapi.yml, openapi/tamara-payments-api-openapi.yml, openapi/tamara-webhooks-api-openapi.yml
+source: openapi/tamara-captures-api-openapi.yml, openapi/tamara-channel-partner-webhooks-api-openapi.yml,
+  openapi/tamara-checkout-sessions-api-openapi.yml, openapi/tamara-merchant-api-keys-api-openapi.yml,
+  openapi/tamara-merchant-onboarding-api-openapi.yml, openapi/tamara-refunds-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 23
+  operations: 9
   by_action_class:
-    acting: 17
-    connected: 6
+    acting: 6
+    connected: 3
   by_consequence:
-    write: 5
-    read: 6
-    physical: 12
+    physical: 4
+    write: 2
+    read: 3
   human_in_the_loop_required: 0
 operations:
-- path: /channel-partners/merchant-onboarding/create
+- path: /payments/capture
   method: post
-  operationId: createMerchantOnboarding
+  operationId: captureOrder
   x-agentic-access:
     action-class: acting
-    consequence: write
+    consequence: physical
     subject: required
     audience: null
     token:
-      max-ttl: 900
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
     escalation:
       human-in-the-loop: conditional
       triggers:
       - abnormal
       - high-value
     audit: required
-- path: /channel-partners/merchant-onboarding/{onboardingCode}
-  method: get
-  operationId: retrieveMerchantOnboarding
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /channel-partners/merchant/{merchantId}/api-key
-  method: get
-  operationId: retrieveMerchantApiKeys
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /channel-partners/webhooks/register
   method: post
   operationId: registerChannelPartnerWebhook
@@ -97,9 +79,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /external/merchants/orders/disputes/
+- path: /channel-partners/merchant/{merchantId}/api-key
   method: get
-  operationId: listDisputes
+  operationId: retrieveMerchantApiKeys
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -107,99 +89,25 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /external/merchants/orders/disputes/{dispute_id}
+- path: /channel-partners/merchant-onboarding/create
   method: post
-  operationId: updateDispute
+  operationId: createMerchantOnboarding
   x-agentic-access:
     action-class: acting
-    consequence: physical
+    consequence: write
     subject: required
     audience: null
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
+      max-ttl: 900
     escalation:
       human-in-the-loop: conditional
       triggers:
       - abnormal
       - high-value
     audit: required
-- path: /pre-checkout/v1/eligibility
-  method: post
-  operationId: preCheckoutEligibility
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /checkout/in-store-session
-  method: post
-  operationId: createInStoreSmsSession
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /checkout/in-store
-  method: post
-  operationId: createInStoreQrSession
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /checkout/{checkout_id}/void
-  method: post
-  operationId: voidCheckoutSession
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /orders/{order_id}
+- path: /channel-partners/merchant-onboarding/{onboardingCode}
   method: get
-  operationId: getOrderDetails
+  operationId: retrieveMerchantOnboarding
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -207,78 +115,6 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /orders/{order_id}/authorise
-  method: post
-  operationId: authoriseOrder
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /orders/{order_id}/cancel
-  method: post
-  operationId: cancelOrder
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /orders/{order_id}/reference-id
-  method: put
-  operationId: updateOrderReferenceId
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /payments/capture
-  method: post
-  operationId: captureOrder
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
 - path: /payments/simplified-refund/{order_id}
   method: post
   operationId: simplifiedRefund
@@ -309,64 +145,6 @@ operations:
       max-ttl: 300
       exchange: true
       purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /webhooks
-  method: post
-  operationId: registerWebhook
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /webhooks/{webhookId}
-  method: get
-  operationId: retrieveWebhook
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /webhooks/{webhookId}
-  method: put
-  operationId: updateWebhook
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /webhooks/{webhookId}
-  method: delete
-  operationId: deleteWebhook
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
     escalation:
       human-in-the-loop: conditional
       triggers:
