@@ -5,9 +5,7 @@ info:
 
     Tamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding
 
-    status and merchant API keys, and register onboarding event webhooks.
-
-    '
+    status and merchant API keys, and register onboarding event webhooks.'
   version: 1.0.0
   contact:
     name: Tamara Partner Support

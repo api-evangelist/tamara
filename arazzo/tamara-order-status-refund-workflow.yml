@@ -13,7 +13,7 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: ordersApi
-  url: ../openapi/tamara-orders-api-openapi.yml
+  url: ../openapi/_superseded/tamara-orders-api-openapi.yml
   type: openapi
 - name: refundsApi
   url: ../openapi/tamara-refunds-api-openapi.yml

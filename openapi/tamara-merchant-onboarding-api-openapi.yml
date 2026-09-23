@@ -5,9 +5,7 @@ info:
 
     Tamara on their behalf. Submit merchant KYB/KYC information, retrieve onboarding
 
-    status and merchant API keys, and register onboarding event webhooks.
-
-    '
+    status and merchant API keys, and register onboarding event webhooks.'
   version: 1.0.0
   contact:
     name: Tamara Partner Support
@@ -62,16 +60,23 @@ paths:
           description: Onboarding details.
 components:
   schemas:
-    BankKyc:
+    LegalKyc:
       type: object
       properties:
-        iban:
+        cr_number:
           type: string
-        email_for_settlement_report:
+        national_id_number:
           type: string
-        beneficiary_name:
+        entity_name:
           type: string
-        swift_code:
+        legal_address:
+          type: string
+        legal_signatory_name:
+          type: string
+    OnboardingResponse:
+      type: object
+      properties:
+        onboarding_code:
           type: string
     BusinessKyc:
       type: object
@@ -105,18 +110,16 @@ components:
             type: string
         platform:
           type: string
-    LegalKyc:
+    BankKyc:
       type: object
       properties:
-        cr_number:
+        iban:
           type: string
-        national_id_number:
+        email_for_settlement_report:
           type: string
-        entity_name:
+        beneficiary_name:
           type: string
-        legal_address:
-          type: string
-        legal_signatory_name:
+        swift_code:
           type: string
     OnboardingRequest:
       type: object
@@ -157,11 +160,6 @@ components:
         user_defined_data:
           type: object
           additionalProperties: true
-    OnboardingResponse:
-      type: object
-      properties:
-        onboarding_code:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http

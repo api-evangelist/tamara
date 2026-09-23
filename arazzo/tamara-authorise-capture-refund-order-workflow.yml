@@ -15,7 +15,7 @@ sourceDescriptions:
   url: ../openapi/tamara-captures-api-openapi.yml
   type: openapi
 - name: ordersApi
-  url: ../openapi/tamara-orders-api-openapi.yml
+  url: ../openapi/_superseded/tamara-orders-api-openapi.yml
   type: openapi
 - name: refundsApi
   url: ../openapi/tamara-refunds-api-openapi.yml

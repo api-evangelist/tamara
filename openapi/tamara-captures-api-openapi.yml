@@ -3,9 +3,7 @@ info:
   title: Tamara Payments Captures API
   description: 'Capture funds against an authorised order and process refunds via either the modern
 
-    simplified-refund endpoint or the legacy refund endpoint.
-
-    '
+    simplified-refund endpoint or the legacy refund endpoint.'
   version: 1.0.0
   contact:
     name: Tamara Merchant Support
@@ -26,9 +24,7 @@ paths:
 
         fulfilment of items to the customer. Status returned will be `fully_captured` or
 
-        `partially_captured` based on the amount captured.
-
-        '
+        `partially_captured` based on the amount captured.'
       tags:
       - Captures
       security:
@@ -64,6 +60,34 @@ components:
           - BHD
           - KWD
           - OMR
+    Item:
+      type: object
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        total_amount:
+          $ref: '#/components/schemas/Money'
+    ShippingInfo:
+      type: object
+      properties:
+        shipped_at:
+          type: string
+          format: date-time
+        shipping_company:
+          type: string
+        tracking_number:
+          type: string
+        tracking_url:
+          type: string
+          format: uri
     CaptureResponse:
       type: object
       properties:
@@ -80,19 +104,6 @@ components:
           - partially_captured
         captured_amount:
           $ref: '#/components/schemas/Money'
-    ShippingInfo:
-      type: object
-      properties:
-        shipped_at:
-          type: string
-          format: date-time
-        shipping_company:
-          type: string
-        tracking_number:
-          type: string
-        tracking_url:
-          type: string
-          format: uri
     CaptureRequest:
       type: object
       required:
@@ -116,21 +127,6 @@ components:
         shipping_amount:
           $ref: '#/components/schemas/Money'
         tax_amount:
-          $ref: '#/components/schemas/Money'
-    Item:
-      type: object
-      properties:
-        reference_id:
-          type: string
-        type:
-          type: string
-        name:
-          type: string
-        sku:
-          type: string
-        quantity:
-          type: integer
-        total_amount:
           $ref: '#/components/schemas/Money'
   securitySchemes:
     bearerAuth:

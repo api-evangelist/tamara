@@ -3,9 +3,7 @@ info:
   title: Tamara Payments Refunds API
   description: 'Capture funds against an authorised order and process refunds via either the modern
 
-    simplified-refund endpoint or the legacy refund endpoint.
-
-    '
+    simplified-refund endpoint or the legacy refund endpoint.'
   version: 1.0.0
   contact:
     name: Tamara Merchant Support
@@ -24,9 +22,7 @@ paths:
       summary: Simplified Refund
       description: 'Modern refund surface that processes a partial or full refund against an order without
 
-        requiring the caller to specify individual capture ids.
-
-        '
+        requiring the caller to specify individual capture ids.'
       tags:
       - Refunds
       security:
@@ -58,9 +54,7 @@ paths:
       deprecated: true
       description: 'Legacy refund endpoint that processes one or more refunds against named captures
 
-        belonging to an order. New integrations should prefer `/payments/simplified-refund/{order_id}`.
-
-        '
+        belonging to an order. New integrations should prefer `/payments/simplified-refund/{order_id}`.'
       tags:
       - Refunds
       security:
@@ -96,36 +90,6 @@ components:
           - BHD
           - KWD
           - OMR
-    RefundRequest:
-      type: object
-      required:
-      - order_id
-      - refunds
-      properties:
-        order_id:
-          type: string
-          format: uuid
-        refunds:
-          type: array
-          items:
-            type: object
-            properties:
-              capture_id:
-                type: string
-              total_amount:
-                $ref: '#/components/schemas/Money'
-              refund_id:
-                type: string
-              tax_amount:
-                $ref: '#/components/schemas/Money'
-              shipping_amount:
-                $ref: '#/components/schemas/Money'
-              discount_amount:
-                $ref: '#/components/schemas/Money'
-              items:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Item'
     SimplifiedRefundResponse:
       type: object
       properties:
@@ -146,6 +110,21 @@ components:
           - fully_refunded
           - partially_refunded
         refunded_amount:
+          $ref: '#/components/schemas/Money'
+    Item:
+      type: object
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        total_amount:
           $ref: '#/components/schemas/Money'
     SimplifiedRefundRequest:
       type: object
@@ -182,21 +161,36 @@ components:
           - partially_refunded
         refunded_amount:
           $ref: '#/components/schemas/Money'
-    Item:
+    RefundRequest:
       type: object
+      required:
+      - order_id
+      - refunds
       properties:
-        reference_id:
+        order_id:
           type: string
-        type:
-          type: string
-        name:
-          type: string
-        sku:
-          type: string
-        quantity:
-          type: integer
-        total_amount:
-          $ref: '#/components/schemas/Money'
+          format: uuid
+        refunds:
+          type: array
+          items:
+            type: object
+            properties:
+              capture_id:
+                type: string
+              total_amount:
+                $ref: '#/components/schemas/Money'
+              refund_id:
+                type: string
+              tax_amount:
+                $ref: '#/components/schemas/Money'
+              shipping_amount:
+                $ref: '#/components/schemas/Money'
+              discount_amount:
+                $ref: '#/components/schemas/Money'
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
   securitySchemes:
     bearerAuth:
       type: http

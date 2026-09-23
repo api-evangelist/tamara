@@ -15,10 +15,10 @@ sourceDescriptions:
   url: ../openapi/tamara-checkout-sessions-api-openapi.yml
   type: openapi
 - name: eligibilityApi
-  url: ../openapi/tamara-eligibility-api-openapi.yml
+  url: ../openapi/_superseded/tamara-eligibility-api-openapi.yml
   type: openapi
 - name: ordersApi
-  url: ../openapi/tamara-orders-api-openapi.yml
+  url: ../openapi/_superseded/tamara-orders-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: eligibility-gated-checkout

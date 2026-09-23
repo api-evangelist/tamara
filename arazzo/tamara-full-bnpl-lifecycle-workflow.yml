@@ -18,7 +18,7 @@ sourceDescriptions:
   url: ../openapi/tamara-checkout-sessions-api-openapi.yml
   type: openapi
 - name: ordersApi
-  url: ../openapi/tamara-orders-api-openapi.yml
+  url: ../openapi/_superseded/tamara-orders-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: full-bnpl-lifecycle

@@ -20,19 +20,15 @@
     "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "tamara-channel-partners-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "tamara-checkout-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tamara-payments-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0"
+    "tamara-payments-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "tamara-captures-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "tamara-channel-partner-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "tamara-checkout-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "tamara-disputes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "tamara-eligibility-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "tamara-in-store-checkout-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "tamara-merchant-api-keys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "tamara-merchant-onboarding-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "tamara-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "tamara-refunds-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "tamara-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+    "tamara-refunds-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
 }

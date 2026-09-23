@@ -5,9 +5,7 @@ info:
 
     and receive a hosted checkout URL where the consumer completes the BNPL or Pay-Now flow.
 
-    Supports SAR, AED, BHD, KWD, and OMR across Saudi Arabia, the UAE, Bahrain, Kuwait, and Oman.
-
-    '
+    Supports SAR, AED, BHD, KWD, and OMR across Saudi Arabia, the UAE, Bahrain, Kuwait, and Oman.'
   version: 1.0.0
   contact:
     name: Tamara Merchant Support
@@ -32,9 +30,7 @@ paths:
 
         completes the BNPL or Pay-Now flow with the consumer. Store the returned
 
-        `order_id` and redirect the customer to `checkout_url`.
-
-        '
+        `order_id` and redirect the customer to `checkout_url`.'
       tags:
       - Checkout Sessions
       security:
@@ -99,6 +95,98 @@ components:
           type: string
           format: date
         national_id:
+          type: string
+    Item:
+      type: object
+      required:
+      - reference_id
+      - type
+      - name
+      - sku
+      - quantity
+      - total_amount
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        unit_price:
+          $ref: '#/components/schemas/Money'
+        discount_amount:
+          $ref: '#/components/schemas/Money'
+        tax_amount:
+          $ref: '#/components/schemas/Money'
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        image_url:
+          type: string
+          format: uri
+    CheckoutSessionResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        checkout_id:
+          type: string
+          format: uuid
+        checkout_url:
+          type: string
+          format: uri
+        status:
+          type: string
+          example: new
+    MerchantUrls:
+      type: object
+      required:
+      - success
+      - failure
+      - cancel
+      properties:
+        success:
+          type: string
+          format: uri
+        failure:
+          type: string
+          format: uri
+        cancel:
+          type: string
+          format: uri
+        notification:
+          type: string
+          format: uri
+    Address:
+      type: object
+      required:
+      - first_name
+      - last_name
+      - line1
+      - city
+      - country_code
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+        region:
+          type: string
+        city:
+          type: string
+        country_code:
+          type: string
+          minLength: 2
+          maxLength: 2
+        phone_number:
           type: string
     CheckoutSessionRequest:
       type: object
@@ -184,40 +272,6 @@ components:
         additional_data:
           type: object
           additionalProperties: true
-    CheckoutSessionResponse:
-      type: object
-      properties:
-        order_id:
-          type: string
-          format: uuid
-        checkout_id:
-          type: string
-          format: uuid
-        checkout_url:
-          type: string
-          format: uri
-        status:
-          type: string
-          example: new
-    MerchantUrls:
-      type: object
-      required:
-      - success
-      - failure
-      - cancel
-      properties:
-        success:
-          type: string
-          format: uri
-        failure:
-          type: string
-          format: uri
-        cancel:
-          type: string
-          format: uri
-        notification:
-          type: string
-          format: uri
     Error:
       type: object
       properties:
@@ -232,64 +286,6 @@ components:
                 type: string
               description:
                 type: string
-    Address:
-      type: object
-      required:
-      - first_name
-      - last_name
-      - line1
-      - city
-      - country_code
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        line1:
-          type: string
-        line2:
-          type: string
-        region:
-          type: string
-        city:
-          type: string
-        country_code:
-          type: string
-          minLength: 2
-          maxLength: 2
-        phone_number:
-          type: string
-    Item:
-      type: object
-      required:
-      - reference_id
-      - type
-      - name
-      - sku
-      - quantity
-      - total_amount
-      properties:
-        reference_id:
-          type: string
-        type:
-          type: string
-        name:
-          type: string
-        sku:
-          type: string
-        quantity:
-          type: integer
-        unit_price:
-          $ref: '#/components/schemas/Money'
-        discount_amount:
-          $ref: '#/components/schemas/Money'
-        tax_amount:
-          $ref: '#/components/schemas/Money'
-        total_amount:
-          $ref: '#/components/schemas/Money'
-        image_url:
-          type: string
-          format: uri
   securitySchemes:
     bearerAuth:
       type: http
