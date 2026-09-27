@@ -60,66 +60,10 @@ paths:
           description: Onboarding details.
 components:
   schemas:
-    LegalKyc:
-      type: object
-      properties:
-        cr_number:
-          type: string
-        national_id_number:
-          type: string
-        entity_name:
-          type: string
-        legal_address:
-          type: string
-        legal_signatory_name:
-          type: string
     OnboardingResponse:
       type: object
       properties:
         onboarding_code:
-          type: string
-    BusinessKyc:
-      type: object
-      properties:
-        business_name:
-          type: string
-        country_of_operations:
-          type: string
-        business_type:
-          type: string
-          enum:
-          - registered
-          - freelance
-          - sole_proprietor
-        website_url:
-          type: string
-          format: uri
-        online:
-          type: boolean
-        in_store:
-          type: boolean
-        annual_gmv:
-          type: string
-        category:
-          type: array
-          items:
-            type: string
-        sub_category:
-          type: array
-          items:
-            type: string
-        platform:
-          type: string
-    BankKyc:
-      type: object
-      properties:
-        iban:
-          type: string
-        email_for_settlement_report:
-          type: string
-        beneficiary_name:
-          type: string
-        swift_code:
           type: string
     OnboardingRequest:
       type: object
@@ -160,6 +104,62 @@ components:
         user_defined_data:
           type: object
           additionalProperties: true
+    BankKyc:
+      type: object
+      properties:
+        iban:
+          type: string
+        email_for_settlement_report:
+          type: string
+        beneficiary_name:
+          type: string
+        swift_code:
+          type: string
+    LegalKyc:
+      type: object
+      properties:
+        cr_number:
+          type: string
+        national_id_number:
+          type: string
+        entity_name:
+          type: string
+        legal_address:
+          type: string
+        legal_signatory_name:
+          type: string
+    BusinessKyc:
+      type: object
+      properties:
+        business_name:
+          type: string
+        country_of_operations:
+          type: string
+        business_type:
+          type: string
+          enum:
+          - registered
+          - freelance
+          - sole_proprietor
+        website_url:
+          type: string
+          format: uri
+        online:
+          type: boolean
+        in_store:
+          type: boolean
+        annual_gmv:
+          type: string
+        category:
+          type: array
+          items:
+            type: string
+        sub_category:
+          type: array
+          items:
+            type: string
+        platform:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

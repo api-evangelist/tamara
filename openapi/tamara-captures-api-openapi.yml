@@ -44,37 +44,6 @@ paths:
                 $ref: '#/components/schemas/CaptureResponse'
 components:
   schemas:
-    Money:
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: number
-        currency:
-          type: string
-          enum:
-          - SAR
-          - AED
-          - BHD
-          - KWD
-          - OMR
-    Item:
-      type: object
-      properties:
-        reference_id:
-          type: string
-        type:
-          type: string
-        name:
-          type: string
-        sku:
-          type: string
-        quantity:
-          type: integer
-        total_amount:
-          $ref: '#/components/schemas/Money'
     ShippingInfo:
       type: object
       properties:
@@ -88,22 +57,6 @@ components:
         tracking_url:
           type: string
           format: uri
-    CaptureResponse:
-      type: object
-      properties:
-        capture_id:
-          type: string
-          format: uuid
-        order_id:
-          type: string
-          format: uuid
-        status:
-          type: string
-          enum:
-          - fully_captured
-          - partially_captured
-        captured_amount:
-          $ref: '#/components/schemas/Money'
     CaptureRequest:
       type: object
       required:
@@ -128,6 +81,53 @@ components:
           $ref: '#/components/schemas/Money'
         tax_amount:
           $ref: '#/components/schemas/Money'
+    Item:
+      type: object
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        total_amount:
+          $ref: '#/components/schemas/Money'
+    CaptureResponse:
+      type: object
+      properties:
+        capture_id:
+          type: string
+          format: uuid
+        order_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+          - fully_captured
+          - partially_captured
+        captured_amount:
+          $ref: '#/components/schemas/Money'
+    Money:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+          enum:
+          - SAR
+          - AED
+          - BHD
+          - KWD
+          - OMR
   securitySchemes:
     bearerAuth:
       type: http
