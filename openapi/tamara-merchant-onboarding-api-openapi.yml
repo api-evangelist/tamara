@@ -104,17 +104,6 @@ components:
         user_defined_data:
           type: object
           additionalProperties: true
-    BankKyc:
-      type: object
-      properties:
-        iban:
-          type: string
-        email_for_settlement_report:
-          type: string
-        beneficiary_name:
-          type: string
-        swift_code:
-          type: string
     LegalKyc:
       type: object
       properties:
@@ -159,6 +148,17 @@ components:
           items:
             type: string
         platform:
+          type: string
+    BankKyc:
+      type: object
+      properties:
+        iban:
+          type: string
+        email_for_settlement_report:
+          type: string
+        beneficiary_name:
+          type: string
+        swift_code:
           type: string
   securitySchemes:
     bearerAuth:

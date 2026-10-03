@@ -56,48 +56,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    CheckoutSessionResponse:
-      type: object
-      properties:
-        order_id:
-          type: string
-          format: uuid
-        checkout_id:
-          type: string
-          format: uuid
-        checkout_url:
-          type: string
-          format: uri
-        status:
-          type: string
-          example: new
-    Address:
-      type: object
-      required:
-      - first_name
-      - last_name
-      - line1
-      - city
-      - country_code
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        line1:
-          type: string
-        line2:
-          type: string
-        region:
-          type: string
-        city:
-          type: string
-        country_code:
-          type: string
-          minLength: 2
-          maxLength: 2
-        phone_number:
-          type: string
     Consumer:
       type: object
       required:
@@ -204,6 +162,80 @@ components:
         additional_data:
           type: object
           additionalProperties: true
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              error_code:
+                type: string
+              description:
+                type: string
+    CheckoutSessionResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        checkout_id:
+          type: string
+          format: uuid
+        checkout_url:
+          type: string
+          format: uri
+        status:
+          type: string
+          example: new
+    Address:
+      type: object
+      required:
+      - first_name
+      - last_name
+      - line1
+      - city
+      - country_code
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+        region:
+          type: string
+        city:
+          type: string
+        country_code:
+          type: string
+          minLength: 2
+          maxLength: 2
+        phone_number:
+          type: string
+    Money:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+          format: double
+          example: 300
+        currency:
+          type: string
+          enum:
+          - SAR
+          - AED
+          - BHD
+          - KWD
+          - OMR
     Item:
       type: object
       required:
@@ -235,24 +267,6 @@ components:
         image_url:
           type: string
           format: uri
-    Money:
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: number
-          format: double
-          example: 300
-        currency:
-          type: string
-          enum:
-          - SAR
-          - AED
-          - BHD
-          - KWD
-          - OMR
     MerchantUrls:
       type: object
       required:
@@ -272,20 +286,6 @@ components:
         notification:
           type: string
           format: uri
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              error_code:
-                type: string
-              description:
-                type: string
   securitySchemes:
     bearerAuth:
       type: http

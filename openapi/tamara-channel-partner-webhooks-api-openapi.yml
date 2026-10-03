@@ -55,6 +55,23 @@ paths:
                   $ref: '#/components/schemas/PartnerWebhook'
 components:
   schemas:
+    PartnerWebhook:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+        headers:
+          type: object
+          additionalProperties:
+            type: string
     PartnerWebhookRequest:
       type: object
       required:
@@ -73,23 +90,6 @@ components:
             - disqualified
             - ready_to_transact
             - resubmission_required
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-    PartnerWebhook:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        url:
-          type: string
-          format: uri
-        events:
-          type: array
-          items:
-            type: string
         headers:
           type: object
           additionalProperties:
