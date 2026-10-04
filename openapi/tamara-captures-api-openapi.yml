@@ -44,6 +44,19 @@ paths:
                 $ref: '#/components/schemas/CaptureResponse'
 components:
   schemas:
+    ShippingInfo:
+      type: object
+      properties:
+        shipped_at:
+          type: string
+          format: date-time
+        shipping_company:
+          type: string
+        tracking_number:
+          type: string
+        tracking_url:
+          type: string
+          format: uri
     CaptureResponse:
       type: object
       properties:
@@ -60,19 +73,6 @@ components:
           - partially_captured
         captured_amount:
           $ref: '#/components/schemas/Money'
-    ShippingInfo:
-      type: object
-      properties:
-        shipped_at:
-          type: string
-          format: date-time
-        shipping_company:
-          type: string
-        tracking_number:
-          type: string
-        tracking_url:
-          type: string
-          format: uri
     Money:
       type: object
       required:
@@ -89,21 +89,6 @@ components:
           - BHD
           - KWD
           - OMR
-    Item:
-      type: object
-      properties:
-        reference_id:
-          type: string
-        type:
-          type: string
-        name:
-          type: string
-        sku:
-          type: string
-        quantity:
-          type: integer
-        total_amount:
-          $ref: '#/components/schemas/Money'
     CaptureRequest:
       type: object
       required:
@@ -127,6 +112,21 @@ components:
         shipping_amount:
           $ref: '#/components/schemas/Money'
         tax_amount:
+          $ref: '#/components/schemas/Money'
+    Item:
+      type: object
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        total_amount:
           $ref: '#/components/schemas/Money'
   securitySchemes:
     bearerAuth:

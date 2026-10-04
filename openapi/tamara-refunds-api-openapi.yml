@@ -74,40 +74,6 @@ paths:
                 $ref: '#/components/schemas/RefundResponse'
 components:
   schemas:
-    SimplifiedRefundResponse:
-      type: object
-      properties:
-        order_id:
-          type: string
-          format: uuid
-        refund_id:
-          type: string
-          format: uuid
-        capture_id:
-          type: string
-          format: uuid
-        comment:
-          type: string
-        status:
-          type: string
-          enum:
-          - fully_refunded
-          - partially_refunded
-        refunded_amount:
-          $ref: '#/components/schemas/Money'
-    SimplifiedRefundRequest:
-      type: object
-      required:
-      - total_amount
-      - comment
-      properties:
-        total_amount:
-          $ref: '#/components/schemas/Money'
-        comment:
-          type: string
-          example: Refund for the order A123
-        merchant_refund_id:
-          type: string
     Money:
       type: object
       required:
@@ -124,36 +90,20 @@ components:
           - BHD
           - KWD
           - OMR
-    Item:
-      type: object
-      properties:
-        reference_id:
-          type: string
-        type:
-          type: string
-        name:
-          type: string
-        sku:
-          type: string
-        quantity:
-          type: integer
-        total_amount:
-          $ref: '#/components/schemas/Money'
-    RefundResponse:
+    SimplifiedRefundResponse:
       type: object
       properties:
         order_id:
           type: string
           format: uuid
-        refunds:
-          type: array
-          items:
-            type: object
-            properties:
-              refund_id:
-                type: string
-              capture_id:
-                type: string
+        refund_id:
+          type: string
+          format: uuid
+        capture_id:
+          type: string
+          format: uuid
+        comment:
+          type: string
         status:
           type: string
           enum:
@@ -191,6 +141,56 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/Item'
+    Item:
+      type: object
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        total_amount:
+          $ref: '#/components/schemas/Money'
+    RefundResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        refunds:
+          type: array
+          items:
+            type: object
+            properties:
+              refund_id:
+                type: string
+              capture_id:
+                type: string
+        status:
+          type: string
+          enum:
+          - fully_refunded
+          - partially_refunded
+        refunded_amount:
+          $ref: '#/components/schemas/Money'
+    SimplifiedRefundRequest:
+      type: object
+      required:
+      - total_amount
+      - comment
+      properties:
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        comment:
+          type: string
+          example: Refund for the order A123
+        merchant_refund_id:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

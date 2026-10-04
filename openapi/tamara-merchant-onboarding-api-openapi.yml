@@ -60,11 +60,6 @@ paths:
           description: Onboarding details.
 components:
   schemas:
-    OnboardingResponse:
-      type: object
-      properties:
-        onboarding_code:
-          type: string
     OnboardingRequest:
       type: object
       required:
@@ -104,6 +99,22 @@ components:
         user_defined_data:
           type: object
           additionalProperties: true
+    OnboardingResponse:
+      type: object
+      properties:
+        onboarding_code:
+          type: string
+    BankKyc:
+      type: object
+      properties:
+        iban:
+          type: string
+        email_for_settlement_report:
+          type: string
+        beneficiary_name:
+          type: string
+        swift_code:
+          type: string
     LegalKyc:
       type: object
       properties:
@@ -148,17 +159,6 @@ components:
           items:
             type: string
         platform:
-          type: string
-    BankKyc:
-      type: object
-      properties:
-        iban:
-          type: string
-        email_for_settlement_report:
-          type: string
-        beneficiary_name:
-          type: string
-        swift_code:
           type: string
   securitySchemes:
     bearerAuth:
