@@ -74,22 +74,41 @@ paths:
                 $ref: '#/components/schemas/RefundResponse'
 components:
   schemas:
-    Money:
+    RefundResponse:
       type: object
-      required:
-      - amount
-      - currency
       properties:
-        amount:
-          type: number
-        currency:
+        order_id:
+          type: string
+          format: uuid
+        refunds:
+          type: array
+          items:
+            type: object
+            properties:
+              refund_id:
+                type: string
+              capture_id:
+                type: string
+        status:
           type: string
           enum:
-          - SAR
-          - AED
-          - BHD
-          - KWD
-          - OMR
+          - fully_refunded
+          - partially_refunded
+        refunded_amount:
+          $ref: '#/components/schemas/Money'
+    SimplifiedRefundRequest:
+      type: object
+      required:
+      - total_amount
+      - comment
+      properties:
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        comment:
+          type: string
+          example: Refund for the order A123
+        merchant_refund_id:
+          type: string
     SimplifiedRefundResponse:
       type: object
       properties:
@@ -156,41 +175,22 @@ components:
           type: integer
         total_amount:
           $ref: '#/components/schemas/Money'
-    RefundResponse:
-      type: object
-      properties:
-        order_id:
-          type: string
-          format: uuid
-        refunds:
-          type: array
-          items:
-            type: object
-            properties:
-              refund_id:
-                type: string
-              capture_id:
-                type: string
-        status:
-          type: string
-          enum:
-          - fully_refunded
-          - partially_refunded
-        refunded_amount:
-          $ref: '#/components/schemas/Money'
-    SimplifiedRefundRequest:
+    Money:
       type: object
       required:
-      - total_amount
-      - comment
+      - amount
+      - currency
       properties:
-        total_amount:
-          $ref: '#/components/schemas/Money'
-        comment:
+        amount:
+          type: number
+        currency:
           type: string
-          example: Refund for the order A123
-        merchant_refund_id:
-          type: string
+          enum:
+          - SAR
+          - AED
+          - BHD
+          - KWD
+          - OMR
   securitySchemes:
     bearerAuth:
       type: http

@@ -56,6 +56,21 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    CheckoutSessionResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        checkout_id:
+          type: string
+          format: uuid
+        checkout_url:
+          type: string
+          format: uri
+        status:
+          type: string
+          example: new
     Error:
       type: object
       properties:
@@ -70,6 +85,123 @@ components:
                 type: string
               description:
                 type: string
+    Consumer:
+      type: object
+      required:
+      - first_name
+      - last_name
+      - phone_number
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        phone_number:
+          type: string
+          description: E.164 phone number for the consumer.
+        email:
+          type: string
+          format: email
+        date_of_birth:
+          type: string
+          format: date
+        national_id:
+          type: string
+    MerchantUrls:
+      type: object
+      required:
+      - success
+      - failure
+      - cancel
+      properties:
+        success:
+          type: string
+          format: uri
+        failure:
+          type: string
+          format: uri
+        cancel:
+          type: string
+          format: uri
+        notification:
+          type: string
+          format: uri
+    Address:
+      type: object
+      required:
+      - first_name
+      - last_name
+      - line1
+      - city
+      - country_code
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+        region:
+          type: string
+        city:
+          type: string
+        country_code:
+          type: string
+          minLength: 2
+          maxLength: 2
+        phone_number:
+          type: string
+    Item:
+      type: object
+      required:
+      - reference_id
+      - type
+      - name
+      - sku
+      - quantity
+      - total_amount
+      properties:
+        reference_id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        quantity:
+          type: integer
+        unit_price:
+          $ref: '#/components/schemas/Money'
+        discount_amount:
+          $ref: '#/components/schemas/Money'
+        tax_amount:
+          $ref: '#/components/schemas/Money'
+        total_amount:
+          $ref: '#/components/schemas/Money'
+        image_url:
+          type: string
+          format: uri
+    Money:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+          format: double
+          example: 300
+        currency:
+          type: string
+          enum:
+          - SAR
+          - AED
+          - BHD
+          - KWD
+          - OMR
     CheckoutSessionRequest:
       type: object
       required:
@@ -154,138 +286,6 @@ components:
         additional_data:
           type: object
           additionalProperties: true
-    Money:
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: number
-          format: double
-          example: 300
-        currency:
-          type: string
-          enum:
-          - SAR
-          - AED
-          - BHD
-          - KWD
-          - OMR
-    CheckoutSessionResponse:
-      type: object
-      properties:
-        order_id:
-          type: string
-          format: uuid
-        checkout_id:
-          type: string
-          format: uuid
-        checkout_url:
-          type: string
-          format: uri
-        status:
-          type: string
-          example: new
-    Item:
-      type: object
-      required:
-      - reference_id
-      - type
-      - name
-      - sku
-      - quantity
-      - total_amount
-      properties:
-        reference_id:
-          type: string
-        type:
-          type: string
-        name:
-          type: string
-        sku:
-          type: string
-        quantity:
-          type: integer
-        unit_price:
-          $ref: '#/components/schemas/Money'
-        discount_amount:
-          $ref: '#/components/schemas/Money'
-        tax_amount:
-          $ref: '#/components/schemas/Money'
-        total_amount:
-          $ref: '#/components/schemas/Money'
-        image_url:
-          type: string
-          format: uri
-    Consumer:
-      type: object
-      required:
-      - first_name
-      - last_name
-      - phone_number
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        phone_number:
-          type: string
-          description: E.164 phone number for the consumer.
-        email:
-          type: string
-          format: email
-        date_of_birth:
-          type: string
-          format: date
-        national_id:
-          type: string
-    MerchantUrls:
-      type: object
-      required:
-      - success
-      - failure
-      - cancel
-      properties:
-        success:
-          type: string
-          format: uri
-        failure:
-          type: string
-          format: uri
-        cancel:
-          type: string
-          format: uri
-        notification:
-          type: string
-          format: uri
-    Address:
-      type: object
-      required:
-      - first_name
-      - last_name
-      - line1
-      - city
-      - country_code
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        line1:
-          type: string
-        line2:
-          type: string
-        region:
-          type: string
-        city:
-          type: string
-        country_code:
-          type: string
-          minLength: 2
-          maxLength: 2
-        phone_number:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http

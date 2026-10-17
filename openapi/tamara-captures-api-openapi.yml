@@ -44,51 +44,6 @@ paths:
                 $ref: '#/components/schemas/CaptureResponse'
 components:
   schemas:
-    ShippingInfo:
-      type: object
-      properties:
-        shipped_at:
-          type: string
-          format: date-time
-        shipping_company:
-          type: string
-        tracking_number:
-          type: string
-        tracking_url:
-          type: string
-          format: uri
-    CaptureResponse:
-      type: object
-      properties:
-        capture_id:
-          type: string
-          format: uuid
-        order_id:
-          type: string
-          format: uuid
-        status:
-          type: string
-          enum:
-          - fully_captured
-          - partially_captured
-        captured_amount:
-          $ref: '#/components/schemas/Money'
-    Money:
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: number
-        currency:
-          type: string
-          enum:
-          - SAR
-          - AED
-          - BHD
-          - KWD
-          - OMR
     CaptureRequest:
       type: object
       required:
@@ -113,6 +68,22 @@ components:
           $ref: '#/components/schemas/Money'
         tax_amount:
           $ref: '#/components/schemas/Money'
+    CaptureResponse:
+      type: object
+      properties:
+        capture_id:
+          type: string
+          format: uuid
+        order_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+          - fully_captured
+          - partially_captured
+        captured_amount:
+          $ref: '#/components/schemas/Money'
     Item:
       type: object
       properties:
@@ -128,6 +99,35 @@ components:
           type: integer
         total_amount:
           $ref: '#/components/schemas/Money'
+    Money:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+          enum:
+          - SAR
+          - AED
+          - BHD
+          - KWD
+          - OMR
+    ShippingInfo:
+      type: object
+      properties:
+        shipped_at:
+          type: string
+          format: date-time
+        shipping_company:
+          type: string
+        tracking_number:
+          type: string
+        tracking_url:
+          type: string
+          format: uri
   securitySchemes:
     bearerAuth:
       type: http
